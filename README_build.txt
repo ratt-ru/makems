@@ -7,10 +7,11 @@ The build, in a nutshell:
 
 $ cd $HOME 
 $ svn co svn://lofar9.astron.nl/var/svn/repos/trunk/makems  # or svn+ssh://
-$ cd MakeMS/LOFAR
+$ cd makems/LOFAR
 $ mkdir -p build/gnu_opt
 $ cd build/gnu_opt
-$ cmake -DCMAKE_MODULE_PATH:PATH=$HOME/MakeMS/LOFAR/CMake -DUSE_LOG4CPLUS=OFF -DBUILD_TESTING=OFF ../..
+$ cmake -DCMAKE_MODULE_PATH:PATH=$HOME/makems/LOFAR/CMake \
+  -DUSE_LOG4CPLUS=OFF -DBUILD_TESTING=OFF ../..
 $ make
 
 The executable is then built as build/gnu_opt/CEP/MS/makems.
