@@ -1,0 +1,359 @@
+#!/bin/sh
+
+# makeversion: create the version.cc file of a package
+#
+#  Copyright (C) 2007
+#  ASTRON (Netherlands Foundation for Research in Astronomy)
+#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#  $Id$
+
+# This script creates files <package>Version.h and .cc containing a class
+# to return the version and revision of the package.
+# The .cc fle includes a file which gets created by lofar_init.m4 and filled
+# by lofar_internal.m4 which contains the packages it is dependent on.
+# It also creates an file version<package>.cc which is an executable program
+# to print the version.
+# Optionally the Makefile.am files are changed to build the code.
+
+# The class name used is <package>Version, for eaxmple CommonVersion.
+# makeversion retrieves the package name from the basename of the current
+# directory which works fine for the normal cases. However, MAC uses some
+# special directory structure like GCF/TM/include/GCF/TM. It also detects
+# this and sets in this example the package name to GCFTM (removes the /).
+# In lofar_internal.m4 the package name given as the second argument has
+# to match the package name found here, thus must be GCFTM in this example.
+# lofar_internal.m4 derives the include path from the given header file.
+
+# Determine which parts of the version info have to be made.
+# if the main program versionXXX has to be made.
+#   0 = do not change the Makefile.am (is the default)
+#   1 = make everything
+#   2 = do not create anything at all
+makevers=0
+if test $# = 1; then
+  makevers=$1
+  shift
+fi
+if test $makevers = 2; then
+  exit 0;
+fi
+
+# Get the package name (also in lower and uppercase).
+fpkg=`pwd`
+pkg=`basename $fpkg`
+
+# No version info is needed if thee is src/Makefile.am or configure.in.
+# Also not needed (in fact, not possible) for Tools and pytools.
+if [ ! -e src/Makefile.am  -o  ! -e configure.in  -o  "$pkg" = Tools  -o  "$pkg" = pytools ]; then
+  exit 0
+fi
+
+# Take the package from the configure.in if defined in there.
+# It looks like: AM_INIT_AUTOMAKE(GCFProtocols, 6.1, no-define)
+tpkg=`grep AM_INIT_AUTOMAKE configure.in | sed -e 's/.*(//' -e 's/[,)].*//' -e 's/ //g'`
+if test "$tpkg" != ""; then
+  pkg=$tpkg
+fi
+
+# If the include directory exists, find the include path from its Makefile.am
+# Otherwise header files are in src and <package> is the include path.
+
+# Exit if both not existing.
+incdir="src"
+incpath=$pkg
+if [ -e include/Makefile.am ]; then
+  incpath=`grep SUBDIRS include/Makefile.am | sed -e 's/.*=//' -e 's/#.*//' -e 's/ //g'`
+  if test "$incpath" = ""; then
+    echo "Could not derive include path fom SUBDIRS in $pkg/include/Makefile.am"
+    exit 1
+  fi
+  incdir=include/$incpath
+fi
+
+# Get version and revision (if possible) from repository.
+# Both the global revision and local one (i.e. last changed for this version).
+cvers=Unknown
+rvers=Unknown
+grev=Unknown
+lrev=Unknown
+nrch=0
+svn info > version.svn.tmp 2>&1
+hassvn=$?
+if [ $hassvn = 0 ]; then
+  # Get version.
+  # It should look like trunk/package or tags/package-version/package
+  rvers1=`fgrep 'URL: ' version.svn.tmp | sed -e 's%.*/LOFAR/%%'`
+  rvers=`echo $rvers1 | sed -e 's%/.*%%'`
+  if test "$rvers" = "tags"  -o  "$rvers" = "branches"; then
+    # We have a task branch (for a bug) or a release branch.
+    # Remove all but version and replace _ in version by .
+    rvers1=`echo $rvers1 | sed -e 's%^[^/]*/%%' -e 's%/.*%%'`
+    rvers=`echo $rvers1 | sed -e 's%-Bug[0-9]%%'`
+    if test "$rvers" = "$rvers1"; then
+      # No task branch, thus normal version number after the -.
+      rvers=`echo $rvers1 | sed -e 's%-release-.*%%' -e 's%.*-%%' -e 's%_%.%g'`
+    else
+      # Task branch, so extract from 'Bug' on.
+      rvers=`echo $rvers1 | sed -e 's%-task-.*%%' -e 's%.*-Bug%Bug%'`
+    fi
+  fi
+  # Get revision.
+  grev=`fgrep 'Revision: ' version.svn.tmp | sed -e 's/.*: *//'`
+  lrev=`fgrep 'Last Changed Rev: ' version.svn.tmp | sed -e 's/.*: *//'`
+  # Check if there are locally modified files (excluding Makefile.am)
+  svn status | egrep '^M ' | fgrep -v Makefile.am > version.svn.tmp 2>&1
+  if [ $? ]; then
+    nrch=`wc -l version.svn.tmp | sed -e 's/^ *//' | sed -e 's/ .*//'`
+  fi
+fi
+# Get the version from the configure.in.
+if test -f configure.in; then
+  cvers1=`grep AM_INIT_AUTOMAKE configure.in`
+  if test "$cvers1" != ""; then
+    cvers=`echo $cvers1 | awk -F, '{print $2}' | sed -e 's/ *).*//' -e 's/ //g'`
+  fi
+fi
+
+# Get package name in lower and uppercase
+lpkg=`echo $pkg | tr A-Z a-z`
+upkg=`echo $pkg | tr a-z A-Z`
+
+# Create temporary version.h/cc
+cat > version.h.tmp <<EOF
+//# Get revision info; generated by autoconf_share/makeversion
+
+#ifndef LOFAR_${upkg}_PACKAGE__VERSION_H
+#define LOFAR_${upkg}_PACKAGE__VERSION_H
+
+#include <Common/Version.h>
+
+// Class to get the version (revision) of the package and the packages it uses.
+namespace LOFAR {
+  class ${pkg}Version
+  {
+  public:
+    // Get the info for this package.
+    static Version getInfo();
+
+    // Get the version number of the package (as given in repository).
+    static std::string getVersion();
+    // Get the svn version number of the package according to configure.in.
+    static std::string getConfVersion();
+    // Get the global revision number of the package.
+    static std::string getRevision();
+    // Get the local revision number of the package.
+    static std::string getPackageRevision();
+    // Get the number of files differing from repository.
+    // Usually this is blank, but it can tell the nr of changed files.
+    static std::string getNrChangedFiles();
+    // Get the date/time the package was built (in fact, configured).
+    static std::string getBuildTime();
+    // Get the name of the user who built the package.
+    static std::string getBuildUser();
+    // Get the machine the package was built on.
+    static std::string getBuildMachine();
+
+    // Append the vector with the vinfo of this package and used packages.
+    static void fillInfo (int level,
+			  std::vector<Version::PkgInfo>& vec);
+  };
+}
+
+#endif
+EOF
+
+cat > version.cc.tmp <<EOF
+//# Get revision info; generated by autoconf_share/makeversion
+
+//## pkg=$pkg
+//## incpath=$incpath
+//## incdir=$incdir
+
+#include <${incpath}/Package__Version.h>
+#include <Common/Version.h>
+#include "FillPackage__VersionInc.h"
+
+namespace LOFAR {
+  Version ${pkg}Version::getInfo()
+  {
+    return Version ("${pkg}",
+		    getVersion(), getConfVersion(),
+		    getRevision(), getPackageRevision(),
+		    getNrChangedFiles(),
+		    getBuildTime(), getBuildUser(), getBuildMachine());
+  }
+
+  std::string ${pkg}Version::getVersion()
+    { return "$rvers"; }
+  std::string ${pkg}Version::getConfVersion()
+    { return "$cvers"; }
+  std::string ${pkg}Version::getRevision()
+    { return "$grev"; }
+  std::string ${pkg}Version::getPackageRevision()
+    { return "$lrev"; }
+  std::string ${pkg}Version::getNrChangedFiles()
+    { return "$nrch"; }
+}
+
+//# fillversion.h is generated in build area by lofar_internal.m4
+//# It contains function fillInfo
+#include "FillPackage__VersionFunc.h"
+EOF
+
+cat > version.mcc.tmp <<EOF
+//# Print revision info; generated by autoconf_share/makeversion
+
+#include <${incpath}/Package__Version.h>
+#include <Common/Version.h>
+#include <iostream>
+
+using namespace LOFAR;
+
+int main (int argc, const char* argv[])
+{
+  std::string type = "brief";
+  if (argc > 1) {
+    type = argv[1];
+  }
+  Version::show<${pkg}Version> (std::cout, "${pkg}", type);
+  return 0;
+}
+EOF
+
+# Do not copy if existing version is the same,
+# so code is not rebuilt needlessly.
+if [ ! -e $incdir/Package__Version.h ]; then
+  echo "makeversion created $incdir/Package__Version.h"
+  cp version.h.tmp $incdir/Package__Version.h
+elif [ $hassvn = 0 ]; then
+  diff version.h.tmp $incdir/Package__Version.h > /dev/null 2>&1
+  if [ $? != 0 ]; then
+    echo "makeversion replaced $incdir/Package__Version.h"
+    cp version.h.tmp $incdir/Package__Version.h
+  fi
+fi
+
+if [ ! -e src/Package__Version.cc ]; then
+  echo "makeversion created src/Package__Version.cc"
+  cp version.cc.tmp src/Package__Version.cc
+elif [ $hassvn = 0 ]; then
+  diff version.cc.tmp src/Package__Version.cc > /dev/null 2>&1
+  if [ $? != 0 ]; then
+    echo "makeversion replaced src/Package__Version.cc"
+    cp version.cc.tmp src/Package__Version.cc
+  fi
+fi
+
+versmainname=version${lpkg}
+if [ ! -e src/${versmainname}.cc ]; then
+  echo "makeversion created src/${versmainname}.cc"
+  cp version.mcc.tmp src/${versmainname}.cc
+elif [ $hassvn = 0 ]; then
+  diff version.mcc.tmp src/${versmainname}.cc > /dev/null 2>&1
+  if [ $? != 0 ]; then
+    echo "makeversion replaced src/${versmainname}.cc"
+    cp version.mcc.tmp src/${versmainname}.cc
+  fi
+fi
+
+# Exit if Makefile.am does not need to be changed.
+if [ $makevers = 0 ]; then
+\rm -f version.*.tmp
+  exit 0
+fi
+
+# Get the library name (if present).
+# Get it from the Makefile.am, because sometimes it differs from the
+# package name (e.g. libbbms for BB/MS).
+# Make sure that the first library is taken unless one matches exactly.
+libnms=`grep 'lib_LTLIBRARIES.*=' src/Makefile.am | sed -e 's/lib_LTLIBRARIES.*=//' -e 's/\.la//g'`
+for libn in $libnms
+do
+  if test "$libnm" = ""; then
+    libnm=$libn
+  fi
+  if test "$libn" = "lib${lpkg}"; then
+    libnm=$libn
+    break
+  fi
+done 
+if [ "$libnm" = "" ]; then
+  libnm=lib${lpkg}
+fi
+
+# Add lines to Makefile.am files as needed.
+fgrep Package__Version.h $incdir/Makefile.am > /dev/null 2>&1
+if [ $? != 0 ]; then
+  fgrep pkginclude_HEADERS $incdir/Makefile.am > /dev/null 2>&1
+  if [ $? = 0 ]; then
+    sed -e "s/\(pkginclude_HEADERS.*\)=/\1= Package__Version.h /" $incdir/Makefile.am > version.mf.tmp
+  else
+    cat > version.mf.tmp <<EOF
+pkginclude_HEADERS = Package__Version.h
+
+EOF
+    cat $incdir/Makefile.am >> version.mf.tmp
+  fi
+  mv version.mf.tmp $incdir/Makefile.am
+  echo "makeversion added Package__Version.h to $incdir/Makefile.am"
+fi
+
+fgrep Package__Version.cc src/Makefile.am > /dev/null 2>&1
+if [ $? != 0 ]; then
+  fgrep lib_LTLIBRARIES src/Makefile.am > /dev/null 2>&1
+  if [ $? = 0 ]; then
+    sed -e "s/\(${libnm}_la_SOURCES.*\)=/\1= Package__Version.cc /" src/Makefile.am > version.mf.tmp
+  else
+    cat > version.mf.tmp <<EOF
+lib_LTLIBRARIES = ${libnm}.la
+${libnm}_la_SOURCES = Package__Version.cc
+
+EOF
+    cat src/Makefile.am >> version.mf.tmp
+  fi
+  mv version.mf.tmp src/Makefile.am
+  echo "makeversion added Package__Version.cc to src/Makefile.am"
+fi
+
+fgrep "${versmainname}.cc" src/Makefile.am > /dev/null 2>&1
+if [ $? != 0 ]; then
+  fgrep "bin_PROGRAMS" src/Makefile.am > /dev/null 2>&1
+  if [ $? != 0 ]; then
+# To insert newlines, the expression has to be enclosed in single quotes.
+# However, that means that the env.var. are not replaced.
+# So do that in a second expression.
+    sed -e 's%\(include *\$(top_srcdir)/Makefile.common\)%bin_PROGRAMS = ${versmainname}\
+\
+${versmainname}_SOURCES      = ${versmainname}.cc\
+${versmainname}_LDADD        = ${libnm}.la\
+${versmainname}_DEPENDENCIES = ${libnm}.la \$(LOFAR_DEPEND)\
+\
+\1%' src/Makefile.am | sed -e "s%\${versmainname}%${versmainname}%g" -e "s%\${libnm}%${libnm}%g" > version.mf.tmp
+  else
+    sed -e "s%\(bin_PROGRAMS.*\)=%\1= ${versmainname}%" src/Makefile.am | \
+    sed -e 's%\(include *\$(top_srcdir)/Makefile.common\)%${versmainname}_SOURCES      = ${versmainname}.cc\
+${versmainname}_LDADD        = ${libnm}.la\
+${versmainname}_DEPENDENCIES = ${libnm}.la \$(LOFAR_DEPEND)\
+\
+\1%' | sed -e "s%\${versmainname}%${versmainname}%g" -e "s%\${libnm}%${libnm}%g" > version.mf.tmp
+  fi
+  mv version.mf.tmp src/Makefile.am
+  echo "makeversion added ${versmainname}.cc to src/Makefile.am"
+fi
+
+\rm -f version.*.tmp

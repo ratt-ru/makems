@@ -1,0 +1,20 @@
+gnu.compiler.conf:   CC=/usr/bin/gcc CXX=/usr/bin/g++ CCAS=/usr/bin/gcc
+gnubgp.compiler.conf:   CC=/usr/bin/gcc CXX=/usr/bin/g++ CCAS=/bgsys/drivers/ppcfloor/gnu-linux/bin/powerpc-bgp-linux-gcc CCASFLAGS='-DHAVE_BGP' --disable-lib64
+
+gnu.compiler.aipspp.var: --with-casacore=/cephome/romein/packages/casacore-0.3.0/stage --without-wcs
+
+cn.variant.conf:        $(lofar_root) $(debugopt) $(nothreads) $(noshmem) $(cn_cpp) $(cn_ldd) --enable-backtrace --without-applcommon --without-log4cplus --without-readline --without-boost-regex --with-bglmpich='/bgsys/drivers/ppcfloor/comm' --with-fftw2='/cephome/romein/packages/fftw-2.1.5-single-precision' 
+ion.variant.conf:       $(lofar_root) $(debugopt) $(threads) $(noshmem) $(ion_cpp) $(ion_ldd) --enable-backtrace --without-log4cplus --without-readline --without-boost-regex --with-casacore=/cephome/romein/packages/casacore-0.3.0/stage --without-wcs
+
+cn-valgrind.variant.conf:        $(lofar_root) $(debugopt) $(nothreads) $(noshmem) $(cn_cpp_valgrind) $(cn_ldd) --enable-backtrace --without-applcommon --without-log4cplus --without-readline --without-boost-regex --with-bglmpich='/bgsys/drivers/ppcfloor/comm' --with-fftw2='/cephome/romein/packages/fftw-2.1.5-single-precision' --without-fcnp
+ion-valgrind.variant.conf:       $(lofar_root) $(debugopt) $(threads) $(noshmem) $(ion_cpp_valgrind) $(ion_ldd) --enable-backtrace --without-log4cplus --without-readline --without-boost-regex --with-casacore=/cephome/romein/packages/casacore-0.3.0/stage --without-wcs --without-fcnp
+
+cn_cpp.var:             --with-cppflags='-B/bgsys/drivers/ppcfloor/gnu-linux/powerpc-bgp-linux/bin -DHAVE_BGP -DHAVE_BGP_CN -I/bgsys/drivers/ppcfloor/comm/include -I/bgsys/drivers/ppcfloor/arch/include'
+cn_ldd.var:             --with-ldflags='-B/bgsys/drivers/ppcfloor/gnu-linux/powerpc-bgp-linux/bin -L/bgsys/drivers/ppcfloor/comm/lib -L/bgsys/drivers/ppcfloor/runtime/SPI -L/cephome/romein/lib.bgp -Wl,-rpath -Wl,/cephome/romein/lib.bgp' --with-libs='-lcxxmpich.cnk -lmpich.cnk -ldcmfcoll.cnk -ldcmf.cnk -lpthread -lrt -lSPI.cna -lm'
+
+ion_cpp.var:             --with-cppflags='-B/bgsys/drivers/ppcfloor/gnu-linux/powerpc-bgp-linux/bin -DHAVE_BGP -DHAVE_BGP_ION -I/bgsys/drivers/ppcfloor/arch/include'
+ion_ldd.var:             --with-ldflags='-L/cephome/romein/lib.bgp -Wl,-rpath -Wl,/cephome/romein/lib.bgp'
+
+cn_cpp_valgrind.var:     --with-cppflags='-B/bgsys/drivers/ppcfloor/gnu-linux/powerpc-bgp-linux/bin -I/bgsys/drivers/ppcfloor/comm/include -I/bgsys/drivers/ppcfloor/arch/include -I/cephome/mol/root-ppc/include/valgrind -DHAVE_VALGRIND -DHAVE_BGP -DHAVE_BGP_CN'
+ion_cpp_valgrind.var:    --with-cppflags='-I/cephome/mol/root-ppc/include/valgrind -B/bgsys/drivers/ppcfloor/gnu-linux/powerpc-bgp-linux/bin -I/bgsys/drivers/ppcfloor/arch/include -DHAVE_VALGRIND -g3 -O1'
+

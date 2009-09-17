@@ -1,0 +1,28 @@
+set(LOFAR_COMPILER_SUITES GNUNEW)
+
+# GNUNEW compiler suite
+set(GNUNEW_COMPILERS GNUNEW_C GNUNEW_CXX)  # GNUNEW Compiler Suite
+set(GNUNEW_C         /usr/bin/gcc )        # GNUNEW C compiler
+set(GNUNEW_CXX       /usr/bin/g++ )        # GNUNEW C++ compiler
+
+set(GNUNEW_C_FLAGS)
+set(GNUNEW_C_FLAGS_DEBUG   "-g")
+set(GNUNEW_C_FLAGS_OPT     "-g -O2")
+set(GNUNEW_CXX_FLAGS       "-W -Wall -Woverloaded-virtual -Wno-unknown-pragmas")
+set(GNUNEW_CXX_FLAGS_DEBUG "-g")
+set(GNUNEW_CXX_FLAGS_OPT   "-g -O2")
+set(GNUNEW_EXE_LINKER_FLAGS)
+set(GNUNEW_EXE_LINKER_FLAGS_DEBUG)
+set(GNUNEW_EXE_LINKER_FLAGS_OPT)
+set(GNUNEW_COMPILE_DEFINITIONS)
+set(GNUNEW_COMPILE_DEFINITIONS_DEBUG "-DLOFAR_DEBUG -DENABLE_TRACER")
+set(GNUNEW_COMPILE_DEFINITIONS_OPT)
+
+# Preset rs002 specific options
+option(USE_BACKTRACE     "Use backtrace" OFF)
+
+# Where to find Postgres libraries
+set(PQXX_PREFIX_PATH /usr/local/pgsql)
+
+# Search Lapack in /usr first, because Lapack library in /usr/local is broken!
+set(CPPLAPACK_PREFIX_PATH /usr)

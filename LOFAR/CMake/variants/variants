@@ -1,0 +1,70 @@
+## -*- CMake -*-
+##
+## Global variants file.
+##
+## Defines compiler suites (e.g., GNU),
+## build variants (e.g., debug or optimized),
+## defaults for several options.
+##
+## $Id: variants 13414 2009-06-16 22:15:37Z loose $
+
+# Define compiler suites.
+list(APPEND LOFAR_COMPILER_SUITES
+  GNU
+)
+
+# Define build variants.
+list(APPEND LOFAR_BUILD_VARIANTS
+  DEBUG  
+  OPT
+)
+
+# GNU compiler suite
+set(GNU_COMPILERS GNU_C GNU_CXX)  # GNU Compiler Suite
+set(GNU_C         /usr/bin/gcc )  # GNU C compiler
+set(GNU_CXX       /usr/bin/g++ )  # GNU C++ compiler
+
+set(GNU_C_FLAGS)
+set(GNU_C_FLAGS_DEBUG    "-g")
+set(GNU_C_FLAGS_OPT      "-g -O2")
+set(GNU_CXX_FLAGS        "-W -Wall -Woverloaded-virtual -Wno-unknown-pragmas")
+set(GNU_CXX_FLAGS_DEBUG  "-g")
+set(GNU_CXX_FLAGS_OPT    "-g -O2")
+set(GNU_EXE_LINKER_FLAGS)
+set(GNU_EXE_LINKER_FLAGS_DEBUG)
+set(GNU_EXE_LINKER_FLAGS_OPT)
+set(GNU_COMPILE_DEFINITIONS)
+set(GNU_COMPILE_DEFINITIONS_DEBUG "-DLOFAR_DEBUG -DENABLE_TRACER")
+set(GNU_COMPILE_DEFINITIONS_OPT)
+
+# Default search path to use when searching for an external package.
+set(LOFAR_SEARCH_PATH 
+  "+prefix"
+  "+root"
+  "/opt/lofar/external/+pkg+vers/+comp"
+  "/opt/lofar/external/+pkg+vers"
+  "/usr/local/+pkg+vers/+comp"
+  "/usr/local/+pkg+vers"
+  "/usr/local"
+  "/usr"
+)
+
+# Define default values for all LOFAR build options. 
+# NOT IMPLEMENTED YET: These options may be overridden for a given compiler
+# suite. For example: option(USE_BOOST_GNU "Use Boost for GNU" OFF)
+option(BUILD_STATIC_EXECUTABLES "Build static executables" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+#option(BUILD_TESTING     "Build the testing tree" OFF)
+option(LOFAR_VERBOSE_CONFIGURE "Be verbose when configuring" ON)
+option(USE_BACKTRACE     "Use backtrace" ON)
+option(USE_BOOST         "Use Boost"     ON)
+#option(USE_CASACORE      "Use Casacore"  OFF)
+option(USE_LOG4CPLUS     "Use Log4Cplus" ON)
+option(USE_LOG4CXX       "Use Log4Cxx"   OFF)
+option(USE_MPI           "Use MPI"       OFF)
+option(USE_PYTHON        "Use Python"    ON)
+option(USE_SSE           "Use SSE"       OFF)
+option(USE_SHMEM         "Use shmem"     ON)
+option(USE_SOCKETS       "Use Sockets"   OFF)
+option(USE_THREADS       "Use threads"   ON)
+option(USE_ZOID          "Use ZOID"      OFF)

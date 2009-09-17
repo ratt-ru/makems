@@ -1,0 +1,262 @@
+#!/bin/sh
+
+# dorubbuild: do the actual build for rub for the given variant
+#
+#  Copyright (C) 2006
+#  ASTRON (Netherlands Foundation for Research in Astronomy)
+#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#  $Id: dorubbuild 13381 2009-06-04 12:40:44Z diepen $
+
+
+# This script is used by rubbuild to do the build for a single variant.
+
+# Determine the md5sum to use if not done yet
+# Some systems have md5 instead of md5sum.
+# Note that on some systems which always returns 0.
+if test "$md5pgm" = ""; then
+  md5pgm=`which md5sum 2>&1 | sed -e 's%^[^/].*%%'`
+fi
+if test "$md5pgm" = ""; then
+  md5pgm=`which md5 2>&1 | sed -e 's%^[^/].*%%'`
+fi
+if test "$md5pgm" = ""; then
+  echo "md5sum nor md5 is found"
+  exit 1
+fi
+
+# Get all arguments.
+srcdir=$1
+shift
+builddir=$1
+shift
+variant=$1
+shift
+skipbuilt=$1
+shift
+kopt=$1
+shift
+jobsopt=$1
+shift
+buildmake=$1
+shift
+conf=$1
+shift
+confopt=$1
+shift
+clean=$1
+shift
+bldtest=$1
+shift
+check=$1
+shift
+checktool=$1
+shift
+memcheck=$1
+shift
+install=$1
+shift
+dist=$1
+shift
+distcheck=$1
+shift
+rpm=$1
+shift
+pkgs=$*
+
+kstr=
+[ $kopt = 1 ] && kstr='-k'
+
+# Generate output files.
+if [ "$builddir" = "." ]; then
+  resname=$variant
+  buildvarpr=$variant
+else
+  resname=$builddir/$variant
+  buildvarpr="$builddir $variant"
+fi
+resname=`uname -n`.$resname
+resname=`echo $resname | sed -e 's#[@/]#_#g'`
+resfile=build.$resname.result
+logfile=build.$resname.log
+if [ $skipbuilt = 0 ]; then
+  # Start fresh, so delete results from previous builds.
+  \rm -f $logfile $resfile
+fi
+touch $logfile
+touch $resfile
+echo "" >> $logfile
+echo "***** Building packages in $builddir" >> $logfile
+echo "HOST     = `uname -n`" >> $logfile
+echo "PACKAGES = $pkgs" >> $logfile
+echo "VARIANTS = $variant" >> $logfile
+
+# See what kind of build we have to do (in source tree or separate tree).
+# If $builddir is ., it is a variant name in the source tree,
+#   meaning a build is done in $pkg/build/$variant.
+# Otherwise it is a separate tree where a build is done in
+#   $builddir/$variant/$pkg.
+
+# Check if in correct directory.
+cd $srcdir >> $logfile 2>&1 || exit 1
+srcdir=`pwd`
+curwdl=`basename $srcdir`
+if [ "$curwdl" != "LOFAR" ]; then
+  echo "Error in rubbuild: srcdir must be the LOFAR directory in the code tree" | tee -a $logfile
+  exit 1
+fi
+
+# Determine the build commands.
+confcmd=
+premake=
+mainmake=date
+postmake=
+# If -k, continue in case of failure, so use ; to separate commands.
+ksep="&&"
+[ $kopt = 1 ] && ksep=";"
+if [ $clean = 1 ]; then
+  premake="make $kstr clean $ksep "
+fi
+if [ $buildmake = 1 ]; then
+  mainmake="date $ksep make $kstr $jobsopt "
+  if [ $bldtest = 1 ]; then
+    postmake="$ksep (if [ -d test ]; then cd test $ksep make test; fi;)"
+  fi
+  if [ $check = 1 ]; then
+    if [ "$checktool" = "" ]; then
+      postmake="$postmake $ksep make $kstr check"
+    else
+      postmake="$postmake $ksep make $kstr CHECKTOOL='$checktool' check"
+    fi
+  fi
+  if [ $memcheck = 1 ]; then
+    postmake="$postmake $ksep make $kstr memcheck"
+  fi
+  if [ $install = 1 ]; then
+    postmake="$postmake $ksep make $kstr install"
+  fi
+  if [ $dist = 1 ]; then
+    postmake="$postmake $ksep make $kstr dist"
+  fi
+  if [ $distcheck = 1 ]; then
+    postmake="$postmake $ksep make $kstr distcheck"
+  fi
+  if [ $rpm = 1 ]; then
+    postmake="$postmake $ksep make $kstr rpm"
+  fi
+fi
+
+# Create build/variant directory if needed.
+if [ "$builddir" != "." ]; then
+  (cd $builddir && mkdir -p build/$variant) >> $logfile 2>&1
+  if [ $? != 0 ]; then
+    exit 1
+  fi
+fi
+
+# Build the packages.
+status=0
+for pkg in $pkgs
+do
+  echo "" >> $logfile
+  if [ $skipbuilt = 1 ]; then
+    fgrep "$pkg " $resfile 2>&1 > /dev/null
+    if [ $? = 0 ]; then
+      echo "  skipping package $pkg; already built in a previous run" | tee -a $logfile
+      continue
+    fi
+  fi
+  echo " *** Building package $pkg ***" | tee -a $logfile
+
+  # Create the build directory as needed.
+  pkgb=`basename $pkg`
+  if [ "$builddir" = "." ]; then
+    (cd $pkg && mkdir -p build/$variant) >> $logfile 2>&1
+    if [ $? != 0 ]; then
+      exit 1
+    fi
+    blddir=$srcdir/$pkg/build/$variant
+  else
+    (cd $builddir/build/$variant && mkdir -p $pkg) >> $logfile 2>&1
+    if [ $? != 0 ]; then
+      exit 1
+    fi
+    blddir=$builddir/build/$variant/$pkg
+  fi
+  initcmd="cd $blddir"
+
+  # Determine new md5sum of files affecting the configure.
+  $md5pgm $srcdir/autoconf_share/variants > $blddir/conf.md5
+  lfr_host=`uname -n | sed -e "s%\..*%%"`
+  if [ -f $srcdir/autoconf_share/variants.$lfr_host ]; then
+    $md5pgm $srcdir/autoconf_share/variants.$lfr_host >> $blddir/conf.md5
+  fi
+  if [ -f $srcdir/$pkg/boot.md5 ]; then
+    $md5pgm $srcdir/$pkg/boot.md5 >> $blddir/conf.md5
+  fi
+
+  # Create the various parts of the configure and make commands.
+  if [ $conf != 0 ]; then
+    # Each configure is started and ended with a special message which
+    # is used by scanbuildlog.
+    # The message is not fully composed here, because:
+    #  1. the variant name is not known here.
+    #  2. the message is not shown by the echo command prior to lofarconf.
+    # Instead variable confmsg1 is created from confmsgst prior to lofarconf.
+    confmsgst=':::::: CONFIGURING VARIANT $variant FOR PACKAGE $pkg'
+    confmsgend=':::::: FINISHED CONFIGURING VARIANT $variant FOR PACKAGE $pkg'
+    confcmd="(stat=0; chg=1; if [ $conf = 2  -a  -f conf.md5-check ]; then $md5pgm --check conf.md5-check > /dev/null 2>&1; chg="'$?'"; fi; if [ "'$chg'" = 0 ]; then echo '  package '"$pkg"' needs no configuring; md5sum has not changed'; else rm -f conf.md5-check; echo "'$confmsg1'"; $srcdir/$pkg/lofarconf $confopt && $md5pgm conf.md5 > conf.md5-check; stat="'$?; echo $confmsg2; fi; exit $stat)'" $ksep "
+  fi
+  buildmsgst=':::::: BUILDING VARIANT $variant FOR PACKAGE $pkg'
+  buildmsgend=':::::: FINISHED BUILDING VARIANT $variant FOR PACKAGE $pkg'
+  if [ $clean = 2 ]; then
+    premake="make distclean $ksep $srcdir/$pkg/lofarconf $confopt $ksep "
+  fi
+  makecmd="$premake $mainmake $postmake"
+  if [ $dist = 1 ]; then
+    makecmd="$makecmd $ksep mkdir -p $srcdir/installed/$variant/dist $ksep cp $pkgb-*.tar.gz $srcdir/installed/$variant/dist"
+  fi
+  makecmd='(echo $buildmsg1; '"$makecmd"'; stat=$?; echo $buildmsg2; exit $stat)'
+  # Log and execute the command.
+  # Generate the correct configure and build messages.
+  echo "($initcmd $ksep $confcmd $makecmd;)" >> $logfile
+  confmsg1=`eval echo $confmsgst`
+  confmsg2=`eval echo $confmsgend`
+  buildmsg1=`eval echo $buildmsgst`
+  buildmsg2=`eval echo $buildmsgend`
+  if [ $buildmake = 1 ]; then
+    eval "($initcmd $ksep $confcmd $makecmd && echo $pkg '# built at'"' `date`'" >> $srcdir/$resfile; exit "'$?)' >> $logfile 2>&1
+    stat=$?
+  else
+    eval "($initcmd $ksep $confcmd $makecmd; exit "'$?)' >> $logfile 2>&1
+    stat=$?
+  fi
+  # Stop if error and -k is not given.
+  echo "status=$stat" >> $logfile
+  if [ "$stat" != 0 ]; then
+    status=$stat
+    echo " !!! Build of package $pkg failed !!!" | tee -a $logfile
+    [ $kopt = 0 ] && break
+  fi
+done
+
+if [ "$status" != 0 ]; then
+  echo " Error during build on `uname -n` (see $logfile for details)" | tee -a $srcdir/build.log
+  exit $status
+fi
+echo "Variant $buildvarpr successfully built on `uname -n` (see $logfile for details)" | tee -a $srcdir/build.log
+exit 0

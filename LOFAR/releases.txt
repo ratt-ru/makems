@@ -1,0 +1,571 @@
+
+Releases sorted by release date
+===============================
+
+LCS/databases/PL:       version: 1.1;   date: 2006/02/07
+CEP/CEPFrame    :       version: 2.2;   date: 2006/02/06
+CEP/tinyCEP     :       version: 2.2;   date: 2006/02/03
+LCS/ACC         :       version: 2.1;   date: 2006/02/03
+LCS/Transport   :       version: 2.3;   date: 2006/02/01
+LCS/Blob        :       version: 1.0;   date: 2006/02/01
+LCS/Common      :       version: 3.0;   date: 2006/01/30
+LCS/Tools       :       version: 1.3;   date: 2006/01/30
+autoconf_share  :       version: 2.5;   date: 2006/01/30
+LCS/AMC         :       version: 1.1;   date: 2005/12/02
+LCS/Transport   :       version: 2.2;   date: 2005/11/16
+LCS/Common      :       version: 2.4;   date: 2005/11/16
+LCS/Tools       :       version: 1.2;   date: 2005/11/16
+autoconf_share  :       version: 2.4;   date: 2005/11/16
+CEP/CEPFrame    :       version: 2.1;   date: 2005/09/23
+CEP/tinyCEP     :       version: 2.1;   date: 2005/09/22
+LCS/ACC         :       version: 2.0;   date: 2005/09/07
+LCS/Transport   :       version: 2.1;   date: 2005/09/05
+LCS/Common      :       version: 2.3;   date: 2005/09/02
+LCS/Tools       :       version: 1.1;   date: 2005/09/02
+autoconf_share  :       version: 2.3;   date: 2005/09/02
+LCS/AMC         :       version: 1.0;   date: 2005/07/04
+CEP/CEPFrame    :       version: 2.0;   date: 2005/06/24
+CEP/tinyCEP     :       version: 2.0;   date: 2005/06/24
+LCS/ACC         :       version: 1.1;   date: 2005/06/24
+LCS/Transport   :       version: 2.0;   date: 2005/06/17
+LCS/Common      :       version: 2.2;   date: 2005/06/16
+autoconf_share  :       version: 2.2;   date: 2005/06/16
+LCS/Tools       :       version: 1.0;   date: 2005/06/15
+CEP/CEPFrame    :       version: 1.0;   date: 2005/04/12
+CEP/tinyCEP     :       version: 1.0;   date: 2005/04/11
+LCS/Transport   :       version: 1.1;   date: 2005/03/16
+LCS/Common      :       version: 2.1;   date: 2005/03/16
+autoconf_share  :       version: 2.1;   date: 2005/03/16
+LCS/Transport   :       version: 1.0;   date: 2004/11/24
+LCS/Common      :       version: 2.0;   date: 2004/11/24
+autoconf_share  :       version: 2.0;   date: 2004/11/24
+
+
+
+Releases sorted by package
+============================
+
+autoconf_share
+--------------
+
+  Version: 2.5; date: 2006/01/30
+
+    required packages:
+      internal: <none>
+      external: autoconf (2.59)
+                automake (1.9.5)
+                libtool  (1.5.18)
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 2.4; date: 2005/11/16
+
+    required packages:
+      internal: <none>
+      external: autoconf (2.59)
+                automake (1.9.5)
+                libtool  (1.5.18)
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 2.3; date: 2005/09/02
+
+    required packages:
+      internal: <none>
+      external: autoconf (2.59)
+                automake (1.9.5)
+                libtool  (1.5.18)
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 2.2; date: 2005/06/16
+
+    required packages:
+      internal: <none>
+      external: autoconf (2.59)
+                automake (1.9.5)
+                libtool  (1.5.18)
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 2.1; date: 2005/03/16
+
+    required packages:
+      internal: <none>
+      external: autoconf (2.57)
+                automake (1.6.3)
+                libtool  (1.4.3)
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 2.0; date: 2004/11/24
+
+    required packages:
+      internal: <none>
+      external: autoconf (2.57)
+                automake (1.6.3)
+                libtool  (1.4.3)
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+
+LCS/ACC
+-------
+
+  Version: 2.1; date: 2005/09/07
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Transport (2.3)
+                LCS/Common (3.0)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                doxygen (1.3.x)
+
+
+  Version: 2.0; date: 2005/09/07
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Transport (2.1)
+                LCS/Common (2.3)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                doxygen (1.3.x)
+
+
+  Version: 1.1; date: 2005/06/24
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Transport (2.0)
+                LCS/Common (2.2)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                doxygen (1.3.x)
+
+
+
+LCS/AMC
+-------
+
+  Version: 1.1; date: 2005/12/02
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Common (2.4)
+                LCS/Transport (2.2)
+      external: AIPS++ (1.9)
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                doxygen (1.3.x)
+
+
+  Version: 1.0; date: 2005/07/04
+
+    required packages:
+      internal: LCS/Common (2.2)
+                LCS/Transport (2.0)
+      external: AIPS++ (1.9)
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                doxygen (1.3.x)
+
+
+
+LCS/Blob
+--------
+
+  Version: 1.0; date: 2006/02/01
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Common (3.0)
+      external: <none>
+
+    optional packages:
+      internal: LCS/Tools (1.x)
+      external: log4cplus (1.0.x)
+                mpich (1.2.7)
+                doxygen (1.3.x)
+
+
+
+LCS/Common
+----------
+
+  Version: 3.0; date: 2006/01/30
+
+    required packages:
+      internal: autoconf_share (2.4)
+      external: <none>
+
+    optional packages:
+      internal: LCS/Tools (1.x)
+      external: log4cplus (1.0.x)
+                mpich (1.2.7)
+                doxygen (1.3.x)
+
+
+  Version: 2.4; date: 2005/11/16
+
+    required packages:
+      internal: autoconf_share (2.4)
+      external: <none>
+
+    optional packages:
+      internal: LCS/Tools (1.x)
+      external: log4cplus (1.0.x)
+                blitz++ (0.7)
+                mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 2.3; date: 2005/09/02
+
+    required packages:
+      internal: autoconf_share (2.1)
+      external: <none>
+
+    optional packages:
+      internal: LCS/Tools (1.x)
+      external: log4cplus (1.0.x)
+                blitz++ (0.7)
+                mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 2.2; date: 2005/06/16
+
+    required packages:
+      internal: autoconf_share (2.1)
+      external: <none>
+
+    optional packages:
+      internal: LCS/Tools (1.0)
+      external: log4cplus (1.0.x)
+                blitz++ (0.7)
+                mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 2.1; date: 2005/03/16
+
+    required packages:
+      internal: autoconf_share (2.1)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                blitz++ (0.7)
+                mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 2.0; date: 2004/11/24
+
+    required packages:
+      internal: autoconf_share (2.0)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                blitz++ (0.7)
+                mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+
+LCS/databases/PL
+----------------
+
+  Version: 1.1; date: 2006/02/07
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Common (3.0)
+      external: boost (1.32)
+                DTL (3.6.5)
+
+    optional packages:
+      internal: <none>
+      external: log4cplus (1.0.x)
+                unixODBC (2.2.3)
+                doxygen (1.3.x)
+
+
+
+LCS/Tools
+---------
+
+  Version: 1.3; date: 2006/01/30
+
+    required packages:
+      internal: autoconf_share (2.4)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 1.2; date: 2005/11/16
+
+    required packages:
+      internal: autoconf_share (2.4)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 1.1; date: 2005/09/02
+
+    required packages:
+      internal: autoconf_share (2.1)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+  Version: 1.0; date: 2005/06/15
+
+    required packages:
+      internal: autoconf_share (2.1)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: <none>
+
+
+
+LCS/Tranport
+------------
+
+  Version: 2.3; date: 2005/02/01
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Common (3.0)
+                LCS/Blob (1.0)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.7)
+                doxygen (1.3.x)
+
+
+  Version: 2.2; date: 2005/11/16
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Common (2.4)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 2.1; date: 2005/09/05
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Common (2.3)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 2.0; date: 2005/06/17
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Common (2.2)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 1.1; date: 2005/03/16
+
+    required packages:
+      internal: LCS/Common (2.1)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+                doxygen (1.3.x)
+
+
+  Version: 1.0; date: 2004/11/24
+
+    required packages:
+      internal: LCS/Common (2.0)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+
+
+
+CEP/tinyCEP
+-----------
+
+  Version: 2.2; date: 2006/02/03
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Common (3.0)
+                LCS/Transport (2.3)
+                LCS/ACC (2.1)
+      external: boost (1.32)
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.7)
+
+
+  Version: 2.1; date: 2005/09/22
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Common (2.3)
+                LCS/Transport (2.1)
+                LCS/ACC (2.0)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+
+
+  Version: 2.0; date: 2005/06/23
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Common (2.2)
+                LCS/Transport (2.0)
+                LCS/ACC (1.1)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+
+
+  Version: 1.0; date: 2005/04/11
+
+    required packages:
+      internal: LCS/Transport (1.1)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+
+
+
+CEP/CEPFrame
+------------
+
+  Version: 2.2; date: 2006/02/06
+
+    required packages:
+      internal: autoconf_share (2.4)
+                LCS/Common (3.0)
+                LCS/Transport (2.3)
+                CEP/tinyCEP (2.2)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+
+
+  Version: 2.1; date: 2005/09/23
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Common (2.3)
+                LCS/Transport (2.1)
+                CEP/tinyCEP (2.1)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+
+
+  Version: 2.0; date: 2005/06/23
+
+    required packages:
+      internal: autoconf_share (2.1)
+                LCS/Common (2.2)
+                LCS/Transport (2.0)
+                CEP/tinyCEP (2.0)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+
+
+  Version: 1.0; date: 2005/04/12
+
+    required packages:
+      internal: CEP/tinyCEP (1.0)
+      external: <none>
+
+    optional packages:
+      internal: <none>
+      external: mpich (1.2.5.2)
+                postgresql (7.3.2)
+

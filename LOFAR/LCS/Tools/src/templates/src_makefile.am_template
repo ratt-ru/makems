@@ -1,0 +1,37 @@
+# if HAVE_SHMEM
+# SUBDIRS = shmem .
+# endif
+
+lib_LTLIBRARIES         = lib%PACKAGELOWER%.la
+
+lib%PACKAGELOWER%_la_SOURCES =
+
+# AM_YFLAGS               = -d -p KeyParse
+# AM_LFLAGS               = -PKeyTokenize
+# LEX_OUTPUT_ROOT         = lex.KeyTokenize
+
+# if HAVE_SHMEM
+# lib%PACKAGELOWER%_la_LIBADD     = shmem/libshmem.la
+# endif
+
+bin_PROGRAMS =
+
+# Lines to build a program prg
+#prg_SOURCES		= prg.cc
+#prg_LDADD		= lib%PACKAGELOWER%.la
+#prg_DEPENDENCIES	= lib%PACKAGELOWER%.la $(LOFAR_DEPEND)
+
+glishdir = $(libexecdir)/glish
+dist_glish_SCRIPTS = 
+
+pythondir = $(bindir)
+dist_python_SCRIPTS = 
+
+scriptdir = $(bindir)
+dist_script_SCRIPTS = 
+
+include $(top_srcdir)/Makefile.common
+
+# if HAVE_SHMEM
+# libcommon_la_LIBADD   = shmem/libshmem.la
+# endif

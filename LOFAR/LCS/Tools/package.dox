@@ -1,0 +1,7 @@
+// \ingroup LCS
+// \defgroup Tools Tools
+//
+// This package provides basic tools needed for building %LOFAR software and/or
+// documentation. An exmamples of such a tool is pkgdep, which determines the
+// dependencies between %LOFAR software packages.
+

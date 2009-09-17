@@ -1,0 +1,255 @@
+#!/usr/bin/perl
+#-----------------------------------------------------------------------------
+# remote_lofarcvsmv: Do move files or directory in the LOFAR CVS repository
+#-----------------------------------------------------------------------------
+#
+# Copyright (C) 2005
+# ASTRON (Netherlands Foundation for Research in Astronomy)
+# P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# $Id: remote_lofarcvsmv 6782 2005-10-18 11:22:15Z diepen $
+
+require "find.pl";
+use File::Basename;
+use File::Path;
+
+##
+## standard definitions
+##
+$HOME = $ENV{'HOME'};
+$TMP = "$HOME/tmp/$$";
+$LOG = "$HOME/tmp/log";
+$CVS = "/cvs/cvsroot";###
+$cvs = "/usr/bin/cvs";###
+
+##
+## Need to set PATH for -T + system()
+##
+$ENV{'PATH'} = "/bin:/usr/bin:/usr/sbin";
+
+$source_path = "";
+@source_files = ();
+@from_files = ();
+@to_files = ();
+$to_lock = "";
+$from_lock = "";
+
+END {
+    rmdir( $to_lock ) if $to_lock && -d $to_lock;
+    rmdir( $from_lock ) if $from_lock && -d $from_lock;
+};
+
+sub wanted {
+    if ( $dir eq $source_path && m/,v$/ ) {
+	my $from = $_;
+	$from =~ s/,v$//;
+	push( @source_files, "$dir/$_" );
+	push( @from_files, $from );
+	push( @to_files, $from );
+    }
+}
+
+##
+## We need group write permission on the
+## directories we create.
+##
+###umask(002);
+
+##
+## did we get a command?
+##
+die "no cvs binary" unless -x "$cvs";
+die "no repository" unless -d "$CVS";
+die "No env.var. SSH_ORIGINAL_COMMAND" unless defined $ENV{'SSH_ORIGINAL_COMMAND'};
+
+##
+## does it look like a valid command?
+##
+##        cvs MOVE <source> <destination>
+##
+$line = $ENV{'SSH_ORIGINAL_COMMAND'};
+
+die "invalid command string '$line'" unless $line =~ m/^cvs\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)$/;
+
+$cmd = $1;
+$subcmd = $2;
+$from = $3;
+$to = $4;
+
+die "only MOVE is supported" unless $cmd =~ /^MOVE$/ || $cmd =~ /^X$/;
+die "source should not begin with '/',\nsince it is relative to repository root" if $from =~ m#^/#;
+die "destination should not begin with '/',\nsince it is relative to repository root" if $to =~ m#^/#;
+
+if ( scalar(@ARGV) == 0 ) {
+    my $lines = 0;
+    my $logfile = "lofarcvsmv." . `date '+%Y%m%d.%H%M'`;
+    mkpath( "$LOG" ) if ! -d "$LOG";
+    open( CHILD, "$0 redux 2>&1 | tee $LOG/$logfile |" );
+    while ( <CHILD> ) { ++$lines; print "$lines: $_"; }
+    close( CHILD );
+    exit(0);
+}
+
+# Handle the setting or clearing of the x bit.
+if ( $cmd =~ /^X$/ ) {
+    die "source '$from' must be a regular file" if ! -e "$CVS/$from,v";
+    if ( $subcmd =~ /^SET$/ ) {
+        chmod 0755, "$CVS/$from,v";
+	print "x-bit set for $from\n";
+    } else {
+        chmod 0644, "$CVS/$from,v";
+	print "x-bit cleared for $from\n";
+    }
+    exit(0);
+}
+
+if ( $subcmd =~ /^SHOWTREE$/ ) {
+    print "{$CVS}\n";
+    system( "find $CVS/$from -type d -print" );
+    exit(0);
+}
+
+if ( $subcmd =~ /^DIR$/ ) {
+    die "source '$from' must be a directory" if ! -d "$CVS/$from";
+    die "destination '$to' must be a directory" if -e "$CVS/$to" && ! -d "$CVS/$to";
+    die "destination '$to' must be a directory" if -e "$CVS/$to,v";
+}
+if ( $subcmd =~ /^FIL/ ) {
+    die "source '$from' must be a regular file" if ! -e "$CVS/$from,v";
+    die "destination '$to' must be a file name (not a directory)" if -d "$CVS/$to";
+}
+die "dirname of destination '$to' must be an existing directory" if ! -d dirname("$CVS/$to");
+
+if ( -d "$CVS/$from" ) {
+    die "cannot move a directory to a file" if -e "$CVS/$to" && ! -d "$CVS/$to";
+    die "cannot move a directory to a file" if -e "$CVS/$to,v";
+    $to_path=$to;
+    $from_path=$from;
+    $moving_directory = 0;
+    $source_path = "$CVS/$from";
+    find( "$CVS/$from" );
+    $message_from = $from;
+    $message_to = $to;
+} elsif ( -f "$CVS/$from,v" ) {
+    $from_path=dirname($from);
+    if ( -f "$CVS/$to,v" ) {
+	die "cannot overwrite existing file, $CVS/$to,v";
+    } else {
+	$to_path=dirname($to);
+	push( @to_files, basename($to) );
+    }
+    push( @source_files, "$CVS/$from,v" );
+    push( @from_files, basename($from) );
+    $message_from = dirname($from);
+    $message_to = $to_path;
+} else {
+    die "source ($CVS/$from) does not exist";
+}
+
+die "could not create temporary directory" unless mkdir( $TMP, 0700 );
+
+if ( ! -d "$CVS/$to_path" ) {
+    mkpath( "$CVS/$to_path" );
+}
+
+$timeout_one = 0;
+while ( 1 ) {
+    last if mkdir( "$CVS/$to_path/#cvs.lock" );
+    die "could not lock $CVS/$to_path" if ++$timeout_one == 60;
+    sleep(2);
+}
+$to_lock = "$CVS/$to_path/#cvs.lock";
+
+if ( $to_path ne $from_path ) {
+    $timeout_two = 0;
+    while ( 1 ) {
+	last if mkdir( "$CVS/$from_path/#cvs.lock" );
+	if ( ++$timeout_two == 60 ) {
+	    rmdir( "$CVS/$to_path/#cvs.lock" );
+	    $to_lock = "";
+	    die "could not lock $CVS/$from_path";
+	}
+	sleep(2);
+    }
+    $from_lock = "$CVS/$from_path/#cvs.lock";
+}
+
+foreach $file ( @source_files ) {
+    my $out = shift( @to_files );
+    my $mode = (stat $file)[2];
+    open( IN, "< $file" );
+    open( OUT, "> $CVS/$to_path/$out,v" );
+
+    my $found_symbols = 0;
+    while ( <IN> ) {
+
+	if ( m/^symbols$/ ) {
+
+	    ## just a line with 'symbols' on it...
+	    ## since we've already seen the symbols...
+	    if ( $found_symbols++ ) {
+		print OUT;
+		next;
+	    }
+
+	    ## OK, clip the symbols...
+	    print OUT "symbols;\n";
+	    while ( <IN> ) {
+		last if m/;/;
+	    }
+
+	} else {
+	    print OUT;
+	}
+    }
+
+    close( IN );
+    close( OUT );
+    chmod $mode, "$CVS/$to_path/$out,v";###
+}
+
+
+rmdir( "$CVS/$from_path/#cvs.lock" ) if $to_path ne $from_path;
+rmdir( "$CVS/$to_path/#cvs.lock" );
+$from_lock = "";
+$to_lock = "";
+
+die "could not change to $TMP" unless chdir "$TMP";
+
+##
+## increment & tag the copy
+##
+print "$cvs -d $CVS co -l -d to $to \n";
+system( "$cvs -d $CVS co -l -d to $to" );
+die "could not change to 'to'" unless chdir "to";
+system( "$cvs commit -f -m '%lofarcvsmv%: Moved from $message_from, creating new revision' ."  );
+system( "$cvs tag moved_via_lofarcvsmv ." );
+die "could not change to $TMP" unless chdir "$TMP";
+system( "rm -rf to" );
+
+##
+## move the original to the attic
+##
+system( "cvs -d $CVS co -l -d from $from" );
+die "could not change to 'from'" unless chdir "from";
+die "could not remove '@from_files'" unless unlink @from_files;
+system( "$cvs delete " . join( ' ', @from_files ) );
+system( "$cvs commit -m '%lofarcvsmv%: Moved to $message_to' .");
+die "could not change to $TMP" unless chdir "$TMP";
+system( "rm -rf from" );
+
+die "could not remove temporary directory" if system( "rm -rf $TMP" );

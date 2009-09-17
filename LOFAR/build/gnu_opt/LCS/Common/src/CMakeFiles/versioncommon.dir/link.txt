@@ -1,0 +1,1 @@
+/usr/bin/g++   -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas -pthread -g -O2   CMakeFiles/versioncommon.dir/versioncommon.cc.o  -o versioncommon -rdynamic libcommon.a -lpthread -Wl,-rpath,:::::::::::::::::::::::::::::::::::::::::::: 

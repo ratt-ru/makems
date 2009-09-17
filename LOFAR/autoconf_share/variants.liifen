@@ -1,0 +1,19 @@
+gnu.compiler.conf: CXX="$CCACHE /usr/bin/g++"
+gnu64.compiler.conf: CXX="$CCACHE /usr/bin/g++"
+#gnu64.compiler.aipspp.var: --with-aipspp=/app/aips++/Unstable/linux_gnu
+gnu64.compiler.aipspp.var: --with-casacore=/app/aips++/casacore_64 --with-wcs=/app/wcs_64
+gnu.compiler.aipspp.var: --with-casacore=/app/aips++/casacore_64 --with-wcs=/app/wcs_64
+
+mpich.var:                --with-mpich=/usr/local/ofed/mpi/gcc/mvapich-0.9.7-mlx2.2.0
+openmpi.var:              --with-mpich=/usr/local/ofed/mpi/gcc/openmpi-1.1.1-1
+
+openmpi.variant.conf:	  $(standard) $(openmpi) $(cppopt)
+openmpi-opt.variant.conf: $(standard) $(openmpi) $(cppopt) $(optimize)
+
+mpich.variant.conf:       $(standard) $(mpich) $(debug)
+mpich-opt.variant.conf:   $(standard) $(mpich) $(optimize)
+
+lofar_root.var:
+
+backtrace.var:          --enable-backtrace	 
+cppopt.var:		--with-cppflags="-fPIC" --with-casacore=/cephome/broekema/packages/casa

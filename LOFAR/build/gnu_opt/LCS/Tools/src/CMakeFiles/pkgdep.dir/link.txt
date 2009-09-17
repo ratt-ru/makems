@@ -1,0 +1,1 @@
+/usr/bin/g++   -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas -pthread -g -O2   CMakeFiles/pkgdep.dir/pkgdep.cc.o  -o pkgdep -rdynamic -Wl,-rpath,:::::::::::::::::::::::::::::::::::::::::::: 

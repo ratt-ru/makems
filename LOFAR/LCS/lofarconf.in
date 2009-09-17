@@ -1,0 +1,8 @@
+Tools         # Useful tools
+Common        # Common stuff
+Blob	      # Binary Large Objects
+Stream        # Low-level support for streaming data
+Transport     # Low-level transport library
+ACC           # Application Configuration & Control
+AMC           # Astronomical Measures Conversions (successor of CRD)
+ApplCommon    # Application common stuff

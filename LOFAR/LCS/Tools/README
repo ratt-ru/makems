@@ -1,0 +1,48 @@
+LCS/Tools package
+=================
+
+The LCS/Tools contains a collection of basic tools that can help the developer
+doing his day to day tasks. Contrary to all other LOFAR packages, this package
+does NOT produce a library. Instead, it is a collection of useful executables,
+both binaries and scripts.
+
+The current release contains the following useful executables:
+
+LimitExec      : Limit the execution time of a program to a maximum.
+
+lofarinit.sh   : Define the LOFAR environment for Bourne-like shells.
+
+lofarinit.csh  : Define the LOFAR environment for C-like shells.
+
+lofarcvsmv     : Move files or directories within the LOFAR CVS repository.
+
+lofarcvsx      : Set or clear x-bit of files within the LOFAR CVS repository.
+
+finddep        : Find the packages used by other packages.
+                 Packages taken into account are all LOFAR packages and
+                 external packages. Used by makedep.sh
+
+pkgdep         : Generate dependency trees for all LOFAR packages.
+                 pkgdep uses the output of finddep as input.
+                 Used by makedep.sh
+
+makedep.sh     : Generate dependency trees (uses and used-by) for LOFAR
+                 packages and store result in html files. Uses finddep and
+                 pkgdep.
+
+makedoc        : Build the doxygen documentation for all packages in the
+                 current directory and below.
+
+makePackage.py : Create a new LOFAR package.
+                 The script will create a skeleton configure.in file, a src and
+                 test directory containing a skeleton Makefile.am; the new
+                 package will be added to the lofarconf.in file.
+
+makeClass.py   : Create a skeleton for a new class. 
+                 The script produces a .h and .cc file. Furthermore, it adds
+                 entries for these files in the Makefile.am
+
+makeTest.py    : Create a skeleton for a test program.
+                 The script will generate a .cc file, a .sh file, a .in and a
+                 .out file
+

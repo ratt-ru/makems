@@ -1,0 +1,12 @@
+#!/bin/sh
+
+../src/getparsetvalue tgetparsetvalue.parset key1
+../src/getparsetvalue tgetparsetvalue.parset key1 0
+../src/getparsetvalue tgetparsetvalue.parset key1 1
+../src/getparsetvalue tgetparsetvalue.parset key1 2
+../src/getparsetvalue tgetparsetvalue.parset key1 3
+../src/getparsetvalue tgetparsetvalue.parset key1 -1
+../src/getparsetvalue tgetparsetvalue.parset key1 -2
+../src/getparsetvalue tgetparsetvalue.parset key1 -3
+../src/getparsetvalue tgetparsetvalue.parset key1 -4
+../src/getparsetvalue tgetparsetvalue.parset key1.sub1

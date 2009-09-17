@@ -1,0 +1,16 @@
+StartFreq=1170e6
+StepFreq=100000
+StartTime=2000/08/03/13:22:30
+StepTime=10
+RightAscension=16:38:28.205274248
+Declination=62.34.44.313606568
+NBands=4
+NFrequencies=64
+NTimes=14
+NParts=2
+Dirs=["node1:abc", 'node1:def']
+TileSizeFreq=8
+TileSizeRest=10
+WriteAutoCorr=T
+MSName=tmakems_tmp.ms
+VDSPath=tmakems_tmp/vds

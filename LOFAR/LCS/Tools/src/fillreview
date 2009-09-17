@@ -1,0 +1,38 @@
+#!/bin/sh
+
+reviewer=$1
+if test "$reviewer" = ""; then
+  reviewer="Unknown"
+fi
+reviewdate=$2
+if test "$reviewdate" = ""; then
+  reviewdate=`date '+%G%b%d'`
+fi
+
+files=`find . -name "*.h"`
+for FILE in $files
+do
+  grep '//# <reviewed ' $FILE >& /dev/null
+  if test $? = 0; then
+      # Replace <reviewed> line.
+    sed -e "s%\(//# <reviewed reviewer=\).* date=%\1'$reviewer' date=%" \
+        -e "s%\(//# <reviewed reviewer=.* date=\).*>%\1'$reviewdate'>%" \
+       $FILE > $FILE.tmp
+    mv $FILE.tmp $FILE
+    echo "Updated <reviewed> in $FILE"
+  else
+    # Try to add <reviewed> line after $Id line.
+    cnt=`grep -c '//#\?[ \t][ \t]*$Id' $FILE`
+    if test "$cnt" != "1"; then
+      echo "$FILE has no or multiple "'$Id lines; cannot insert <reviewed>'
+    else
+      grep -B 1000000 '//#\?[ \t][ \t]*$Id' $FILE > $FILE.tmp
+      echo "" >> $FILE.tmp
+      echo "//# <reviewed reviewer='$reviewer' date='$reviewdate'>" >> $FILE.tmp
+      echo "//# </reviewed>" >> $FILE.tmp
+      grep -A 1000000 '//#\?[ \t][ \t]*$Id' $FILE | grep -v '//#\?[ \t][ \t]*$Id' >> $FILE.tmp
+      mv $FILE.tmp $FILE
+      echo "Inserted <reviewed> in $FILE"
+    fi
+  fi
+done

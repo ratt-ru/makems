@@ -1,0 +1,10 @@
+/**
+
+\ingroup LOFAR
+\defgroup LCS LOFAR Common Software (LCS)
+
+%LOFAR Common Software (LCS) contains the software packages that form the core
+of the %LOFAR software tree. They bundle "basic" functionality that can be
+used by other packages.
+
+*/

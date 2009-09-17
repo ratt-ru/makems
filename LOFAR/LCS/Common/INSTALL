@@ -1,0 +1,25 @@
+Building a LOFAR package
+========================
+
+The LOFAR build environment is built upon the GNU AutoTools. It adds support
+for easily building multiple variants (e.g. different compilers, optimized or
+non-optimized, with MPI support, etc.). 
+
+From the user's perspective there are two important differences:
+  1. use `lofarconf' instead of `configure'
+  2. call `lofarconf' from a build directory.
+
+For example, suppose you want to build the current package using the default
+GNU compiler generating optimized code. You would then do the following:
+
+  1. Change directory to the package root directory (i.e. LCS/Common).
+  2. Issue the `./bootstrap' command.
+  3. Create a build/<variant> directory (i.e. mkdir -p build/gnu_opt)
+     and change to that directory.
+  4. Issue the `../../lofarconf' command.
+  5. Issue the commands `make', `make check' [optional], and `make install'.
+
+By default, `make install' will do an install in the directory
+`install/<variant>' relative to the LOFAR root directory
+(e.g. $HOME/LOFAR/install/gnu_opt).
+

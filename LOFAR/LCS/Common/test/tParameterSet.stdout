@@ -1,0 +1,180 @@
+
+>>>
+Reading in parameterfile 'tParameterSet.in_param_normal'
+This ParameterSet does NORMAL key comparison.
+<<<
+
+Showing some values
+a.b.c=5
+a.b=7
+a.b.double=3.1415926000000000684
+a.b.lange_naam=dit is nu een andere naam geworden met extra spaties aan het einde  
+
+>>>
+Merging ParameterSet with file 'tParameterSet.in_merge_normal'
+<<<
+
+Showing the same keys again
+a.b.c=700
+a.b=0
+a.b.double=3.141592653589793116
+a.b.lange_naam=dit is een wat langere naam
+a.b.time1=15
+a.b.time2=900
+a.b.time3=54000
+
+The main ParameterSet contains:
+a.b=0
+a.b.c=700
+a.b.c.d.e.f.g.h='tjee wat een levels!'
+a.b.double=3.1415926535897932384626433832795
+a.b.lange_naam="dit is een wat langere naam"
+a.b.time1=15 s
+a.b.time2=15m
+a.b.time3=15 hour
+a.c.a=nog een afkorting
+e.g=een voorbeeld
+egg=een ei
+emptyvec=[]
+vtest.intVector1Dim=[ 3, 20485, 002, 4904 , 25 ]
+Fullname of 'b'=a.
+isValidVersionNr(1.2.3.4)   = 0
+isValidVersionNr(1.2.3)     = 1
+isValidVersionNr(1.2)       = 0
+isValidVersionNr(stable)    = 0
+isValidVersionNrRef(1.2.3)  = 1
+isValidVersionNrRef(1.2)    = 0
+isValidVersionNrRef(stable) = 1
+isValidVersionNrRef(error)  = 0
+isValidVersionNrRef(1.2.3.AndALotOfGarbageBehindTheLastNumberPart)  = 0
+Creating a subset 'a.b.'
+
+Subset a.b. contains:
+c=700
+c.d.e.f.g.h='tjee wat een levels!'
+double=3.1415926535897932384626433832795
+lange_naam="dit is een wat langere naam"
+time1=15 s
+time2=15m
+time3=15 hour
+
+Trying to read a non-existing key
+>>>
+<<<
+Told you the key didn't exist.
+
+>>>
+Finally write the parameterset to 'tParameterSet_tmp.newset.normal'
+<<<
+
+testing getInt32Vector
+5 elements in intVector1Dim
+3,20485,2,4904,25,
+trying to read single int as vector
+1 elements in a.b.c
+700,
+
+Iterate over all keys ...
+a.b
+a.b.c
+a.b.c.d.e.f.g.h
+a.b.double
+a.b.lange_naam
+a.b.time1
+a.b.time2
+a.b.time3
+a.c.a
+e.g
+egg
+emptyvec
+vtest.intVector1Dim
+
+>>>
+Reading in parameterfile 'tParameterSet.in_param_nocase'
+This ParameterSet does NOCASE key comparison.
+<<<
+
+Showing some values
+a.b.c=5
+a.b=7
+a.b.double=3.1415926000000000684
+a.b.lange_naam=dit is nu een andere naam geworden met extra spaties aan het einde  
+
+>>>
+Merging ParameterSet with file 'tParameterSet.in_merge_nocase'
+<<<
+
+Showing the same keys again
+a.b.c=700
+a.b=0
+a.b.double=3.141592653589793116
+a.b.lange_naam=dit is een wat langere naam
+a.b.time1=15
+a.b.time2=900
+a.b.time3=54000
+
+The main ParameterSet contains:
+A.B=0
+a.B.c=700
+a.B.c.D.e.F.g.H='tjee wat een levels!'
+a.b.DOUBLE=3.1415926535897932384626433832795
+a.B.lange_naam="dit is een wat langere naam"
+A.b.time1=15 s
+a.B.time2=15m
+a.b.TIME3=15 hour
+A.c.a=nog een afkorting
+e.g=een voorbeeld
+Egg=een ei
+emptyvec=[]
+VTest.IntVector1Dim=[ 3, 20485, 002, 4904 , 25 ]
+Fullname of 'b'=a.
+isValidVersionNr(1.2.3.4)   = 0
+isValidVersionNr(1.2.3)     = 1
+isValidVersionNr(1.2)       = 0
+isValidVersionNr(stable)    = 0
+isValidVersionNrRef(1.2.3)  = 1
+isValidVersionNrRef(1.2)    = 0
+isValidVersionNrRef(stable) = 1
+isValidVersionNrRef(error)  = 0
+isValidVersionNrRef(1.2.3.AndALotOfGarbageBehindTheLastNumberPart)  = 0
+Creating a subset 'a.b.'
+
+Subset a.b. contains:
+c=700
+c.D.e.F.g.H='tjee wat een levels!'
+DOUBLE=3.1415926535897932384626433832795
+lange_naam="dit is een wat langere naam"
+time1=15 s
+time2=15m
+TIME3=15 hour
+
+Trying to read a non-existing key
+>>>
+<<<
+Told you the key didn't exist.
+
+>>>
+Finally write the parameterset to 'tParameterSet_tmp.newset.nocase'
+<<<
+
+testing getInt32Vector
+5 elements in intVector1Dim
+3,20485,2,4904,25,
+trying to read single int as vector
+1 elements in a.b.c
+700,
+
+Iterate over all keys ...
+A.B
+a.B.c
+a.B.c.D.e.F.g.H
+a.b.DOUBLE
+a.B.lange_naam
+A.b.time1
+a.B.time2
+a.b.TIME3
+A.c.a
+e.g
+Egg
+emptyvec
+VTest.IntVector1Dim

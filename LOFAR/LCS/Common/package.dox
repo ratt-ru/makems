@@ -1,0 +1,19 @@
+// \ingroup LCS
+// \defgroup Common Common
+//
+// The Common package contains pieces of software that are very
+// reusable. Hence the name "common"
+
+// @{
+
+//   \defgroup DataConvert Data conversion functions
+
+//   \defgroup LofarLogger Logging facility
+
+//   \defgroup Socket Sockets
+
+//   \defgroup shmem Shared Memory
+
+//   \defgroup TypeNames Typename functions
+
+// @}

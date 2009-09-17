@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Exit with UNTESTED if the MS does not exist.
+if [ ! -d $1/tMSSplit.MS ]; then
+  echo "Test not executed; $1/tMSSplit.MS could not be found"
+  exit 3
+fi
+# Do the split and check it thereafter.
+../src/MSSplit $1/tMSSplit.MS tMSSplit_tmp  &&  \
+      $LOFAR_CHECKTOOL tMSSplit $1/tMSSplit.MS tMSSplit_tmp

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Skip the test until the problem with differences in output of `ps'
+# on different machines has been fixed (see Bug #903).
+exit 3

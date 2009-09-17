@@ -1,0 +1,360 @@
+#!/usr/bin/csh
+#
+# $Id:$
+#
+# This script acts as the Lofar Storage manager
+#
+#set echo
+set year=`date +%Y`
+#set year="2007"
+set tmpfile="/tmp/lofstorman$$.tmp"
+set dialog=1
+set option=""
+set pager="less"
+if ($1 != "") then
+  set dialog=0
+  set option="$1"
+  set pager="cat"
+endif
+while ( "${option}" !~ [Qq]* )
+  if ( ${dialog}) then
+    echo '+----------------------------------------+'
+    echo '|  Welcome to the Lofar Storage Manager  |'
+    echo '+----------------------------------------+'
+    echo ' '
+    echo 'Options:'
+    echo ' '
+    echo 'du  - Show disk usage (on-line and off-line)'
+    echo 'ols - Show short list of online  data'
+    echo 'oll - Show long  list of online  data'
+    echo 'ofs - Show short list of offline data'
+    echo 'ofl - Show long  list of offline data'
+    echo 'cpy - Copy online data to offline nodes' 
+    echo 'arc - Show data in archive directories'
+    echo 'cks - Show checksum of tar files in archive directories'
+    echo 'grs - Show short list of GRID    data'
+    echo 'grl - Show long  list of GRID    data'
+    echo 'grc - Show Grid candidate data from /data/archive'
+    echo 'grd - Move data to GRID (registrated user)'
+    echo 'cln - Cleanup /data/archive after grid upload'
+    echo 'f   - Find an observation'
+    echo 'q   - Quit'
+    echo ' '
+    echo -n 'Enter selection: '
+    set option=($<)
+    if ( ${option} =~ [Qq]* ) exit
+  endif
+#
+# "du" -- Show disk usage
+#
+  if ("$option" == "du") then
+     foreach f(/tmp/list_df.log /tmp/lifs_df.log)
+       cat $f | \
+         awk '\
+         BEGIN {print "\nnode  fill% free\n"; s= 0;}  \
+           {s+=$6; n+=1;print $1, $6, $5} \
+         END{printf ("\nTotal free space: %2d%\n",100.-s/n)}'
+     end
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+# ols -- Show short list of online  data
+#
+  if ("$option" == "ols") then
+     echo "Show short list of on-line data"
+     set nodes=`cat /tmp/list_catalog | awk '{print $1}'|uniq`
+     echo "" >  $tmpfile
+     foreach node ($nodes)
+       echo "-------- $node ----------" >>  $tmpfile
+       grep $node /tmp/list_catalog|sort|awk -F/ '{print $3}'|uniq|column -x -c 72 >> $tmpfile
+     end
+     $pager $tmpfile
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+# oll - Show long  list of online  data
+#
+  if ("$option" == "oll") then
+     echo "Show long list of on-line data"
+     set nodes=`cat /tmp/list_catalog | awk '{print $1}'|uniq`
+     echo "" >  $tmpfile
+     foreach node ($nodes)
+       echo "-------- $node ----------" >>  $tmpfile
+       grep $node /tmp/list_catalog|sort|column -x -c 72 >> $tmpfile
+     end
+     $pager $tmpfile
+     rm -f $tmpfile
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+# ofs - Show short list of offline data
+#
+  if ("$option" == "ofs") then
+     echo "Show short list of offline data"
+     set nodes=`cat /tmp/lifs_catalog | awk '{print $1}'|uniq`
+     echo "" >  $tmpfile
+     foreach node ($nodes)
+       echo "-------- $node ----------" >>  $tmpfile
+       grep $node /tmp/lifs_catalog|sort|awk -F/ '{print $3}'|uniq|column -x -c 72 >> $tmpfile
+     end
+     $pager $tmpfile
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+
+# ofl - Show long  list of offline data'
+  if ("$option" == "ofl") then
+     echo "Show long list of offline data"
+     set nodes=`cat /tmp/lifs_catalog | awk '{print $1}'|uniq`
+     echo "" >  $tmpfile
+     foreach node ($nodes)
+       echo "-------- $node ----------" >>  $tmpfile
+       grep $node /tmp/lifs_catalog|sort|column -x -c 72 >> $tmpfile
+     end
+     $pager $tmpfile
+     rm -f $tmpfile
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+# ofs - Show short list of offline data
+#
+  if ("$option" == "ofs") then
+     echo "Show short list of offline data"
+     set nodes=`cat /tmp/lifs_catalog | awk '{print $1}'|uniq`
+     echo "" >  $tmpfile
+     foreach node ($nodes)
+       echo "-------- $node ----------" >>  $tmpfile
+       grep $node /tmp/lifs_catalog|sort|awk -F/ '{print $3}'|uniq|column -x -c 72 >> $tmpfile
+     end
+     $pager $tmpfile
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+# cpy - Copy online data to storage nodes
+#
+  if ("$option" == "cpy") then
+     set nrScp=`ps -ef | grep lofarsystem|grep list|grep scp`
+     if ($#nrScp > 0) then
+       echo "Another copy process is running"
+       if (${dialog}) then
+          echo -n "Do you really want to Continue? [n]"
+          set ans=($<)
+          if ($ans != "y") exit
+       else 
+         exit
+       endif
+     endif
+     set src="list001 list002"
+     set seqnr=$2
+     set lifsnode=$3
+     set sblistb=$4
+     set sbliste=$5
+     if ($seqnr == "") then
+       echo -n "Enter a seq. number: "
+       set seqnr=($<)
+     endif
+     if ($lifsnode == "") then
+       echo -n "Enter a lifs node name: "
+       set lifsnode=($<)
+     endif
+     if ($sblistb == "") then
+       set sblistb=0
+       echo -n "Enter a lowest subband nr[all]: "
+       set ans=($<)
+       if ($ans != "" ) set sblistb=$ans
+     endif
+     if ($sbliste == "") then
+       set sbliste=999
+       echo -n "Enter a highest subband nr[all]: "
+       set ans=($<)
+       if ($ans != "" ) set sbliste=$ans
+     endif
+#     echo "Seq nr L${year}_0${seqnr} ${lifsnode} low_sb ${sblistb} high_sb ${sbliste}"
+#     exit
+     echo "Copy on-line data of L${year}_0${seqnr} to ${lifsnode}"
+     echo ssh lofarsystem@${lifsnode} mkdir -p /data/L${year}_0${seqnr}
+          ssh lofarsystem@${lifsnode} mkdir -p /data/L${year}_0${seqnr}
+     foreach listnode ( ${src} )
+        set s="/data/L${year}_0${seqnr}"
+        set sbb=`ssh lofarsystem@${listnode} ls -1 $s`
+        set d="lofarsystem@${lifsnode}:/data"
+        foreach sb ($sbb)
+          set n=`echo $sb | awk -F. '{print substr ($1,3,2)}'`
+          if ( $n <= $sbliste && $n >= $sblistb ) then
+            set sec1=`date +%s`
+            echo "ssh lofarsystem@${listnode} rsync -av ${s}/${sb} /net/${lifsnode}/L${year}_0${seqnr}"
+            ssh lofarsystem@${listnode} "rsync -av ${s}/${sb} /net/${lifsnode}/L${year}_0${seqnr}"
+            set now=`date +%s`
+            @ elapsed= $now - $sec1
+            set size=`du -xm|tail -1|awk '{print $1}'`
+            @ speed = $size / $elapsed
+            echo "Elapsed $elapsed seconds. Size $size MByte. Speed $speed MB/s"
+          endif
+        end
+
+#        echo "ssh lofarsystem@${listnode} rsync -av ${s}/\* ${d}"
+#        ssh lofarsystem@${listnode} "rsync -av ${s} ${d}"
+     end
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+# grl - Show long  list of GRID    data'
+#
+# grs - Show short list of GRID    data'
+  if ("$option" == "grs") then
+     echo "Show short list of grid data"
+     echo "" >  $tmpfile
+     cat /tmp/grid_catalog_short >> $tmpfile
+     $pager $tmpfile
+     rm -f $tmpfile
+     echo -n "\nTotal volume present at grid: "
+     cat /tmp/grid_catalog | awk '{sum+=$5/1e6}END{printf("%12.3f GB\n",sum/1e3)}'
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+# grl - Show long  list of GRID    data'
+#
+  if ("$option" == "grl") then
+    echo "Show short list of grid data"
+    echo "" >  $tmpfile
+    cat /tmp/grid_catalog | \
+       gawk '{printf("%-30s  %6.1d MB   %s %s %s\n",$9,$5/1e6,$6,$7,$8)}'\
+       >> $tmpfile
+    $pager $tmpfile
+    rm -f $tmpfile
+    echo -n "\nTotal volume present at grid: "
+    cat /tmp/grid_catalog | awk '{sum+=$5/1e6}END{printf("%12.3f GB\n",sum/1e3)}'
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+
+#grc - Show Grid candidate data from /data/archive
+  if ("$option" == "grc") then
+    cat /tmp/grid_catalog |awk '{print $9}'|sort > /tmp/lofst1_$$
+    cat /tmp/lifs_archive |awk -F/ '{print $4}'|sort >/tmp/lofst2_$$
+    diff -w /tmp/lofst1_$$ /tmp/lofst2_$$ |grep '>' > $tmpfile
+    cat $tmpfile |awk '{print substr($2,1,11)}'|uniq|column -x -c 72|$pager
+    rm -f $tmpfile
+    echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif  
+
+# arc - Show data in archive directories'
+  if ("$option" == "arc") then
+     echo "Show data in archive directories"
+     set nodes=`cat /tmp/lifs_archive | awk '{print $1}'|uniq`
+     echo "" >  $tmpfile
+     foreach node ($nodes)
+       echo "-------- $node ----------" >>  $tmpfile
+       grep $node /tmp/lifs_archive|awk -F/ '{print $4}'|uniq|column -x -c 72 >> $tmpfile
+     end
+     $pager $tmpfile
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+#
+# arc - Show checksum of tar files in archive directories'
+  if ("$option" == "cks") then
+     echo "Show checksum of tar files in archive directories"
+     cat /tmp/all_checksums|grep L2|\
+        awk '{printf("%-30s  %-8s  %10d  %-6s  %6.1f %s \n",\
+        $1, $2, $3, $4, $5, $6)}'|$pager
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+
+#
+# grd - Move data to GRID (registrated user)'
+#
+  if ("$option" == "f") then
+    if ($2 == "") then
+      echo -n "Enter an observation number (w/wo year): "
+      set seq=($<)
+    else
+      set seq=$2
+    endif
+    echo "" >  $tmpfile
+    echo "In on-line catalog:" >> $tmpfile 
+    grep $seq /tmp/list_catalog >> $tmpfile     
+    echo "In off-line catalog:" >> $tmpfile 
+    grep $seq /tmp/lifs_catalog >> $tmpfile
+    echo "In archive area:" >> $tmpfile 
+    grep $seq /tmp/lifs_archive >> $tmpfile
+    echo "In Grid catalog:" >> $tmpfile 
+    grep $seq /tmp/grid_catalog |\
+       gawk '{printf("%-30s  %6.1d MB   %s %s %s\n",$9,$5/1e6,$6,$7,$8)}'\
+    >> $tmpfile     
+    $pager $tmpfile
+    rm -f $tmpfile
+    echo ""
+  endif
+#
+# cln - Cleanup /data/archive directories after grid upload
+#
+  if ("$option" == "cln") then
+     echo "Cleanup data in archive directories after upload"
+     set nodes=`cat /tmp/lifs_archive | awk '{print $1}'|uniq`
+     foreach node ($nodes)
+       set list=`grep $node /tmp/lifs_archive|awk -F/ '{print $4}'|uniq`
+       @ cnt = 0
+       foreach ms ($list)
+         set present=`grep $ms /tmp/grid_catalog|awk '{print $9}'`
+         if ($#present) then
+           #echo "Found: /${node}/archive/${present}"
+           echo ssh lofarsystem@${node} "rm -f  /data/archive/${present}"  
+                ssh lofarsystem@${node} "rm -f  /data/archive/${present}"  
+           @ cnt = ${cnt} + 1
+         endif  
+       end
+       echo "Total for ${node}: $cnt"
+     end
+     echo ""
+     if (${dialog}) then
+       echo -n "Hit return to continue"
+       set ans=($<)
+     endif
+  endif
+#
+  if (! ${dialog}) exit
+end

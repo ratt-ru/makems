@@ -1,0 +1,55 @@
+//#  %CLASS%.tcc: one line description
+//#
+//#  Copyright (C) %YEAR%
+//#  ASTRON (Netherlands Foundation for Research in Astronomy)
+//#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl 
+//#
+//#  This program is free software; you can redistribute it and/or modify
+//#  it under the terms of the GNU General Public License as published by
+//#  the Free Software Foundation; either version 2 of the License, or
+//#  (at your option) any later version.
+//#
+//#  This program is distributed in the hope that it will be useful,
+//#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//#  GNU General Public License for more details.
+//#
+//#  You should have received a copy of the GNU General Public License
+//#  along with this program; if not, write to the Free Software
+//#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//#
+//#  $Id: templated_header.tcc_template 7257 2005-12-13 15:31:48Z diepen $
+
+#ifndef LOFAR_%PACKAGEUPPER%_%SUBUPPER%%CLASSUPPER%_TCC
+#define LOFAR_%PACKAGEUPPER%_%SUBUPPER%%CLASSUPPER%_TCC
+
+//# Includes
+#include <Common/LofarLogger.h>
+#include <%PACKAGE%/%SUB%%CLASS%.h>
+
+namespace LOFAR {
+  namespace %PACKAGE% {
+
+    template %TEMPLATETYPE%
+    %CLASS%%TEMPLATEPARAM%::%CLASS%()
+    {}
+
+    template %TEMPLATETYPE%
+    %CLASS%%TEMPLATEPARAM%::~%CLASS%()
+    {}
+
+    // Remove lines or remove comments for copy constructor and assignment.
+    ////%CLASS%%TEMPLATEPARAM%::%CLASS% (const %CLASS%%TEMPLATEPARAM%& that)
+    ////{}
+    ////%CLASS%%TEMPLATEPARAM%& %CLASS%%TEMPLATEPARAM%::operator= (const %CLASS%%TEMPLATEPARAM%& that)
+    ////{
+    ////  if (this != &that) {
+    ////    ... copy members ...
+    ////  }
+    ////  return *this;
+    ////}
+
+  } // namespace %PACKAGE%
+} // namespace LOFAR
+
+#endif

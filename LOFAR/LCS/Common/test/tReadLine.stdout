@@ -1,0 +1,20 @@
+without skip:
+string1
+
+    
+  str  
+  //  aa
+//
+  / aa
+
+without comment skip:
+string1
+  str  
+  //  aa
+//
+  / aa
+
+with comment skip:
+string1
+str
+/ aa

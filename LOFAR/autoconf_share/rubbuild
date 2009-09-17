@@ -1,0 +1,290 @@
+#!/bin/sh
+
+# rubbuild: do the actual build for rub for the given variant
+#
+#  Copyright (C) 2006
+#  ASTRON (Netherlands Foundation for Research in Astronomy)
+#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#  $Id: rubbuild 10952 2008-02-08 11:41:23Z diepen $
+
+
+# This script is used by rub to do the build for a single variant.
+# argument:
+#    options    -conf, etc.
+#    variant name
+#    full name of the packages (e.g. CEP/BB/MS)
+
+
+# Find the path used to start the script.
+pgmpath=`dirname $0`
+pgmpath=`cd $pgmpath > /dev/null 2>&1  &&  pwd`
+
+# Set default options.
+kopt=0
+jobsopt=
+buildmake=1
+conf=2
+confopt=
+clean=0
+distclean=0
+bldtest=0
+check=0
+checktool=
+memcheck=0
+install=1
+dist=0
+distcheck=0
+rpm=0
+skipbuilt=0
+srcdir=.
+variants=
+bg=0
+
+# Handle possible options.
+while [ $# != 0 ]
+do
+  # continue after error?
+  if [ "$1" = -k ]; then
+    shift
+    kopt=1
+  elif [ "$1" = -nok ]; then
+    shift
+    kopt=0
+  # parallel make option?
+  elif [ "$1" = -j ]; then
+    shift
+    jobsopt="-j$1"
+    shift
+  elif [ "$1" = -noj ]; then
+    shift
+    jobsopt=
+  # Which variant to build after the checkout/update?
+  elif [ "$1" = -build ]; then
+    shift
+    case "$1" in
+    -*)
+      echo "-build argument must be a variant; option '$1' was given"
+      exit 1
+      ;;
+    esac
+    variants="$1"
+    shift
+  elif [ "$1" = -nobuild ]; then
+    shift
+    variants=
+  elif [ "$1" = -make ]; then
+    shift
+    buildmake=1
+  elif [ "$1" = -nomake ]; then
+    shift
+    buildmake=0
+  elif [ "$1" = -conf ]; then
+    shift
+    conf=1
+  elif [ "$1" = -noconf ]; then
+    shift
+    conf=0
+  elif [ "$1" = -confopt ]; then
+    shift
+    confopt="$1"
+    shift
+  elif [ "$1" = -noconfopt ]; then
+    shift
+    confopt=""
+  elif [ "$1" = -clean ]; then
+    shift
+    clean=1
+  elif [ "$1" = -noclean ]; then
+    shift
+    clean=0
+  elif [ "$1" = -distclean ]; then
+    shift
+    distclean=1
+  elif [ "$1" = -nodistclean ]; then
+    shift
+    distclean=0
+  elif [ "$1" = -test ]; then
+    shift
+    bldtest=1
+  elif [ "$1" = -notest ]; then
+    shift
+    bldtest=0
+  elif [ "$1" = -check ]; then
+    shift
+    check=1
+  elif [ "$1" = -nocheck ]; then
+    shift
+    check=0
+  elif [ "$1" = -memcheck ]; then
+    shift
+    memcheck=1
+  elif [ "$1" = -nomemcheck ]; then
+    shift
+    memcheck=0
+  elif [ "$1" = -checktool ]; then
+    shift
+    checktool="$1"
+    shift
+  elif [ "$1" = -nochecktool ]; then
+    shift
+    checktool=
+  elif [ "$1" = -install ]; then
+    shift
+    install=1
+  elif [ "$1" = -noinstall ]; then
+    shift
+    install=0
+  elif [ "$1" = -dist ]; then
+    shift
+    dist=1
+  elif [ "$1" = -nodist ]; then
+    shift
+    dist=0
+  elif [ "$1" = -distcheck ]; then
+    shift
+    distcheck=1
+  elif [ "$1" = -nodistcheck ]; then
+    shift
+    distcheck=0
+  elif [ "$1" = -rpm ]; then
+    shift
+    rpm=1
+  elif [ "$1" = -norpm ]; then
+    shift
+    rpm=0
+  elif [ "$1" = -skipbuilt ]; then
+    shift
+    skipbuilt=1
+  elif [ "$1" = -noskipbuilt ]; then
+    shift
+    skipbuilt=0
+  elif [ "$1" = -bg ]; then
+    shift
+    bg=1
+  elif [ "$1" = -nobg ]; then
+    shift
+    bg=0
+  elif [ "$1" = -srcdir ]; then
+    shift
+    srcdir=$1
+    shift
+  else
+    case "$1" in
+    -j*)
+      jobsopt='-j'`echo $1 | sed -e 's/-j//'`
+      shift
+      ;;
+    -*)
+      echo "$1 is an unknown rubbuild option"
+      exit 1
+      ;;
+    *)
+      # An argument has been found, so stop parsing options.
+      break
+      ;;
+    esac
+  fi
+done
+if [ $distclean = 1 ]; then
+  clean=2
+  conf=1
+fi
+
+# Get the other arguments.
+if test $# -lt 1; then
+  echo 'rubbuild builds (non-recursively) a single variant of the packages given.'
+  echo 'It can configure, but it does not do a bootstrap.'
+  echo 'Run as:'
+  echo ' rubbuild [-srcdir] [-build variant] [-skipbuilt] [-bg]'
+  echo '          [-conf] [-confopt string] [-k] [-j<option>]'
+  echo '          [-[dist]clean] [-make] [-test] [-check] [-checktool tool] [-memcheck]'
+  echo '          [-install] [-dist] [-distcheck] [-rpm]'
+  echo '          package1 ...'
+  exit 1
+fi
+pkgs="$*"
+# Remove possible trailing / and check.
+variant=`echo $variants | sed -e 's# ##'`
+if [ "$variant" != "$variants" ]; then
+  echo "Error in rubbuild: only one build variant can be given"
+  exit 1
+fi
+atemp=`echo $variant | sed -e 's#/$##'`
+if [ $atemp = "" ]; then
+  echo "Error in rubbuild: no -build variant given"
+  exit 1
+fi
+
+# Split variant in builddir and variant.
+# v or :v or v: is treated as variant only.
+builddir=
+p1=`echo $variant | awk -F: '{print $1}'`
+p2=`echo $variant | awk -F: '{print $2}'`
+if [ "$p1" = "" ]; then
+  echo "Error in rubbuild: no variant part given in -build $variant"
+  exit 1
+fi
+variant=$p1
+builddir=`eval echo $p2`      # make sure possible ~ is expanded
+
+# See if we have to remove /build.
+if [ "$builddir" = "" ]; then
+  builddir='.'
+else
+  atemp=`basename $builddir`
+  if [ "$atemp" = "build" ]; then
+    builddir=`dirname $builddir`
+  fi
+  if [ ! -d $builddir ]; then
+    echo "Error in rubbuild: build directory $builddir does not exist"
+    exit 1
+  fi
+fi
+
+# See what kind of build we have to do (in source tree or separate tree).
+# If $builddir is empty, it is a variant name in the source tree,
+#   meaning a build is done in $pkg/build/$variant.
+# Otherwise it is a separate tree where a build is done in
+#   $builddir/$variant/$pkg. In this case $builddir must end in build.
+
+# Check if in correct directory.
+cd $srcdir || exit 1
+srcdir=`pwd`
+curwdl=`basename $srcdir`
+if [ "$curwdl" != "LOFAR" ]; then
+  echo "Error in rubbuild: srcdir must be the LOFAR directory in the code tree"
+  exit 1
+fi
+
+if [ "$builddir" = "." ]; then
+  buildvarpr=$variant
+else
+  buildvarpr="$builddir $variant"
+fi
+
+# Do the build.
+# Note that the background job needs to write stdout to /dev/null
+# otherwise ssh will not exit before the job is ready.
+# dorubbuild writes the build output to a log file.
+if [ $bg = 1 ]; then
+  echo "Building packages on `uname -n` in $buildvarpr in the background"
+  $pgmpath/dorubbuild "$srcdir" "$builddir" "$variant" "$skipbuilt" "$kopt" "$jobsopt" "$buildmake" "$conf" "$confopt" "$clean" "$bldtest" "$check" "$checktool" "$memcheck" "$install" "$dist" "$distcheck" "$rpm" $pkgs >> /dev/null 2>&1 &
+else
+  echo "Building packages in $buildvarpr ..."
+  $pgmpath/dorubbuild "$srcdir" "$builddir" "$variant" "$skipbuilt" "$kopt" "$jobsopt" "$buildmake" "$conf" "$confopt" "$clean" "$bldtest" "$check" "$checktool" "$memcheck" "$install" "$dist" "$distcheck" "$rpm" $pkgs
+fi

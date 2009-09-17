@@ -1,0 +1,11 @@
+// \ingroup CEP
+
+// \defgroup MS MS
+// MS contains the code to deal with a Casacore MeasurementSet.
+//
+// The class VdsMaker creates a description file of a distributed MS,
+// so the BBS and imager software know where the MS parts are located.
+// Class MsDesc contains some code for the older BBS3 software.
+//
+// Class MScreate creates a (distributed) MeasurementSet. Its data
+// should be filled in by simulator software like MeqTrees or BBS.

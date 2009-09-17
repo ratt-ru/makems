@@ -1,0 +1,19 @@
+# Property file to be use with the demo program testLogger.
+
+# Configure the rootLogger
+log4cplus.rootLogger=DEBUG, STDOUT
+# Define the STDOUT appender
+log4cplus.appender.STDOUT=log4cplus::ConsoleAppender
+log4cplus.appender.STDOUT.layout=log4cplus::PatternLayout
+# Do not use conversion pattern to get macine independent output.
+log4cplus.appender.STDOUT.layout.ConversionPattern=%-5p [%x]%c{3} - %m%n
+log4cplus.appender.STDOUT.filters.1=log4cplus::spi::StringMatchFilter
+log4cplus.appender.STDOUT.filters.1.AcceptOnMatch=false
+log4cplus.appender.STDOUT.filters.1.StringToMatch=data
+
+# Define TRC at level INFO
+log4cplus.logger.TRC=INFO
+
+
+
+

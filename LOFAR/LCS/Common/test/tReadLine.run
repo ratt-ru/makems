@@ -1,0 +1,16 @@
+#! /bin/sh
+
+# Note that GNU readline writes on stdout.
+# Therefore tReadLine writes its output a file which is handled here.
+
+echo "without skip:"
+tReadLine < tReadLine.in > /dev/null
+cat tReadLine_tmp.stdout
+echo
+echo "without comment skip:"
+tReadLine "" < tReadLine.in > /dev/null
+cat tReadLine_tmp.stdout
+echo
+echo "with comment skip:"
+tReadLine "//" < tReadLine.in > /dev/null
+cat tReadLine_tmp.stdout

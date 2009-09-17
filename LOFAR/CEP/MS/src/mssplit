@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# This script splits an MS into smaller parts.
+# It also reorganizes the storage managers of some data columns such that
+# they can be read directly by the BBS software (using mapped files).
+# The user can specify which data column should be used.
+#
+# Run as:
+#    mssplit msin msout [nparts] [column]
+
+if test "$1" = ""  -o  "$1" = "-h"  -o  "$1" = "--help"; then
+    echo ""
+    echo "Run as:"
+    echo "  mssplit msin msout [datacolumn] [nparts [machinefile remdir]]"
+    echo "      datacolumn defaults to DATA"
+    echo "      nparts defaults to 1"
+    echo "      machinefile (MPI like) contains the hosts the parts to send to"
+    echo "        If not given, the parts are kept on the local disk"
+    echo "        Comments can be given using #"
+    echo "        The nr of non-comment lines must match nparts"
+    echo "      remdir is the directory on the remote machine to use"
+    echo ""
+    exit 0
+fi
+
+if [ "$2" = "" ]; then
+    echo "No output name given"
+    exit 1;
+fi
+
+col=$3
+if [ "$col" = "" ]; then
+  col="DATA"
+fi
+
+nparts=$4
+if [ "$nparts" = "" ]; then
+  nparts=1
+fi
+
+machfile=$5
+remdir=$6
+# Get machines from the machine file while removing the comments.
+if [ "$machfile" != "" ]; then
+  machs=`sed -e 's/#.*//' $machfile`
+  machs=$machs                        # remove possible newlines
+  nmachs=`echo $machs | awk '{print NF}'`
+  if test $nparts -ne $nmachs; then
+    echo "nparts ($nparts) mismatches nr of machines ($machs) in machine file $machfile"
+    exit 1;
+  fi
+fi
+
+# Create a temporary glish script to be executed.
+cat << EOFXXXXX > /tmp/$USER_mssplit_tmp.g
+  include 'mssplit.g'
+  mssplit ("$1", "$2", "$col", "$nparts", "$machs", "$remdir");
+  exit
+EOFXXXXX
+
+# Execute the script.
+glish /tmp/$USER_mssplit_tmp.g
+
+# Create the description file.
+#shell(paste('MSDesc',msout,'DATA'));
+
+# Set the protections such that the world can read the MS created.
+#chmod -R +r $2
+
+if [ "$machfile" != "" ]; then
+  scp -ar msout $USER@$MACH 
+fi

@@ -1,0 +1,257 @@
+#!/bin/sh
+#-----------------------------------------------------------------------------
+# lofarcvsmv: Move files or directories within the LOFAR CVS repository
+#-----------------------------------------------------------------------------
+#
+# Copyright (C) 2005
+# ASTRON (Netherlands Foundation for Research in Astronomy)
+# P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# $Id: lofarcvsmv 9289 2006-09-14 21:36:52Z loose $
+
+
+#-----------------------------------------------------------------------------
+# Usage: lofarcvsmv option <source> <destination>
+#-----------------------------------------------------------------------------
+# lofarcvsmv moves a files or a directories within the master
+# CVS repository. The change history is preserved with BOTH
+# the new copy and the deleted original. However, all tags are stripped from
+# the new copy. This is done so that (1) history is preserved, (2) old states
+# of the system can be retrieved using old tags, and (3) new tags do not
+# affect the deleted files.
+#
+# To make very clear what the user wants, the option must be given.
+#  -src indicates that a single source file is moved/renamed.
+#       The destination must be the full name (thus not only a directory).
+#  -multi indicates that one or more source files are moved to the
+#       destination directory.
+#  -all indicates that all source files must be moved from the source
+#       directory to the destination directory.
+#  -recursive indicates that the entire source directory tree must be moved
+#       to the destination directory. All subdirectories found in the
+#       CVS repository are moved.
+#
+# The actual move is done on the CVS server.
+# On the CVS server the authorized_keys file should contain entries
+# for all users being able to execute lofarcvsmv. The entries have to contain
+# the restricted shell script remote_lofarcvsmv.
+
+#
+# Status returns:
+#    0:  initialization succeeded
+#    1:  initialization error
+#
+#=============================================================================
+
+  # The "cvs MOVE" command will be executed on the cvs server.
+  ##REMOTE_CMD="ssh -q cvs@dop50.astron.nl cvs" ###
+  REMOTE_CMD="ssh -q cvs@cvs.astron.nl cvs"
+
+  SOURCES=
+  DESTINATION=
+  RECURSIVE=NO
+  MULTI=NO
+  SRC=NO
+  ALL=NO
+
+# Check arguments.
+  if [ "$1" = "-h" ]; then
+    echo ""
+    echo "lofarcvsmv can move source files and directories in the CVS repository"
+    echo "while keeping the CVS history of the files."
+    echo ""
+    echo "Usage: lofarcvsmv option <source-list> <destination>" 1>&2
+    echo "All file/directory names must be relative to the cvs root."
+    echo " e.g.   LOFAR/LCS/Common/src/BlobOStream.h"
+    echo ""
+    echo "lofarcvsmv has four options:"
+    echo "- Renaming a single file"
+    echo "   lofarcvsmv -src LOFAR/LCS/Common/src/Timer.h LOFAR/LCS/Common/src/NSTimer.h"
+    echo "- Moving one or more files to another directory"
+    echo "   lofarcvsmv -multi LOFAR/LCS/Common/src/Timer.h LOFAR/LCS/Common/include"
+    echo "   lofarcvsmv -multi LOFAR/LCS/Common/src/*.h LOFAR/LCS/Common/include"
+    echo "- Moving all regular files in a directory to another directory"
+    echo "   lofarcvsmv -all LOFAR/LCS/Common/src LOFAR/LCS/Common/include"
+    echo "- Moving an entire directory tree"
+    echo "   lofarcvsmv -recursive LOFAR/LCS LOFAR/NewLCS"
+    echo ""
+    echo "Note that for file name completion and wildcarding, it is usually"
+    echo "easiest if the working directory is just above the LOFAR directory".
+    exit 0
+  fi
+
+  options=
+  if [ "$1" = "-recursive" ]; then
+    RECURSIVE=YES
+    options="1$options"
+    shift
+  fi
+  if [ "$1" = "-multi" ]; then
+    MULTI=YES
+    options="1$options"
+    shift
+  fi
+  if [ "$1" = "-all" ]; then
+    ALL=YES
+    options="1$options"
+    shift
+  fi
+  if [ "$1" = "-src" ]; then
+    SRC=YES
+    options="1$options"
+    shift
+  fi
+  NR=$#
+  if [ "$options" != "1"  -o  $NR -lt 2 ]; then
+    echo "Usage: lofarcvsmv option <source-list> <destination>" 1>&2
+    echo "  One option (-src, -multi, -all, -recursive) must be given" 1>&2
+    echo "  Use  lofarcvsmv -h  for help information" 1>& 2
+    exit 1
+  fi
+
+  # Get all source names.
+  SOURCE=$1
+  while [ $# -gt 1 ]
+  do
+    SOURCES="$SOURCES $1"
+    shift
+  done
+  DESTINATION=$1
+
+  # Check arguments.
+  if [ $MULTI != YES ]; then
+    if [ $NR != 2 ]; then
+      echo "Multiple sources can only be given with option -multi" 1>&2
+      exit 1
+    fi
+    if [ "$SOURCE" = "$DESTINATION" ]; then
+      echo "Source and destination are the same" 1>&2
+      exit 1
+    fi
+  fi
+
+  # Possibly add the ssh-key in case passphrases are used.
+  # Otherwise the user needs to type the passphrase too often.
+  # See if ssh-agent is already running.
+  agpid="$SSH_AGENT_PID"
+  if [ "$agpid" != "" ]; then
+    # The pid is defined, but is it really running?
+    if ! ps | grep "$agpid" | grep ssh-agent > /dev/null 2>&1; then
+      agpid=
+    fi
+  fi
+  if [ "$agpid" != "" ]; then
+    # ssh-agent is already running.
+    # Add the key (for any of the possible id files) if not added yet.
+    for TYP in id_dsa id_rsa identity
+    do
+      if [ -f $HOME/.ssh/$TYP.pub ]; then
+        SSHID=`cat $HOME/.ssh/$TYP.pub | sed 's/ [^ ]\+@[^ ]\+$//'`
+        if ! ssh-add -L | grep "$SSHID" > /dev/null 2>&1; then
+	  echo "Adding the SSH key to ssh-agent ..."
+          ssh-add
+        fi
+        break
+      fi
+    done
+  else
+    # No agent, so start it and add key.
+    echo "Starting ssh-agent and adding the SSH key ..."
+    eval `ssh-agent -s` > /dev/null
+    trap 'ssh-agent -k > /dev/null 2>&1' 0 1 2 3 15
+    ssh-add
+  fi
+
+  # Move/rename a single source file.
+  if [ $SRC = YES ]; then
+    $REMOTE_CMD MOVE FIL $SOURCE $DESTINATION
+    exit 0
+  fi
+
+  # Move all source files in a directory.
+  if [ $ALL = YES ]; then
+    $REMOTE_CMD MOVE DIR $SOURCE $DESTINATION
+    exit 0
+  fi
+
+  # Move multiple files.
+  if [ $MULTI = YES ]; then
+    for SOURCE in $SOURCES
+    do
+      dname=`dirname $SOURCE`
+      if [ "$dname" = "$DESTINATION" ]; then
+        echo "Source directory $dname and destination are the same" 1>&2
+        exit 1
+      fi
+    done
+    # Move each file separately.
+    for SOURCE in $SOURCES
+    do
+      bname=`basename $SOURCE`
+      $REMOTE_CMD MOVE FIL $SOURCE $DESTINATION/$bname
+    done
+    exit 0
+  fi
+    
+  # Recursive.
+  # Check that the destination is not a subdirectory of the source.
+  rest=`echo $DESTINATION | sed "s%$SOURCE/%%"`
+  if [ "$rest" != "$DESTINATION" ]; then
+    echo "destination is a subdirectory of the source directory" 1>&2
+    echo -n "Do you really want this? (y,n) [n]: " 1>&2
+    read answer
+    if [ "$answer" != "y" ]; then
+      echo "exiting" 1>&2
+      exit 1
+    fi
+  fi
+  # Now find all subdirectories in the CVS repository.
+  result=`$REMOTE_CMD MOVE SHOWTREE $SOURCE dummy`
+  # Remove the parts added by ssh like '1: '.
+  result=`echo $result | sed 's%[0-9]\+: %%g'`
+  # The CVS root is given enclosed in braces.
+  cvsr=`echo $result | sed -e 's%}.*%%' -e 's%.*{%%'`
+  # Get all dirs relative to CVS root. Remove Attic directories.
+  alldirs=`echo " $result" | sed -e 's%{.*}%%' -e 's% [^ ]\+/Attic%%' -e "s%$cvsr/%%g"`
+  # Show all directories to be moved.
+  echo "The following CVS directories will be moved:" 1>&2
+  for dir in $alldirs
+  do
+    bname=`echo $dir | sed "s%$SOURCE%%"`
+    echo " $dir --> $DESTINATION$bname" 1>&2
+    if [ "$dir" = "$DESTINATION" ]; then
+      echo "Error, this source subdirectory and destination are the same" 1>&2
+      exit 1
+    fi
+  done
+  echo -n "Is this okay? (y,n) [n]: " 1>&2
+  read answer
+  if [ "$answer" != "y" ]; then
+    echo "exiting" 1>&2
+    exit 1
+  fi
+  # Now do the actual move.
+  for dir in $alldirs
+  do
+    bname=`echo $dir | sed "s%$SOURCE%%"`
+    echo
+    echo "Moving $dir to $DESTINATION$bname ..."
+    echo "Moving $dir to $DESTINATION$bname ..." 1>&2
+    $REMOTE_CMD MOVE DIR $dir $DESTINATION$bname
+  done
+
+  exit 0

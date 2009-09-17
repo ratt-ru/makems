@@ -1,0 +1,58 @@
+
+==============================================================================
+=                       TODO - List of things to do                          =
+==============================================================================
+
+* Solve the CN and ION build problems for RTCP. These problems arise because
+  CN and ION are now defined as variants, whereas they should be defined as
+  different compilers.
+  However, this only solves part of the problem. A *real* solution is to
+  define compilers in separate <compiler-suite>.compiler.conf files. That
+  way we can do per-compiler settings, instead of per-host settings, using a
+  variants file (see bug #1395).
+
+* Python package are not yet part of the CMake build.
+
+* In order for SubSystem build to succeed, it is necessary that meta-packages
+  can be used as a real target -- so that you can "make LCS" to build all LCS
+  packages -- much like the lofarconf.in file do in the Autotools environment.
+  Specifying the packages as dependencies using lofar_add_package() will
+  not work, because then these packages cannot be optional. Maybe we should
+  change the semantics of lofar_add_package() to something that is now
+  handled by lofar_add_subdirectory(); and have a new macro, e.g. 
+  set_package_dependencies(), that can be used to define the actual package
+  dependencies. 
+
+* Define ${PROJECT_NAME}_LINK_LIBRARIES in LofarAddPackage.cmake, which can
+  then be used by lofar_add_library() and lofar_add_executable() in
+  LofarMacros.cmake. This avoids the need to create a "dummy" project library,
+  solely to resolve all library dependencies on other packages when linking
+  executables. 
+
+* Define ${PROJECT_NAME}_INCLUDE_PATH_SUFFIX in LofarAddPackage.cmake.
+  The user can then override the default value. There will be no need for
+  caching anymore (as far as I can see).
+
+* Create a symlink to each header file, instead of each directory containing 
+  header files. 
+  Advantages: 
+  - you must explicitly mention each header file that is part of the
+    package's interface.
+  - Generated files (like the MAC protocol files) can be put in the 
+    $bindir/include directory instead of $bindir/include/MAC directory.
+  Disadvantages: 
+  - a lot of symlinks.
+  This could all be done using a macro like lofar_add_headers(). This macro
+  would then create the directory 
+  ${CMAKE_BINARY_DIR}/include/${${PROJECT_NAME}_INCLUDE_PATH_SUFFIX}, when the 
+  first symlink is created. Another options is to let LofarAddPackage handle
+  this, but then a non-default include path suffix should be set before
+  lofar_add_package() is called.
+
+* SSE flags are not yet passed properly to either GNU or ICC compiler.
+  Maybe this should just be done in the variants file when defining the
+  different compiler suites and options.
+
+* Turn makeversion into a real CMake macro and merge it with
+  LofarPackageVersion. Generate the Package__Version.{h,cc} files in the
+  binary directory, instead of the source directory.

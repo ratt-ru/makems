@@ -1,0 +1,12 @@
+# Property file to be use with the demo program testLogger.
+
+# Configure the rootLogger
+log4cplus.rootLogger=DEBUG, STDOUT
+# Define the STDOUT appender
+log4cplus.appender.STDOUT=log4cplus::ConsoleAppender
+log4cplus.appender.STDOUT.layout=log4cplus::PatternLayout
+log4cplus.appender.STDOUT.layout.ConversionPattern=>>> %-5p %c{3} - %m%n<<<%n
+
+# Define foo at level TRACE4
+#log4cplus.logger.TRC.foo=TRACE4
+

@@ -1,0 +1,12 @@
+# Specific options
+option(USE_BACKTRACE     "No backtrace" OFF)
+option(USE_LOG4CPLUS     "log4cxx is used" OFF)
+#option(USE_LOG4CXX     "log4cxx is used" ON)
+option(USE_SHMEM         "No shmem"     OFF)
+
+# Where to find packages
+set(CASACORE_PREFIX_PATH /Users/diepen)
+#set(WCSLIB_PREFIX_PATH /Users/diepen/askapsoft/3rdparty/wcslib/tags/wcslib-4.2/install)
+set(LAPACK_PREFIX_PATH /Users/diepen/askapsoft/3rdparty/lapack/tags/lapack-3.1.1/install)
+set(BLAS_PREFIX_PATH /Users/diepen/askapsoft/3rdparty/blas/tags/blas-2007.02.28/install)
+

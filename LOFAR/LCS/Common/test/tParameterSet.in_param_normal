@@ -1,0 +1,11 @@
+# comment line
+a.b=7
+# the next two lines overlap with the KVs in test.ps
+a.b.lange_naam = "dit is nu een andere naam geworden met extra spaties "
+                 "aan het einde  "   #and shows quoted continuation
+a.b.c=5
+a.b.double= 3.1415926	# we may put comment here
+
+e.g=een voorbeeld
+egg=een ei
+emptyvec=[]

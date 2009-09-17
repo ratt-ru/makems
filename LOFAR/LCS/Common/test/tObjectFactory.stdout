@@ -1,0 +1,14 @@
+
+** Shapes **
+Registered classes: [Circle,Ellipse,Rectangle,Square]
+Rectangle
+Square
+Ellipse
+Circle
+
+** Coordinates **
+Registered classes: [Cartesian,Cylindrical,Spherical]
+Cartesian: (x, y, z) = (2.4, 3.6, 4.8)
+Cylindrical: (r, theta, z) = (0.6, 1.2, 2.4)
+Spherical: (r, theta, phi) = (0.3, 0.15, 9.6)
+

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+../src/combinevds tcombinevds_tmp.vdsout tcombinevds.in_vds1 tcombinevds.in_vds2
+# Keywords Name have absolute paths in their values, so remove them if needed.
+if test "$1" = 1; then
+  cat tcombinevds_tmp.vdsout
+else
+  grep -v 'Part[0-9]*\..*Name *=' tcombinevds_tmp.vdsout
+fi

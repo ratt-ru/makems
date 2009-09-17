@@ -1,0 +1,1 @@
+/usr/bin/g++   -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas -pthread -g -O2   CMakeFiles/getparsetvalue.dir/getparsetvalue.cc.o  -o getparsetvalue -rdynamic libcommon.a -lpthread -Wl,-rpath,:::::::::::::::::::::::::::::::::::::::::::: 

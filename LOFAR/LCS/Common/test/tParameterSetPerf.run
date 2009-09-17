@@ -1,0 +1,16 @@
+#! /bin/sh
+
+# Create a temporary (large) parset file.
+rm -f tParameterSetPerf_tmp.parset
+for A in a0 a1 a2 a3 a4 a5 a6 a7 a8 a9
+do
+  for B in b0 b1 b2 b3 b4 b5 b6 b7 b8 b9
+  do
+    for C in c0 c1 c2 c3 c4 c5 c6 c7 c8 c9
+    do
+      echo "$A.$B.$C = [1,2,3,4,5,6,7,8,9]" >> tParameterSetPerf_tmp.parset
+    done
+  done
+done
+
+./tParameterSetPerf

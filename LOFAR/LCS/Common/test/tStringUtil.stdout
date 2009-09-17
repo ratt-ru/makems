@@ -1,0 +1,137 @@
+Splitting string ",aa,bb,,dd," using ',' as seperator ...
+vs[0] = ""
+vs[1] = "aa"
+vs[2] = "bb"
+vs[3] = ""
+vs[4] = "dd"
+vs[5] = ""
+
+=== Strings sorted NORMAL ===
+Alfons
+Bertus
+Chris
+aap
+bakker
+chocolade
+
+=== Strings sorted NOCASE ===
+aap
+Alfons
+bakker
+Bertus
+chocolade
+Chris
+
+Trimmed C++ strings:
+>a String with leading and trailing whitespace<
+>a String without leading and trailing whitespace<
+>String with(out) itemnr and arrayindex<
+Trimmed C strings:
+>a String with leading and trailing whitespace< , len=45
+>a String without leading and trailing whitespace< , len=48
+>String with(out) itemnr and arrayindex< , len=38
+Lowercase and uppercase a string:
+orginal: The zip code of Hondelage in Germany is 38108
+lowered: the zip code of hondelage in germany is 38108
+uppered: THE ZIP CODE OF HONDELAGE IN GERMANY IS 38108
+
+*** Conversion of fundamental arithmetic types to string ***
+min(bool) = false	 max(bool) = true
+min(char) = 0	 max(char) = 127
+min(signed char) = -128	 max(signed char) = 127
+min(unsigned char) = 0	 max(unsigned char) = 255
+min(short) = -32768	 max(short) = 32767
+min(unsigned short) = 0	 max(unsigned short) = 65535
+min(int) = -32768	 max(int) = 32767
+min(unsigned int) = 0	 max(unsigned int) = 65536
+min(long) = -2147483648	 max(long) = 2147483647
+min(unsigned long) = 0	 max(unsigned long) = 4294967295
+min(long long) = -9223372036854775808	 max(long long) = 9223372036854775807
+min(unsigned long long) = 0	 max(unsigned long long) = 18446744073709551615
+min(float) = 1.17549e-38	 max(float) = 3.40282e+38
+min(double) = 2.22507e-308	 max(double) = 1.79769e+308
+
+toString(int(42),"%06i") = 000042
+toString(float(M_E),"%e") = 2.718282e+00
+toString(float(M_PI),"%8.4f") =   3.1416
+toString(double(M_E),"%+08.12g") = +2.71828182846
+toString(double(M_PI*1e12),"%+08.12g") = +3.14159265359e+12
+
+*** Testing compacting of Array-strings ***
+[ a,b,c ] ==> [ a,b,c ]
+[ aa01,aa06 ] ==> [aa01,aa06]
+[ aa01,aa02 ] ==> [aa01,aa02]
+[ aa01,aa02,aa03 ] ==> [aa01..aa03]
+[ aa01,aa02,aa03,aa04 ] ==> [aa01..aa04]
+[ aa01,aa02,aa03,aa05 ] ==> [aa01..aa03,aa05]
+[ aa01, aa02 ,aa03,aa05,aa06 ] ==> [aa01..aa03,aa05,aa06]
+[ aa01, bb02 ,aa03,aa05,aa06 ] ==> [ aa01, bb02 ,aa03,aa05,aa06 ]
+[ aa01, aa02 ,aa0003,aa05,aa06 ] ==> [aa01..aa03,aa05,aa06]
+[ aa01,aa02,aa03,aa05,aa06,aa7 ] ==> [aa01..aa03,aa05..aa07]
+[ aa01,aa02,aa03,aa05,a06,aa7 ] ==> [ aa01,aa02,aa03,aa05,a06,aa7 ]
+[ aa01,aa02,aa03,aa05,aaa06,aa7 ] ==> [ aa01,aa02,aa03,aa05,aaa06,aa7 ]
+[22,23,24,25,30,31,33,35] ==> [22..25,30,31,33,35]
+[22,23,24,25,30,31,33,35,36] ==> [22..25,30,31,33,35,36]
+[22,23,24,25,30,31,33,35,36,37] ==> [22..25,30,31,33,35..37]
+[22,23,24,25,30,31,33,35,36,37,37] ==> [22..25,30,31,33,35..37,37]
+[22,23,24,25,30,31,33,35,36,37,40] ==> [22..25,30,31,33,35..37,40]
+[22,23,23,25,30,31,30] ==> [22,23,23,25,30,31,30]
+[22,23,23,25,30,31,30,31] ==> [22,23,23,25,30,31,30,31]
+[22,23,23,25,30,31,30,31,31] ==> [22,23,23,25,30,31,30,31,31]
+[22,23,23,23,23,23,25,30,31,30,31,31] ==> [22,23,23,23,23,23,25,30,31,30,31,31]
+[23..28] ==> [23..28]
+[22,23..28] ==> [22..28]
+[22,23..28,29] ==> [22..29]
+[21,23..28,29] ==> [21,23..29]
+[21,23..28,30] ==> [21,23..28,30]
+[23..28,30..32] ==> [23..28,30..32]
+[23..28,29..32] ==> [23..32]
+[23..28,29,30..32] ==> [23..32]
+[23..26,29,30..32] ==> [23..26,29..32]
+[23..26,27,30..32] ==> [23..27,30..32]
+
+*** Testing expanding of Array-strings ***
+[3*ab] ==> [ab,ab,ab]
+[3*(ab)] ==> [ab,ab,ab]
+[3*'ab'] ==> ['ab','ab','ab']
+[3*('ab')] ==> ['ab','ab','ab']
+[3*10.5] ==> [10.5,10.5,10.5]
+[3*(10.5)] ==> [10.5,10.5,10.5]
+[lifs0..lifs10] ==> [lifs0,lifs1,lifs2,lifs3,lifs4,lifs5,lifs6,lifs7,lifs8,lifs9,lifs10]
+[lifs00..lifs010] ==> [lifs00,lifs01,lifs02,lifs03,lifs04,lifs05,lifs06,lifs07,lifs08,lifs09,lifs10]
+[lifs000..lifs010] ==> [lifs000,lifs001,lifs002,lifs003,lifs004,lifs005,lifs006,lifs007,lifs008,lifs009,lifs010]
+[2*lifs000..lifs010] ==> [lifs000,lifs001,lifs002,lifs003,lifs004,lifs005,lifs006,lifs007,lifs008,lifs009,lifs010,lifs000,lifs001,lifs002,lifs003,lifs004,lifs005,lifs006,lifs007,lifs008,lifs009,lifs010]
+[2*(lifs000..lifs010)] ==> [lifs000,lifs001,lifs002,lifs003,lifs004,lifs005,lifs006,lifs007,lifs008,lifs009,lifs010,lifs000,lifs001,lifs002,lifs003,lifs004,lifs005,lifs006,lifs007,lifs008,lifs009,lifs010]
+[2*([1,2])] ==> [[1,2],[1,2]]
+  Some more involved expansions
+[abc] ==> [abc]
+[abc0..abc9] ==> [abc0,abc1,abc2,abc3,abc4,abc5,abc6,abc7,abc8,abc9]
+['abc0..abc9'] ==> ['abc0..abc9']
+[abc000..abc9] ==> [abc000,abc001,abc002,abc003,abc004,abc005,abc006,abc007,abc008,abc009]
+[abc000..abc9def] ==> [abc000def,abc001def,abc002def,abc003def,abc004def,abc005def,abc006def,abc007def,abc008def,abc009def]
+[abc{000..9}def] ==> [abc000def,abc001def,abc002def,abc003def,abc004def,abc005def,abc006def,abc007def,abc008def,abc009def]
+[abc${NAME}def] ==> [abc${NAME}def]
+[(abc0009  ..  abc4, 010..8)] ==> [(abc0009,abc0008,abc0007,abc0006,abc0005,abc0004, 010,009,008)]
+[/abc/../cd0..3] ==> [/abc/../cd0,/abc/../cd1,/abc/../cd2,/abc/../cd3]
+[3*abc] ==> [abc,abc,abc]
+[3 * [[1,2,3],[4,5,6]], 02*'xx'] ==> [[[1,2,3],[4,5,6]],[[1,2,3],[4,5,6]],[[1,2,3],[4,5,6]], 'xx','xx']
+[3 * [[5*1],[5*2]], 02*'xx'] ==> [[[1,1,1,1,1],[2,2,2,2,2]],[[1,1,1,1,1],[2,2,2,2,2]],[[1,1,1,1,1],[2,2,2,2,2]], 'xx','xx']
+[2*(0,1,2,3), 2*(5;6;7), 2*10..12] ==> [0,1,2,3,0,1,2,3, 5,6,7,5,6,7, 10,11,12,10,11,12]
+ [ 3 * 2 * 10 .. 12 ]  ==>  [ 10,11,12 ,10,11,12 ,10,11,12 ,10,11,12 ,10,11,12 ,10,11,12 ] 
+ [3*(2*3*6;2*(12,13))] ==>  [6,6,6,6,6,6,12,13,12,13,6,6,6,6,6,6,12,13,12,13,6,6,6,6,6,6,12,13,12,13]
+  Miscellaneous tests with expandArrayString
+ [3*'10.5*ab'] ==>  ['10.5*ab','10.5*ab','10.5*ab']
+ [10.5*'ab'] ==>  [10.5*'ab']
+ [3*10.5*'ab'] ==>  [10.5*'ab',10.5*'ab',10.5*'ab']
+ [3*'ab'*2] ==>  ['ab'*2,'ab'*2,'ab'*2]
+ [3*ab*2] ==>  [ab*2,ab*2,ab*2]
+ [3*3*2] ==>  [2,2,2,2,2,2,2,2,2]
+ [3*(3*2)] ==>  [2,2,2,2,2,2,2,2,2]
+ [3*10.5*2] ==>  [10.5*2,10.5*2,10.5*2]
+ [3*(10.5*2)] ==>  [10.5*2,10.5*2,10.5*2]
+ [(1,2,3)] ==>  [(1,2,3)]
+  Performance test of expandArrayString
+>>>
+timer: avg = 46163, total = 46163 cycles, count =         1
+<<<
+[abc001,abc002,abc003,abc004,abc005,abc006,abc007,abc008,abc009,abc010,abc45,abc46,abc47,abc48,abc49,abc50]

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Skip the test until problem with gcc-4 in opt mode is resolved.
+exit 3

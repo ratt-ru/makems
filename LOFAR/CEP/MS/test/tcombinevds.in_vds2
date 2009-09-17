@@ -1,0 +1,15 @@
+Name       = /Users/diepen/LOFAR.MS2
+FileSys    = /Users/diepen
+ClusterDesc= /Users/diepen/cdesc.data
+StartTime  = 2007/07/27/16:04:49
+EndTime    = 2007/07/28/16:04:48
+StepTime   = 30.199
+NChan      = [1,4]
+StartFreqs = [100,110,120,130,140]
+EndFreqs   = [110,120,130,140,150]
+Extra.CorrNames=[XX,XY,YX,YY]
+Extra.DataCubeShape=[4,1,389096]
+Extra.DataFileIsRegular=1
+Extra.DataFileName=/Users/diepen/LOFAR.MS/table.f2_TSM1
+Extra.DataTileShape=[4,1,4096]
+Extra.Stationnames=[CS010_dipole0,CS010_dipole4,CS010_dipole8,CS010_dipole12,CS001_dipole0,CS001_dipole4,CS001_dipole8,CS001_dipole12,CS008_dipole0,CS008_dipole4,CS008_dipole8,CS008_dipole12,CS016_dipole0,CS016_dipole4,CS016_dipole8,CS016_dipole12]

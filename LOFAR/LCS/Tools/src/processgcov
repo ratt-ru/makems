@@ -1,0 +1,267 @@
+#! /usr/bin/env python
+#
+# processgcov: Process the output of testcov
+#
+# Copyright (C) 2009
+# ASTRON (Netherlands Foundation for Research in Astronomy)
+# P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# $Id$
+
+
+# import all packages we need
+import os
+import sys
+import getopt
+import re
+import subprocess
+
+
+def getQuotedName (line):
+    """Get the name enclosed in single quotes."""
+    st = line.find ("'")
+    if st < 0:
+        return line
+    end = line.rfind ("'")
+    return line[st+1:end]
+
+def getLineInfo (line):
+    """Get percentage and number of lines as a tuple."""
+    if line[0:19] == "No executable lines":
+        return (0., 0)
+    perc = 0.
+    nlines = 0
+    st = line.find(":")
+    end = line.find("%")
+    if st >= 0  and  end > st:
+        perc = float(line[st+1:end])
+    st = line.find(" of ")
+    if st >= 0:
+        nlines = int(line[st+4:])
+    return (perc,nlines)
+
+def writeHeaders(file, title, code=True):
+    """Write the headers of an HTML file."""
+    file.write ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"\n')
+    file.write ('       "http://www.w3.org/TR/html4/strict.dtd">\n')
+    file.write ('<HTML>\n')
+    file.write ('  <HEAD>\n')
+    file.write ('    <TITLE>%s</TITLE>\n' % title)
+    file.write ('  </HEAD>\n')
+    file.write ('  <BODY>\n')
+    file.write ('  <H2>%s</H2>\n' % title)
+    if code:
+        file.write ('  <CODE>\n')
+
+def writeFooters(file, code=True):
+    """Write the footers of an HTML file."""
+    if code:
+        file.write ('  </CODE>\n')
+    file.write ('  </BODY>\n')
+    file.write ('</HTML>\n')
+
+def writeGcov(name):
+    """Convert a .gcov file to HTML format."""
+    file = open(name+'.gcov')
+    outFile = open(name+'.gcov.html', 'w')
+    writeHeaders (outFile, '<A HREF="'+name+'.html">'+name+'</A>')
+    outFile.write ('<PRE>\n')
+    # Regexes for special character substitution.
+    reamp = re.compile('&')
+    relt = re.compile('<')
+    regt = re.compile('>')
+    state = 0    # no ##### seen
+    while True:
+        line = file.readline()
+        leng = len(line)
+        if leng == 0:
+            break
+        # Remove leading blanks and trailing \n; substitute special html chars
+        line = line[4:-1]
+        line = reamp.sub ('&amp;', line)   # must be done first
+        line = relt.sub ('&lt;', line)
+        line = regt.sub ('&gt;', line)
+        if line[:5] == '#####':
+            state = 1
+            outFile.write ('<FONT color=red>'+line+'</FONT>\n')
+        else:
+            state = 0
+            outFile.write (line+'\n')
+    outFile.write ('</PRE>\n')
+    writeFooters (outFile)
+    outFile.close()
+    file.close()
+
+def writeFile (sumFile, fileName, fperc, fnlines, funcList, subs):
+    """Process a File line with associated functions."""
+    # Open the output file.
+    outFile = open (fileName+'.html', 'w')
+    writeHeaders (outFile, '<A HREF="'+fileName+'.gcov.html">'+fileName+'</A> functions')
+    outFile.write ('<PRE>\n')
+    outFile.write ('%6.2f%% of%5d  %s\n' % (fperc, fnlines, fileName))
+    outFile.write ('\n')
+    # Now write all the function info.
+    for finfo in funcList:
+        perc   = finfo[1]
+        nlines = finfo[2]
+        # Try to demangle the function name.
+        cfilt = os.popen("c++filt " + finfo[0])
+        funcName = cfilt.readline()[:-1]        # remove trailing \n
+        cfilt.close()
+        # Substitute some standard class names
+        for subre in subs:
+            funcName = subre[0].sub (subre[1], funcName)
+        outFile.write ("  %6.2f%% of%5d  %s\n" % (perc, nlines, funcName))
+    outFile.write ('</PRE>\n')
+    writeFooters (outFile)
+    outFile.close()
+    sumFile.write ('<tr><td>%6.2f%%</td>\n' % (fperc))
+    sumFile.write ('<td>%d</td>\n' % fnlines)
+    sumFile.write ('<td><A HREF="%s.html">%s</A></td>\n' % (fileName,fileName))
+    sumFile.write ('<td><A HREF="%s.gcov.html">%s.gcov</A></td></tr>\n' % (fileName,fileName)) 
+
+def processFile (line, line2, pkgDir, fileMap):
+    """Process a File line."""
+    # Get the file name which is enclosed in quotes.
+    fileName = getQuotedName (line);
+    # Only process the file if in the current directory and not processed.
+    if fileName[0:len(pkgDir)] != pkgDir:
+        return (0, 0)
+    # Get the lines info.
+    fperc,fnlines = getLineInfo (line2)
+    # Ignore if already processed.
+    proc = False
+    fileName = os.path.basename(fileName)
+    if fileName in fileMap:
+        if fileMap[fileName][0] == 0:
+            proc = True
+            fileMap[fileName][0] = 1
+            fileMap[fileName][2] = fperc
+            fileMap[fileName][3] = fnlines
+    else:
+        proc = True
+        fileMap[fileName] = [1, [], fperc, fnlines]
+    if proc:
+        writeGcov (fileName)
+        return (int(fperc*fnlines/100 + 0.5), fnlines)
+    return (0, 0)
+
+def processFunc (line, line2, funcMap, fileMap):
+    """Process a Function line."""
+    # Get the function name which is enclosed in quotes.
+    # Only process it if in the funcMap
+    funcName = getQuotedName (line);
+    fileName = None
+    # The nm output often contains an extra leading underscore.
+    if funcName in funcMap:
+        fileName = funcMap[funcName]
+    elif "_"+funcName in funcMap:
+        fileName = funcMap["_"+funcName]
+    if not fileName == None:
+        # Get the lines info.
+        perc,nlines = getLineInfo (line2)
+        # Put it in fileMap with percentage and nlines
+        if fileName not in fileMap:
+            fileMap[fileName] = [0, [], 0, 0]
+        fileMap[fileName][1].append ((funcName, perc, nlines))
+
+def substpatterns():
+    """Define the function name substitution patterns."""
+    subs = []
+    subs.append ((re.compile('std::basic_string<char, std::char_traits<char>, std::allocator<char> >'), 'std::string'))
+    subs.append ((re.compile('std::basic_ostream<char, std::char_traits<char> >'), 'std::ostream'))
+    subs.append ((re.compile('std::basic_istream<char, std::char_traits<char> >'), 'std::istream'))
+    subs.append ((re.compile(', std::allocator<[^>]*> '), ''))
+    return subs
+
+def readNm (nmName):
+    """Read the output of nm and put in a dict."""
+    funcMap = {}
+    file = open(nmName)
+    while True:
+        line = file.readline()
+        leng = len(line)
+        if leng == 0:
+            break
+        t = line.find(' ')
+        if t > 0:
+            # Add mapping of function name to file name
+            funcMap[line[t+1:-1]] = line[:t]
+    file.close()
+    return funcMap
+
+def process(fileName, pkgDir, nmName):
+    """Process the gcov output."""
+    funcMap = readNm (nmName)
+    fileMap = {}
+    subs = substpatterns()
+    file = open(fileName)
+    tnlines = 0
+    tnexec  = 0
+    leng = 1
+    while leng > 0:
+        # readline gives an empty string on EOF; otherwise it has at least \n.
+        line = file.readline()
+        leng = len(line)
+        if leng > 1:
+            if line[0:6] == "File '":
+                # Next line contains nr of lines executed.
+                # Process the file (if in this package).
+                e,n = processFile (line, file.readline(), pkgDir, fileMap)
+                tnlines += n
+                tnexec  += e
+                # Ignore next line containing message that gcov file is created.
+                file.readline()
+            elif line[0:10] == "Function '":
+                # Next line contains nr of lines executed.
+                processFunc (line, file.readline(), funcMap, fileMap)
+            else:
+                # Unknown line type, probably about missing gcda file.
+                print line[:-1]
+    file.close()
+    # Process all info.
+    sumFile = open ('gcov.html', 'w')
+    writeHeaders (sumFile, "gcov results of "+pkgDir)
+    tperc = tnexec*100./tnlines
+    sumFile.write ('Total %6.2f%% executed of %d lines\n' % (tperc, tnlines))
+    sumFile.write ('<p>\n')
+    sumFile.write ('<table border="0">\n')
+    sumFile.write ('<thead align=left>\n')
+    sumFile.write ('<tr><th>%exec</th>\n')
+    sumFile.write ('<th>#lines</th>\n')
+    sumFile.write ('<th>summary</th>\n')
+    sumFile.write ('<th>source code</td></th>\n')
+    sumFile.write ('</thead>\n')
+    sumFile.write ('<tbody align=left>\n')
+    filenms = fileMap.keys()
+    filenms.sort()
+    for fnm in filenms:
+        val = fileMap[fnm]
+        writeFile (sumFile, fnm, val[2], val[3], val[1], subs)
+    sumFile.write ('</tbody>\n')
+    sumFile.write ('</table>\n')
+    sumFile.write ('</p>\n')
+    writeFooters (sumFile)
+    sumFile.close()
+    print 'Total %6.2f%% executed of %d lines' % (tperc, tnlines)
+
+#
+# this is the main entry
+#
+if __name__ == "__main__":
+  process(sys.argv[1], sys.argv[2], sys.argv[3])
+

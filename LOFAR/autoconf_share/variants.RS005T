@@ -1,0 +1,15 @@
+
+gnu.compiler.conf: CXX="$CCACHE /usr/bin/g++34"
+gnu.compiler.aipspp.var: --with-casacore=/usr/local/casacore 
+
+gnum32.compiler.conf: CXX="/usr/bin/g++34 -m32" CC="/usr/bin/gcc34 -m32" --disable-lib64
+gnum32.compiler.aipspp.var: --with-casacore=/usr/local/casacore --with-wcs=/usr/local/wcs
+
+gnunew.compiler.conf: CXX="$CCACHE /usr/bin/g++" 
+gnunew.compiler.aipspp.var: --with-casacore=/usr/local/casacore 
+gnunew.compiler.sse.var:    --with-sse
+
+gnunewm32.compiler.conf: CXX="/usr/bin/g++ -m32" CC="/usr/bin/gcc -m32" --disable-lib64
+gnunewm32.compiler.aipspp.var: --with-casacore=/usr/local/casacore 
+gnunewm32.compiler.sse.var:    --with-sse
+

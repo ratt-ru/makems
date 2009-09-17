@@ -1,0 +1,2 @@
+#!/bin/sh
+$lofar_sharedir/runtest.sh %TEST% 2>&1 > %TEST%.log

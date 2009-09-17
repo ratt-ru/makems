@@ -1,0 +1,316 @@
+#!/bin/sh
+
+# makeversion: create the version.cc file of a package
+#
+#  Copyright (C) 2007-2009
+#  ASTRON (Netherlands Foundation for Research in Astronomy)
+#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#  $Id$
+
+# This script creates files <package>Version.h and .cc containing a class
+# to return the version and revision of the package.
+# The .cc file includes a file which is created by LofarPackageVersion.cmake
+# It also creates an file version<package>.cc which is an executable program
+# to print the version.
+# Optionally the CMakeLists.txt files are changed to build the code.
+# Note: Each package's CMakeLists.txt file must contain a line
+#     lofar_add_package(<package> [version] [DEPENDS <depend> [depend]])
+#   for this to work.
+
+# The class name used is <package>Version, for eaxmple CommonVersion.
+# makeversion retrieves the package name from the basename of the current
+# directory which works fine for the normal cases. However, MAC uses some
+# special directory structure like GCF/TM/include/GCF/TM. It also detects
+# this and sets in this example the package name to GCFTM (removes the /).
+# The package name given in lofar_add_package() has to match the package
+# name found here, thus must be GCFTM in this example.
+
+# Trap handler
+trap 'rm -f version.*.tmp; \
+      trap - 0; \
+      exit' 0 1 2 3 15
+
+# Get the package name.
+fpkg=`pwd`
+pkg=`basename $fpkg`
+
+# No version info is needed (in fact, not possible) for Tools and pytools.
+if [ "$pkg" = Tools  -o  "$pkg" = pytools ]; then
+  exit 0
+fi
+
+# If present, use the package name from the CMakeLists.txt file.
+# It looks like: project (GCFProtocols ...)
+tpkg=`sed -n 's,^[ \t]*[pP][rR][oO][jJ][eE][cC][tT][ \t]*([ \t]*\([^ \t)]*\).*$,\1,p' CMakeLists.txt`
+if test "$tpkg" != ""; then
+  pkg=$tpkg
+fi
+
+# If the include directory exists, find the include path from the package's
+# CMakeLists.txt. Otherwise header files are in src and <package> is the
+# include path.
+incdir=`sed -n 's,^[ \t]*[aA][dD][dD]_[sS][uU][bB][dD][iI][rR][eE][cC][tT][oO][rR][yY][ \t]*([ \t]*\(include/[^)]*\).*$,\1,p' CMakeLists.txt`
+incpath="${incdir##include/}"
+if test "$incdir" = ""; then
+  incdir=src
+  incpath=$pkg
+fi
+
+# Check if source and include directory exist. If not, then it is probably not
+# a package directory.
+if ! [ -d src -a -d $incdir ]; then
+  echo "makeversion: no source or include directory found: "
+  echo "  is this a package directory?"
+  exit 1
+fi
+
+# Get version and revision (if possible) from repository.
+# Both the global revision and local one (i.e. last changed for this version).
+cvers=Unknown
+rvers=Unknown
+grev=Unknown
+lrev=Unknown
+nrch=0
+svn info > version.svn.tmp 2>&1
+hassvn=$?
+if [ $hassvn = 0 ]; then
+  # Get version.
+  # It should look like trunk/package or tags/package-version/package
+  rvers1=`fgrep 'URL: ' version.svn.tmp | sed -e 's%.*/LOFAR/%%'`
+  rvers=`echo $rvers1 | sed -e 's%/.*%%'`
+  if test "$rvers" = "tags"  -o  "$rvers" = "branches"; then
+    # We have a task branch (for a bug) or a release branch.
+    # Remove all but version and replace _ in version by .
+    rvers1=`echo $rvers1 | sed -e 's%^[^/]*/%%' -e 's%/.*%%'`
+    rvers=`echo $rvers1 | sed -e 's%-Bug[0-9]%%'`
+    if test "$rvers" = "$rvers1"; then
+      # No task branch, thus normal version number after the -.
+      rvers=`echo $rvers1 | sed -e 's%-release-.*%%' -e 's%.*-%%' -e 's%_%.%g'`
+    else
+      # Task branch, so extract from 'Bug' on.
+      rvers=`echo $rvers1 | sed -e 's%-task-.*%%' -e 's%.*-Bug%Bug%'`
+    fi
+  fi
+  # Get revision.
+  grev=`fgrep 'Revision: ' version.svn.tmp | sed -e 's/.*: *//'`
+  lrev=`fgrep 'Last Changed Rev: ' version.svn.tmp | sed -e 's/.*: *//'`
+  # Check if there are locally modified files (excluding CMakeLists.txt)
+  svn status | egrep '^M ' | fgrep -v CMakeLists.txt > version.svn.tmp 2>&1
+  if [ $? ]; then
+    nrch=`wc -l version.svn.tmp | sed -e 's/^ *//' | sed -e 's/ .*//'`
+  fi
+fi
+# Get the version from the CMakeLists.txt. We'll assume (for the time being)
+# that the project's CMakeLists.txt file contains a line like
+# "lofad_add_package(<name> [version] [DEPENDS <depend> [depend]])
+cvers1=`sed -n 's,^[ \t]*[lL][oO][fF][aA][rR]_[aA][dD][dD]_[pP][aA][cC][kK][aA][gG][eE][ \t]*([ \t]*[^ \t]*[ \t][ \t]*\([0-9.][0-9.]*\).*$,\1,p' CMakeLists.txt`
+#cvers1=`sed -n 's,^[ \t]*set[ \t]*([ \t]*package_version[ \t]\+\([0-9.]\+\).*$,\1,ip' CMakeLists.txt`
+if [ "$cvers1" != "" ]; then
+  cvers=$cvers1
+fi
+
+# Get package name in lower and uppercase
+lpkg=`echo $pkg | tr A-Z a-z`
+upkg=`echo $pkg | tr a-z A-Z`
+
+# Create temporary version.h/cc
+cat > version.h.tmp <<EOF
+//# Get revision info; generated by CMake/makeversion
+
+#ifndef LOFAR_${upkg}_PACKAGE__VERSION_H
+#define LOFAR_${upkg}_PACKAGE__VERSION_H
+
+#include <Common/Version.h>
+
+// Class to get the version (revision) of the package and the packages it uses.
+namespace LOFAR {
+  class ${pkg}Version
+  {
+  public:
+    // Get the info for this package.
+    static Version getInfo();
+
+    // Get the version number of the package (as given in repository).
+    static std::string getVersion();
+    // Get the svn version number of the package according to CMakeLists.txt.
+    static std::string getConfVersion();
+    // Get the global revision number of the package.
+    static std::string getRevision();
+    // Get the local revision number of the package.
+    static std::string getPackageRevision();
+    // Get the number of files differing from repository.
+    // Usually this is blank, but it can tell the nr of changed files.
+    static std::string getNrChangedFiles();
+    // Get the date/time the package was built (in fact, configured).
+    static std::string getBuildTime();
+    // Get the name of the user who built the package.
+    static std::string getBuildUser();
+    // Get the machine the package was built on.
+    static std::string getBuildMachine();
+
+    // Append the vector with the vinfo of this package and used packages.
+    static void fillInfo (int level,
+			  std::vector<Version::PkgInfo>& vec);
+  };
+}
+
+#endif
+EOF
+
+cat > version.cc.tmp <<EOF
+//# Get revision info; generated by CMake/makeversion
+
+//## pkg=$pkg
+//## incpath=$incpath
+//## incdir=$incdir
+
+#include <${incpath}/Package__Version.h>
+#include <Common/Version.h>
+#include "FillPackage__VersionInc.h"
+
+namespace LOFAR {
+  Version ${pkg}Version::getInfo()
+  {
+    return Version ("${pkg}",
+		    getVersion(), getConfVersion(),
+		    getRevision(), getPackageRevision(),
+		    getNrChangedFiles(),
+		    getBuildTime(), getBuildUser(), getBuildMachine());
+  }
+
+  std::string ${pkg}Version::getVersion()
+    { return "$rvers"; }
+  std::string ${pkg}Version::getConfVersion()
+    { return "$cvers"; }
+  std::string ${pkg}Version::getRevision()
+    { return "$grev"; }
+  std::string ${pkg}Version::getPackageRevision()
+    { return "$lrev"; }
+  std::string ${pkg}Version::getNrChangedFiles()
+    { return "$nrch"; }
+}
+
+//# FillPackage__VersionFunc.h is generated in the build area by
+//# LofarPackageVersion.cmake. It contains function fillInfo.
+#include "FillPackage__VersionFunc.h"
+EOF
+
+cat > version.mcc.tmp <<EOF
+//# Print revision info; generated by CMake/makeversion
+
+#include <${incpath}/Package__Version.h>
+#include <Common/Version.h>
+#include <iostream>
+
+using namespace LOFAR;
+
+int main (int argc, const char* argv[])
+{
+  std::string type = "brief";
+  if (argc > 1) {
+    type = argv[1];
+  }
+  Version::show<${pkg}Version> (std::cout, "${pkg}", type);
+  return 0;
+}
+EOF
+
+# Do not copy if existing version is the same,
+# so code is not rebuilt needlessly.
+if [ ! -e $incdir/Package__Version.h ]; then
+  cp version.h.tmp $incdir/Package__Version.h
+  echo "makeversion created $incdir/Package__Version.h"
+elif [ $hassvn = 0 ]; then
+  diff version.h.tmp $incdir/Package__Version.h > /dev/null 2>&1
+  if [ $? != 0 ]; then
+    cp version.h.tmp $incdir/Package__Version.h
+    echo "makeversion replaced $incdir/Package__Version.h"
+  fi
+fi
+
+if [ ! -e src/Package__Version.cc ]; then
+  cp version.cc.tmp src/Package__Version.cc
+  echo "makeversion created src/Package__Version.cc"
+elif [ $hassvn = 0 ]; then
+  diff version.cc.tmp src/Package__Version.cc > /dev/null 2>&1
+  if [ $? != 0 ]; then
+    cp version.cc.tmp src/Package__Version.cc
+    echo "makeversion replaced src/Package__Version.cc"
+  fi
+fi
+
+versmainname=version${lpkg}
+if [ ! -e src/${versmainname}.cc ]; then
+  cp version.mcc.tmp src/${versmainname}.cc
+  echo "makeversion created src/${versmainname}.cc"
+elif [ $hassvn = 0 ]; then
+  diff version.mcc.tmp src/${versmainname}.cc > /dev/null 2>&1
+  if [ $? != 0 ]; then
+    cp version.mcc.tmp src/${versmainname}.cc
+    echo "makeversion replaced src/${versmainname}.cc"
+  fi
+fi
+
+# Get the library name, and the name of the variable containing a list of
+# library sources (if present). Get it from the CMakeLists.txt, because
+# sometimes it differs from the package name (e.g. libbbms for BB/MS).
+# Make sure that the first library is taken unless one matches exactly.
+addlib=`sed -n 's,^[ \t]*[aA][dD][dD]_[lL][iI][bB][rR][aA][rR][yY][ \t]*([ \t]*\(.*\)).*$,\1,p' src/CMakeLists.txt | head -1`
+if [ "$addlib" != "" ]; then
+  libnm=`echo $addlib | sed 's,[ \t].*,,'`
+  libsrcs=`echo $addlib | sed 's,^.*\${\(.*\)}.*$,\1,'`
+else
+  libnm=lib${lpkg}
+  libsrcs=${lpkg}_LIB_SRCS
+fi
+
+# Add Package__Version source file to CMakeLists.txt files as needed.
+fgrep Package__Version.cc src/CMakeLists.txt > /dev/null 2>&1
+if [ $? != 0 ]; then
+  # Lookup variable that contains the list of library sources.
+  grep "^[ \t]*set[ \t]*([ \t]*${libsrcs}[ \t]*$" src/CMakeLists.txt > /dev/null 2>&1
+  if [ $? = 0 ]; then
+    # Found it. Add Package__Version.cc to the list
+    sed "s,^\([ \t]*\)\(set[ \t]*([ \t]*${libsrcs}\)\(.*\)$,\1\2\n\1  Package__Version.cc\3," src/CMakeLists.txt > version.mf.tmp
+  else
+    # It's not there. Create a line with a set() command
+    cat > version.mf.tmp <<EOF
+set(${libsrcs} Package__Version.cc)
+add_library(${lpkg} \${$libsrcs})
+
+EOF
+    cat src/CMakeLists.txt >> version.mf.tmp
+  fi
+  mv version.mf.tmp src/CMakeLists.txt
+  echo "makeversion added Package__Version.cc to src/CMakeLists.txt"
+fi
+
+# Add version program tot CMakeLists.txt file as needed.
+fgrep "${versmainname}" src/CMakeLists.txt > /dev/null 2>&1
+if [ $? != 0 ]; then
+  # It's not there, add it.
+  cat src/CMakeLists.txt > version.mf.tmp
+  cat >> version.mf.tmp <<EOF
+add_executable(${versmainname} ${versmainname}.cc)
+target_link_libraries(${versmainname} ${lpkg} \${LOFAR_EXTRA_LIBRARIES})
+install(TARGETS ${versmainname} DESTINATION bin)
+
+EOF
+  mv version.mf.tmp src/CMakeLists.txt
+  echo "makeversion added ${versmainname}.cc to src/CMakeLists.txt"
+fi

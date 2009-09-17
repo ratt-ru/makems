@@ -1,0 +1,5 @@
+pgi.compiler.conf: CXX=CC
+pgi.compiler.aipspp.var: --with-aipspp=/home/extern/gvandiep/lustre/sys/aips++/linux_pgi
+
+sockets.var: -with-cppflags="-DUSE_NOSOCKETS -DUSE_NOFORK -D_GNU_SOURCE" --with-boost=/home/extern/gvandiep/import
+threads.var:

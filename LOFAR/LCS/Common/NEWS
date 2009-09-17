@@ -1,0 +1,203 @@
+LCS/Common: Version 3.0, date: 2006/01/30
+=========================================
+
+All Blob related stuff has been moved into the new LCS/Blob package.
+Deprecated stuff -- Debug, Thread and Profiling -- has been removed.
+Blitz support has been moved into the LCS/Math package.
+
+
+The following BugIDs have been resolved
+---------------------------------------
+
+# 146 : LofarLogger segfaults when used in statically initialized objects
+        Created patch for log4cplus 1.0.2.
+
+# 396 : Support of rpm builds
+        Make it possibe to build an rpm from a package. Also support spec.in
+        files in rub to find dependent packages.
+
+# 420 : Move programs/scripts to derive package dependencies to LCS/Tools
+        The script makedep.sh and the C++ code pkgdep.cc have both been moved
+        to the LCS/Tools directory. The respective Makefile.am files have been
+        updated as well.
+
+# 500 : NSTimer doesn't have ostream& operator<<
+        Made operator<< public. Added functions getElapsed and getCount
+
+# 538 : Add alignment control to BlobField
+        Added alignment argument to BlobField, BlobString and BlobArray
+        functions.  Changed BlobArray such that alignment > 8 bytes is
+        possible.
+
+# 548 : Interupted accept call on socket is not repeated
+        If the accept call returns EWOULDBLOCK, EAGAIN or EINTR the call is
+        repeated.
+
+# 556 : move blob to Blob
+        Blob code moved to a separate package
+
+# 557 : Remove all deprecated stuff
+        The following stuff is deprecated and has been removed: Debug,
+        Profiling, Thread and Blitz and some backward compatibility stuff
+        (e.g. Net/backward).
+
+# 596 : Remove all occurrences of nobase_ from all Makefile.am files
+        Reason for banning the use of nobase_ is that automake will use
+        install-sh instead of /usr/bin/install when installing nobase_ header
+        files. Because install-sh does not support the -C option, the header
+        files will always be copied to the installation directory, even if
+        they haven't been modified. This will trigger a lot of useless
+        compilations of dependent sources.
+
+# 602 : Bit order incorrect in dataConvert
+        The order of the bits in a byte should be swapped when converting
+        to/from bools to make it the same as AIPS++.
+
+
+
+LCS/Common: Version 2.4, date: 2005/11/16
+=========================================
+
+In preparation of making package distributable as rpm package, all header
+files that must be installed have been moved from the `src' directory to the
+`inclucde/<package>' directory (ref. BugID #396).
+
+Furthermore, some changes to the build environment require the use of
+autoconf_share 2.4 (or later). 
+
+
+The following BugIDs have been resolved
+---------------------------------------
+
+# 331 : make includefiles for boost.
+        Added lofar_*.h files for Boost.Date_Time and Boost.Threads.
+
+# 394 : Update documentation
+        General updates to the Doxygen documentation, e.g., add missing
+        Doxygen tags like \ingroup, \defgroup, and \addtogroup.
+
+# 407 : lofar_datetime.h is not installed after "make install"
+        Added lofar_datetime.h to Makefile.am
+
+# 422 : Reading back AIPS++ array fails
+        Reading back an AIPS++ array from a blob gives an invalid IPosition
+        exception.
+
+# 472 : ::shutdown() not implemented in BG/L
+        The shutdown socket syscall is not implemented on Blue Gene/L. This is
+        not critical, since a shutdown() is often followed by a close(), but
+        it currently fills stderr with non-fatal failure messages. I propose
+        having Socket::shutdown() always succeed on Blue Gene/L (I'll attach a
+        patch shortly).
+
+# 488 : ALLOC_TRACER_ALIAS does not work correctly without log4cplus
+        There is a difference in the implementation of ALLOC_TRACER_ALIAS
+        between LofarLogCout and LofarLog4Cplus. The method getLogger is
+        public for Log4Cplus. For LogCout it is not defined if it is public,
+        private or protected.
+
+
+
+LCS/Common: Version 2.3, date: 2005/09/02
+=========================================
+
+The following BugIDs have been resolved
+---------------------------------------
+
+#  51 : Profile the BBS code and optimize as much as possible
+
+        Added multi-threading support for i386 and x86_64 in Timer class.
+
+# 173 : Deprecate Thread and Profiling in LCS
+
+        Marked Thread.h and PerfProfile.h as deprecated.
+
+# 225 : update polyphase filter
+
+        Added timer support for PowerPC/BlueGene and PowerPC/Linux 
+        with xlC and g++
+
+
+# 239 : Add support for floating point comparison
+
+        First pretty rough version of some numeric functions, e.g. floating
+        point comparison using a "distance" measure.
+
+
+# 270 : integration of TFlopCorrelator parts
+
+        Added check to see if system call was interupted in Socket.cc
+
+
+The following Enhancement Requests have been implemented
+--------------------------------------------------------
+
+ER  70 : autoconf_share        : Track external dependencies
+
+         clog cannot be used with PVSS
+
+ER 161 : Common                : Place code in namespace LOFAR
+
+         Added missing clog declaration.
+
+ER 247 : Common                : Use builtin complex 
+
+         Fixed collision between std::clog and clog()
+
+ER 285 : ACC                   : Extend ACC with array support
+
+         Upgrade ACC 1.0 to 1.1 ParameterSet is now in ACC/APS.  
+         ProceControl is now in ACC/PLC.  
+         ParameterSet getInt changed to getInt32.
+
+
+
+LCS/Common: Version 2.2, date: 2005/06/15
+=========================================
+
+
+The following Enhancement Requests have been implemented
+--------------------------------------------------------
+
+ER 220 : Build environment     : Compile on 64 bit machine 
+
+         Code has been modified in order to compiler properly on 64 bit
+         machines, like AMD Opterons.
+
+ER 236 : LOFAR SW development  : preparations for Package documentation 
+
+         The documentation of each LOFAR package should be put into a separate
+         Doxygen group (or module). This makes the documentation more
+         accessible and offers a way to quickly browse to different packages.
+         Preparations have been made for several packages, including
+         LCS/Common.
+
+ER 247 : Common                : Use builtin complex 
+
+         The GNU compiler suite comes with a builtin complex type. Whenever
+         possible this builtin type will be used, because performance almost
+         triples compared to the std::complex type.
+
+ER 252 : Build environment     : Add 'limit exec' to runtest.sh
+
+         Some test programs occasionally "hang" waiting for a mutex lock, or
+         in a blocking I/O operation. In order to not hamper a (system) build
+         these suspicious programs should be killed after a predefined
+         run-time. This feature has been added to runtest.sh /
+         assay. Currently, it will not work when a .run file is used.
+
+
+The following Problem Reports have been fixed
+---------------------------------------------
+
+PR 100 : LOFAR SW development  : Neither config.h nor lofar_config.h should
+                                 be included in header files
+
+         Inclusion of either config.h or lofar_config.h in a distributed
+         header file is problematic, because the config files themselves
+         cannot be distributed; they contain system specific definitions. It
+         is therefore unwise to include either of these files in a header
+         file.
+
+         Note: This Problem Report is closely related to Enhancement Request
+               ER 229.

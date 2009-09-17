@@ -1,0 +1,23 @@
+gnu3.compiler.conf: CXX="$CCACHE /usr/bin/g++32"
+#gnu3.compiler.aipspp.var: --with-aipspp=/lofarbuild/aips++/prod/linux_gnu
+gnu3.compiler.aipspp.var: --with-casacore=/usr/local/casacore/gnu --with-wcs=/usr/local/wcs
+
+gnu.compiler.conf: CXX="$CCACHE /usr/bin/g++32"
+#gnu.compiler.aipspp.var: --with-aipspp=/lofarbuild/aips++/prod/linux_gnu
+gnu.compiler.aipspp.var: --with-casacore=/usr/local/casacore/gnu --with-wcs=/usr/local/wcs
+
+gnu34.compiler.conf: CXX="$CCACHE /usr/bin/g++"
+#gnu34.compiler.aipspp.var: --with-aipspp=/lofarbuild/aips++/prod/linux_gnu34
+gnu34.compiler.aipspp.var: --with-casacore=/usr/local/casacore/gnunew --with-wcs=/usr/local/wcs
+gnu34.compiler.sse.var:    --with-sse
+
+gnunew.compiler.conf: CXX="$CCACHE /usr/bin/g++" --with-cppflags='-I/usr/java/default/include -I/usr/java/default/include/linux'
+#gnunew.compiler.aipspp.var: --with-aipspp=/lofarbuild/aips++/prod/linux_gnunew
+gnunew.compiler.aipspp.var: --with-casacore=/usr/local/casacore/gnunew --with-wcs=/usr/local/wcs
+gnunew.compiler.sse.var:    --with-sse
+
+insure.variant.conf:     --with-insuretools=/usr/local/insure/bin.linux2 $(aipspp) --with-cppflags="-D__INSURE__"
+
+mpich.var:		 --with-mpich=/usr/local/mpich
+
+readline.var:            --without-readline

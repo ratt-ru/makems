@@ -1,0 +1,393 @@
+#!/bin/sh
+
+# rub1: helper script for rub
+#
+#  Copyright (C) 2004
+#  ASTRON (Netherlands Foundation for Research in Astronomy)
+#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#  $Id: rub1 11529 2008-08-07 08:13:38Z loose $
+
+
+# This script is used by rub to do the actual checkout/update.
+# See rub for more details.
+#
+# Use as:
+#   rub1 package verstype version cutag checkout recur usesvn command
+#
+#     package     name of package to checkout/update
+#     conftype    0 = configure.in must be present
+#                 1 = lofarconf.in or configure.in must be present
+#                     (is used for super-package like LCS)
+#                 2 = configure.in nor lofarconf.in needs to be present
+#                     (is used for autoconf_share)
+#     verstype    version type (e, m, l, t, me, mme, tag)
+#     version     version of package to check out
+#     cutag       tag of package to checkout/update (blank = no tag)
+#     checkout    1 = do actual checkout/update if not done yet
+#                 0 = do not checkout/update, but only write used
+#                     packages in allpkg.tmp. This is needed for rub
+#                     to get the correct build order.
+#     recur       0 = do not rub recursively
+#     usesvn      0 = use cvs
+#                 1 = use svn
+#     command     cvs or svn command to be used
+
+
+# Get package name (without trailing /), version, etc.
+pkgname=`echo "$1" | sed -e 's%/$%%'`
+conftype="$2"
+verstype="$3"
+getvers="$4"
+curvers=""
+cutag="$5"
+# Does an actual checkout/update need to be done.
+checkout="$6"
+# Does it need to be done recursively?
+recur="$7"
+# Use cvs or svn?
+usesvn="$8"
+# Get command (defaults is cvs or svn).
+command="$9"
+if [ "$command" = "" ]; then
+  command="cvs"
+  if [ "$usesvn" = 1 ]; then
+    command="svn"
+  fi
+fi
+# Keep current working directory.
+curwd=`pwd`
+
+# The package name in a version is the first and last part of the package name.
+pkgnmvers=`echo $pkgname | sed -e 's%/.*%%'`
+if [ "$pkgnmvers" != "$pkgname" ]; then
+  pkgnmvers="$pkgnmvers-`echo $pkgname | sed -e 's%.*/%%'`"
+fi
+
+# Always use a specific tag if given.
+# Set version to blank for types t and l.
+# Remember if an explicit version is given.
+versgiven=0
+if [ "$cutag" != "" ]; then
+  getvers=$cutag
+elif [ $verstype = t  -o  $verstype = l ]; then
+  getvers=
+elif [ "$getvers" != "" ]; then
+  # Use the given version where . is subsituted by _.
+  getvers=`echo $getvers | sed -e 's/\./_/g'`
+  # If needed (i.e. if only numeric), prepend by package name.
+  # In that case the version is given, so used packages must have one too.
+  evers=`echo $getvers | sed -e 's/[0-9_]*//g'`
+  if [ "$evers" = "" ]; then
+    getvers=$pkgnmvers-$getvers
+    versgiven=1
+  fi
+fi
+
+# See if this package was already updated. Take the last line.
+pkgline=`grep "^$pkgname " allpkg.tmp | tail -1`
+if [ "$pkgline" = "" ]; then
+  # Not done yet, so find the version.
+  if [ $checkout = 0 ]; then
+    # Check if a lofarconf.in or configure.in is present
+    if [ $conftype = 0 ]; then
+      if [ ! -f $pkgname/configure.in ]; then
+        echo "Error: no configure.in file found for package $pkgname"
+        exit 1
+      fi
+    elif [ $conftype = 1 ]; then
+      if [ ! -f $pkgname/lofarconf.in  -a  ! -f $pkgname/configure.in ]; then
+        echo "Error: no configure.in or lofarconf.in file found for package $pkgname"
+        exit 1
+      fi
+    fi
+  elif [ $verstype = l ]; then
+    # Find the highest released version.
+    if [ "$usesvn" != 1 ]; then
+      # Check out the package if not existing yet.
+      if [ -d $pkgname ]; then
+        (cd ..  &&  $command checkout -l LOFAR/$pkgname) >> rub.log 2>&1
+      fi
+      # Remove the part '-release-branch' leaving the CVS tag name.
+      getvers=`cvs log $pkgname/configure.in 2>&1 | grep release-branch | head -1 | sed -e 's/[ \t]*\(.*\)-release-branch.*/\1/'`
+    else
+      getvers=`svn list $svnurl/branches 2>&1 | grep $pkgnmvers | grep release-branch | tail -1 | sed -e 's/[ \t]*\(.*\)-release-branch.*/\1/'`
+    fi
+  fi
+
+# The package was already updated.
+elif [ "$cutag" != "" ]; then
+  curvers=$cutag
+else
+  # Check wanted version and possibly already checked out version.
+  # verstypes t and l are already handled when the package was retrieved
+  # for the first time.
+  curvers=`echo $pkgline | sed -e s'/.*#-v//'`
+  if [ "$getvers" = "" ]; then
+    # No specific version given; use current one.
+    getvers="$curvers"
+  else
+    # Check if current and wanted version need to match.
+    if [ $verstype = e ]; then
+      # Exact match is needed.
+      if [ "$getvers" != "$curvers" ]; then
+        echo "Error: package $pkgname is used with different versions ($getvers and $curvers)"
+        exit 1
+      fi
+    elif [ $verstype = m  -o  $verstype = me  -o  $verstype = mme ]; then
+      # Use the maximum of the two versions.
+      if [ "$curvers" != "" ]; then
+	if [ "$curvers" != "$getvers" ]; then
+          # Remove the package name from the tags.
+          v1=`echo $getvers | sed -e 's/.*-\([0-9_]\)$/\1/'`
+          v2=`echo $curvers | sed -e 's/.*-\([0-9_]\)$/\1/'`
+	  if [ $verstype = me  -o  $verstype = mme ]; then
+            # Check if major version is equal.
+            res=`echo "$v1 $v2" | awk '{ la1=split($1,a1,"_"); la2=split($2,a2,"_"); res=0; if (a1[1]!=a2[1]) {res=1;} print res; }'`
+            if [ $res != 0 ]; then
+              echo "Error: package $pkgname is used with different major versions ($getvers and $curvers)"
+              exit 1
+            fi
+	    if [ $verstype = mme ]; then
+              # Check if major version is equal.
+              res=`echo "$v1 $v2" | awk '{ la1=split($1,a1,"_"); la2=split($2,a2,"_"); res=0; if (a1[2]!=a2[2]) {res=1;} print res; }'`
+              if [ $res != 0 ]; then
+                echo "Error: package $pkgname is used with different major.minor versions ($getvers and $curvers)"
+                exit 1
+              fi
+            fi
+          fi
+	  echo "warning: version $curvers and $getvers needed of package $pkgname; using highest"
+          # Find maximum version.
+          res=`echo "$v1 $v2" | awk '{ la1=split($1,a1,"_"); la2=split($2,a2,"_"); if (la1<la2) la1=la2; res=$1; for (i=1; i<=la1; i++) {if (a1[i]>a2[i]) {break;} else if (a1[i]<a2[i]) { res=$2; break;}} print res; }'`
+          if [ "$res" = "$v2" ]; then
+	    # Current version is the highest, so no need to update.
+            getvers=$curvers
+          fi
+        fi    
+      fi
+    fi
+  fi
+fi
+
+# Checkout/update if needed.
+rtag=
+if [ "$getvers" != "" ]; then
+  rtag="-r $getvers"
+  tagstr=", tag $getvers"
+fi
+if [ "$pkgline" = ""  -o  "$getvers" != "$curvers" ]; then
+  if [ $checkout = 1 ]; then
+    status=0
+    if [ -e $pkgname ]; then
+      if [ ! -d $pkgname ]; then
+        echo "Cannot checkout $pkgname: it exists, but is no package directory"
+        exit 1
+      fi
+      # Package already exists, so update it.
+      echo "Toplevel update of package $pkgname$tagstr"
+      if [ "$usesvn" != 1 ]; then
+        # Use local update for cvs.
+        echo "(cd $pkgname  &&  $command update -ldP $rtag $updq)" >> rub.log 2>&1
+        (cd $pkgname  &&  $command update -ldP $rtag $updq) >> rub.log 2>&1
+	status=$?
+      else
+        # Local update does not work well for svn, so need to do full update.
+        # Use the switch command to do this, because in that way a change
+        # in version is also handled.
+        part="trunk"
+        if [ "$getvers" != "" ]; then
+          # $getvers can be either in tags or in branches; try both
+          for dir in tags branches
+          do
+            part="$dir/$getvers"
+            # if list command succeeds, we've got the correct value for $part
+            if $command list $svnurl/$part/$pkgname > /dev/null 2>&1; then
+              break
+            else
+              part=
+            fi
+          done
+          if [ "$part" = "" ]; then
+            echo "Error: version $getvers of $pkgname not found"
+            exit 1
+          fi
+        fi
+        echo "(cd $pkgname  &&  $command switch $svnurl/$part/$pkgname)" >> rub.log 2>&1
+        (cd $pkgname  &&  $command switch $svnurl/$part/$pkgname) >> rub.log 2>&1
+        status=$?
+      fi
+    else
+      echo "Toplevel checkout of package $pkgname$tagstr"
+      # Package does not exist yet.
+      if [ "$usesvn" != 1 ]; then
+        # Use simple checkout for cvs.
+        echo "(cd ..  &&  $command checkout -l $rtag LOFAR/$pkgname)" >> rub.log 2>&1
+        (cd ..  &&  $command checkout -l $rtag LOFAR/$pkgname) >> rub.log 2>&1
+        status=$?
+      else
+        # With svn the check out needs to be done package by package.
+        # It is done locally to avoid that e.g. all of LCS is checked out
+        # when LCS/Common needs to be checked out.
+        # Only the leaf is checked out fully.
+        leafnm=`basename $pkgname`
+        nms=`echo $pkgname | sed -e "s%$leafnm$%%" -e 's%/% %g'`
+        for nm in $nms
+        do
+	  # Check out locally if not existing yet.
+	  local="-N";
+          if [ -e $nm ]; then
+            if [ ! -d $nm ]; then
+              echo "Cannot checkout $pkgname: file $nm exists, but is no directory"
+              exit 1
+            fi
+	    local=
+          fi
+          echo "$command update $local $nm" >> $curwd/rub.log 2>&1
+          $command update $local $nm >> $curwd/rub.log 2>&1
+          status=$?
+	  if [ $status = 0 ]; then
+            cd $nm > /dev/null 2>&1  ||  exit 1
+          fi
+        done
+        # Check out the leaf.
+        part=trunk
+        if [ "$getvers" != "" ]; then
+          # $getvers can be either in tags or in branches; try both
+          for dir in tags branches
+          do
+            part="$dir/$getvers"
+            # if list command succeeds, we've got the correct value for $part
+            if $command list $svnurl/$part/$pkgname > /dev/null 2>&1; then
+              break
+            else
+              part=
+            fi
+          done
+          if [ "$part" = "" ]; then
+            echo "Error: version $getvers of $pkgname not found"
+            exit 1
+          fi
+        fi
+        # Find out if it is a leaf package or super package by testing
+	# if it has a configure.in file.
+        # A super package is checked out locally only.
+        local=
+        svn list $svnurl/$part/$pkgname/configure.in > /dev/null 2>&1
+        if [ $? != 0 ]; then
+          local="-N"    # no leaf package
+        fi
+        if [ "$getvers" != "" ]; then
+          echo "$command checkout $local $svnurl/$part/$pkgname $leafnm" >> $curwd/rub.log 2>&1
+          $command checkout $local $svnurl/$part/$pkgname $leafnm >> $curwd/rub.log 2>&1
+	  status=$?
+        else
+          echo "$command update $local $leafnm" >> $curwd/rub.log 2>&1
+          $command update $local $leafnm >> $curwd/rub.log 2>&1
+          status=$?
+        fi
+        cd $curwd > /dev/null 2>&1
+      fi
+    fi
+    if [ $status != 0 ]; then
+      echo "Exiting; update/checkout returned with an error status ..."
+      egrep "^C " rub.log > greplog.tmp 2>&1
+      if [ $? = 0 ]; then
+        echo "There seem to be UPDATE CONFLICTS"
+        cat greplog.tmp
+        \rm -f greplog.tmp
+      else
+        tail -2 rub.log
+      fi
+      exit 1
+    fi
+  fi
+fi
+
+# Find all packages used.
+# The packages can be given in a configure.in, .spec or lofarconf.in file.
+conftype=0
+if [ -f $pkgname/configure.in ]; then
+  if [ -f $pkgname/lofarconf.in  -o  -f $pkgname/lofarconf.in.private ]; then
+    echo "error: lofarconf.in cannot be used with a configure.in"
+    exit 1
+  fi
+  # Find them by looking in the configure.in file.
+  pkgs=`grep "^[ \t]*lofar_\(\(PACKAGE\)\|\(INTERNAL\)\)[ \t]*(.*)" $pkgname/configure.in | sed -e "s/.*lofar_\(PACKAGE\)\|\(INTERNAL\)//" -e "s/ //g" -e "s/.*(//" -e "s/).*//" | awk -F, '{print $1"="$3}'`
+elif [ -f $pgkname/$pkgname.spec.in ]; then
+  if [ -f $pkgname/lofarconf.in  -o  -f $pkgname/lofarconf.in.private ]; then
+    echo "error: lofarconf.in cannot be used with a .spec.in"
+    exit 1
+  fi
+  # Do it recursively for packages used by this package.
+  # Find them by looking at the Requires tag in the .spec.in file.
+  pkgs=`egrep -i " *requires:" $pkgname/$pkgname.spec.in | sed -e 's/ *requires: *//ig'`
+  # < and > are not supported.
+  pkg1=`echo $pkgs | sed 's/>/=/g' | sed 's/</=/g'`
+  if [ "$pkg1" != "$pkgs" ]; then
+    echo "warning: rub only supports == in the rpm 'Requires' tag"
+  fi
+  # Normalize the string.
+  pkgs=`echo $pkg1 | sed 's/ *== */=/g' | sed 's/ //g' | sed 's/,/ /g'`
+else
+  # Do it for all packages in a possible lofarconf.in.
+  fnam=
+  if [ -f $pkgname/lofarconf.in.private ]; then
+    fnam='lofarconf.in.private'
+  elif [ -f $pkgname/lofarconf.in ]; then
+    fnam='lofarconf.in'
+  fi
+  if [ "$fnam" != "" ]; then
+    conftype=1
+    # Get the packages out of the lofarconf.in file. They can optionally be
+    # followed by a version as #-vversion. Remove other comments.
+    # Add pkgname if not starting with a slash.
+    pkgs=`awk '{print $1 $2;}' $pkgname/$fnam | sed -e 's/^ *#.*//' -e 's/#-v/=/' -e 's/#.*//' -e 's/ //g' -e "s%^\([^/]\)%$pkgname/\1%"`
+  fi
+fi
+
+# Add (leaf) package to the file to get correct build order.
+if test $conftype = 0; then
+  echo "$pkgname #-v$getvers" >> allpkg.tmp
+fi
+# Check out all packages as needed.
+if [ $recur != 0 ]; then
+  for pkg in $pkgs
+  do
+    # Extract package name and version.
+    # Remove possible leading slash from package name.
+    pkgnm=`echo $pkg | awk -F= '{print $1}' | sed -e 's%^/%%'`
+    # Replace a . in the version by _.
+    vers=`echo $pkg | awk -F= '{print $2}' | sed -e 's/\./_/g'`
+    # See if it a a real (numeric) version.
+    hasvers=0;
+    if [ "$vers" != "" ]; then
+      evers=`echo "$vers" | sed -e 's/[0-9.]*//g'`
+      if [ "$evers" = "" ]; then
+	hasvers=1
+      fi
+    fi
+    # If the parent package has a version, this one must have one as well.
+    # The only exception is package LCS/Tools.
+    if [ $versgiven = 1  -a  $hasvers = 0  -a  "$pkgnm" != "LCS/Tools" ]; then 
+     echo "Package $pkgnm used by $pkgname-$getvers must have a version as well"
+      exit 2
+    fi
+    # Check out the package.
+    $0 $pkgnm $conftype "$verstype" "$vers" "$cutag" $checkout $recur "$usesvn" "$command"  ||  exit 1
+  done
+fi

@@ -1,0 +1,7 @@
+gnu.compiler.conf:		CXX="$CCACHE /usr/bin/g++"
+
+gnu.compiler.aipspp.var:	--with-casacore=/opt/lofar/external/casacore --with-wcs=/usr/local
+
+lofar_root.var:			--with-lofar-default=weekly --with-doxygen-dot
+
+backtrace.var:			--enable-backtrace

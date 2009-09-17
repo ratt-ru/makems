@@ -1,0 +1,4639 @@
+
+(object Petal
+    version    	46
+    _written   	"Rational Rose 2002.05.20"
+    charSet    	0)
+
+(object Class_Category "Common"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    quid       	"3D1047C0035B"
+    exportControl 	"Public"
+    logical_models 	(list unit_reference_list
+	(object Class "Stopwatch"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"Cplusplus"
+		    name       	"HeaderSourceFile"
+		    value      	"Stopwatch.h")
+		(object Attribute
+		    tool       	"Cplusplus"
+		    name       	"BodySourceFile"
+		    value      	"Stopwatch.cc"))
+	    quid       	"3DB95464020D"
+	    operations 	(list Operations
+		(object Operation "reset"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB954640302"
+		    result     	"void"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "Stopwatch"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB954640304"
+		    parameters 	(list Parameters
+			(object Parameter "secs"
+			    quid       	"3DB954640305"
+			    type       	"double"
+			    initv      	"0"))
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "delta"
+		    quid       	"3DB954640306"
+		    parameters 	(list Parameters
+			(object Parameter "do_reset"
+			    quid       	"3DB954640307"
+			    type       	"bool"
+			    initv      	"true"))
+		    result     	"Stopwatch"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0
+		    quidu      	"3DB95464020D")
+		(object Operation "toString"
+		    quid       	"3DB954640308"
+		    stereotype 	"const"
+		    parameters 	(list Parameters
+			(object Parameter "nops"
+			    quid       	"3DB95464030A"
+			    type       	"long long"
+			    initv      	"0")
+			(object Parameter "opts"
+			    quid       	"3DB95464030B"
+			    type       	"int"
+			    initv      	"ALL")
+			(object Parameter "format"
+			    quid       	"3DB95464030C"
+			    type       	"const char *"
+			    initv      	
+|"%10.3f"
+			    ))
+		    result     	"string"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "sdelta"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB95464030D"
+		    parameters 	(list Parameters
+			(object Parameter "nops"
+			    quid       	"3DB95464030E"
+			    type       	"long long"
+			    initv      	"0")
+			(object Parameter "do_reset"
+			    quid       	"3DB95464030F"
+			    type       	"bool"
+			    initv      	"true")
+			(object Parameter "opts"
+			    quid       	"3DB954640310"
+			    type       	"int"
+			    initv      	"ALL"))
+		    result     	"string"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "sdelta"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB954640311"
+		    parameters 	(list Parameters
+			(object Parameter "format"
+			    quid       	"3DB954640312"
+			    type       	"const char *")
+			(object Parameter "do_reset"
+			    quid       	"3DB954640313"
+			    type       	"bool")
+			(object Parameter "opts"
+			    quid       	"3DB954640314"
+			    type       	"int"
+			    initv      	"ALL"))
+		    result     	"string"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "dump"
+		    quid       	"3DB954640315"
+		    parameters 	(list Parameters
+			(object Parameter "name"
+			    quid       	"3DB954640316"
+			    type       	"const string &")
+			(object Parameter "nops"
+			    quid       	"3DB954640317"
+			    type       	"long long"
+			    initv      	"0")
+			(object Parameter "do_reset"
+			    quid       	"3DB954640318"
+			    type       	"bool"
+			    initv      	"true")
+			(object Parameter "opts"
+			    quid       	"3DB954640319"
+			    type       	"int"
+			    initv      	"ALL"))
+		    result     	"string"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "header"
+		    quid       	"3DB95464031A"
+		    stereotype 	"static"
+		    parameters 	(list Parameters
+			(object Parameter "nops"
+			    quid       	"3DB95464031C"
+			    type       	"long long"
+			    initv      	"0"))
+		    result     	"string"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "nameWidth"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB95464031D"
+		    stereotype 	"const"
+		    result     	"int"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "setNameWidth"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB95464031F"
+		    parameters 	(list Parameters
+			(object Parameter "x"
+			    quid       	"3DB954640320"
+			    type       	"int"))
+		    result     	"void"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "user"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB954640321"
+		    stereotype 	"const"
+		    result     	"double"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "sys"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB954640323"
+		    stereotype 	"const"
+		    result     	"double"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "real"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB954640325"
+		    stereotype 	"const"
+		    result     	"double"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0)
+		(object Operation "fired"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"Inline"
+			    value      	TRUE))
+		    quid       	"3DB954640327"
+		    stereotype 	"const"
+		    result     	"bool"
+		    concurrency 	"Sequential"
+		    opExportControl 	"Public"
+		    uid        	0))
+	    class_attributes 	(list class_attribute_list
+		(object ClassAttribute "tms"
+		    quid       	"3DB9546402F8"
+		    type       	"struct tms")
+		(object ClassAttribute "tick"
+		    quid       	"3DB9546402FA"
+		    type       	"clock_t")
+		(object ClassAttribute "last_tick"
+		    quid       	"3DB9546402FB"
+		    type       	"clock_t")
+		(object ClassAttribute "fire_secs"
+		    quid       	"3DB9546402FC"
+		    type       	"double")
+		(object ClassAttribute "namewidth"
+		    quid       	"3DB9546402FE"
+		    type       	"int")
+		(object ClassAttribute "scale"
+		    quid       	"3DB9546402FF"
+		    type       	"double"
+		    initv      	"1.0/sysconf(_SC_CLK_TCK)"
+		    static     	TRUE)
+		(object ClassAttribute "dummy_tms"
+		    quid       	"3DB954640301"
+		    type       	"struct tms"
+		    static     	TRUE))
+	    module     	"Component View::Common"
+	    quidu      	"3DB9359F015F"
+	    language   	"ANSI C++"
+	    nestedClasses 	(list nestedClasses
+		(object Class "Components"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Stopwatch.h")
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"ImplementationType"
+			    value      	"enum { USER=1,SYSTEM=2,REAL=4,ALL=7 }"))
+		    quid       	"3DB954640213"
+		    stereotype 	"typedef"
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F")))
+	(object Class_Category "Thread"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"cg"
+		    name       	"IsNamespace"
+		    value      	TRUE)
+		(object Attribute
+		    tool       	"Cplusplus"
+		    name       	"IsNamespace"
+		    value      	TRUE))
+	    quid       	"3D1049DA01E4"
+	    stereotype 	"namespace"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "ThrID"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateAssignmentOperation"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateEqualityOperations"
+			    value      	("GenerateSet" 199))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineDefaultConstructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateCopyConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateDestructor"
+			    value      	FALSE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineEqualityOperations"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Thread/Thread.h"))
+		    quid       	"3D1049B401F1"
+		    operations 	(list Operations
+			(object Operation "ThrID"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"E3D481F0FEED"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489362)
+			(object Operation "ThrID"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935AD011A"
+			    parameters 	(list Parameters
+				(object Parameter "id"
+				    quid       	"3DB935AD012E"
+				    type       	"pthread_t"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator ="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"A4925AC3FEED"
+			    parameters 	(list Parameters
+				(object Parameter "id"
+				    quid       	"3D1049B40292"
+				    type       	"pthread_t"))
+			    result     	"ThrID &"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489364
+			    quidu      	"3D1049B401F1")
+			(object Operation "operator pthread_t"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"981A70A9FEED"
+			    stereotype 	"const"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489363)
+			(object Operation "id"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935AD0250"
+			    stereotype 	"const"
+			    result     	"pthread_t"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator =="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C28F00E3"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3E43C28F0117"
+				    type       	"ThrID"
+				    quidu      	"3D1049B401F1"))
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator !="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C28F018B"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3E43C28F01C4"
+				    type       	"ThrID"
+				    quidu      	"3D1049B401F1"))
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator <"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C28F0238"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3E43C28F0271"
+				    type       	"ThrID"
+				    quidu      	"3D1049B401F1"))
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator <="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C28F02E8"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3E43C28F0321"
+				    type       	"ThrID"
+				    quidu      	"3D1049B401F1"))
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator >"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C28F039A"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3E43C28F03D8"
+				    type       	"ThrID"
+				    quidu      	"3D1049B401F1"))
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator >="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C290006C"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3E43C29000AB"
+				    type       	"ThrID"
+				    quidu      	"3D1049B401F1"))
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "join"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C3640394"
+			    parameters 	(list Parameters
+				(object Parameter "value"
+				    quid       	"3E43C36403B5"
+				    type       	"void * &"
+				    initv      	"dummy_pvoid"))
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "cancel"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C365003E"
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "detach"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C3650060"
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "kill"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C3650083"
+			    parameters 	(list Parameters
+				(object Parameter "sig"
+				    quid       	"3E43C36500A6"
+				    type       	"int"))
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "self"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C3650119"
+			    stereotype 	"static"
+			    result     	"ThrID"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0
+			    quidu      	"3D1049B401F1"))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "id"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"member_ name, member() get operation, no set operation")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"CodeName"
+				    value      	"id_"))
+			    quid       	"3D105E60038E"
+			    type       	"pthread_t"))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++")
+		(object Class "Key"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateCopyConstructor"
+			    value      	("GenerateSet" 205))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateAssignmentOperation"
+			    value      	("GenerateSet" 205))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateDestructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateDefaultConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"CopyConstructorVisibility"
+			    value      	("VisibilitySet" 43))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineDestructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"AssignmentVisibility"
+			    value      	("VisibilitySet" 43))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"PutBodiesInSpec"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Thread/Key.h"))
+		    quid       	"3D1049B402A5"
+		    operations 	(list Operations
+			(object Operation "Key"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"5984F88AFEED"
+			    parameters 	(list Parameters
+				(object Parameter "destructor"
+				    quid       	"3D1049B402CE"
+				    type       	"void (* ) (void*)"
+				    initv      	"0"))
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489366)
+			(object Operation "get"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3B3DE74FFEED"
+			    stereotype 	"const"
+			    result     	"Key::Data"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489367)
+			(object Operation "set"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"60738D38FEED"
+			    parameters 	(list Parameters
+				(object Parameter "value"
+				    quid       	"3D1049B4031F"
+				    type       	"Key::Data"))
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489368)
+			(object Operation "Data"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text "")))
+			    quid       	"AFEDB0DBFEED"
+			    stereotype 	"const"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489369)
+			(object Operation "operator ="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"66708D53FEED"
+			    parameters 	(list Parameters
+				(object Parameter "value"
+				    quid       	"3D1049B402D4"
+				    type       	"Key::Data"))
+			    result     	"Thread::Key&"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489370)
+			(object Operation "~Key"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A300E6"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "Key"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A3012D"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3DB935A3015F"
+				    type       	"const Key &"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Private"
+			    uid        	0)
+			(object Operation "operator="
+			    quid       	"3DB935A301AF"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3DB935A301F5"
+				    type       	"const Key &"))
+			    result     	"Key &"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Private"
+			    uid        	0))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "key"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations"))
+			    quid       	"3D1060CB03CF"
+			    type       	"pthread_key_t"))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++"
+		    nestedClasses 	(list nestedClasses
+			(object Class "Data"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/Key.h")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	"void*"))
+			    quid       	"3DB935A10284"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")))
+		(object Class "Mutex"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateCopyConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateAssignmentOperation"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateDestructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineCopyConstructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineDestructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineAssignmentOperation"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateDefaultConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"PutBodiesInSpec"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Thread/Mutex.h"))
+		    quid       	"3D1049B40332"
+		    used_nodes 	(list uses_relationship_list
+			(object Uses_Relationship
+			    quid       	"3DB935A501D0"
+			    stereotype 	"friend permission"
+			    supplier   	"Logical View::Common::Thread::Mutex::Lock"
+			    quidu      	"3D1049B40396"))
+		    operations 	(list Operations
+			(object Operation "Mutex"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"70B8C5D3FEED"
+			    parameters 	(list Parameters
+				(object Parameter "kind"
+				    quid       	"3D1049B40334"
+				    type       	"int"
+				    initv      	"RECURSIVE"))
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489384)
+			(object Operation "Mutex"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3D10B976039C"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3D10BD72032D"
+				    type       	"const Mutex &"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489389)
+			(object Operation "init"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"9C882969FEED"
+			    parameters 	(list Parameters
+				(object Parameter "kind"
+				    quid       	"3D1049B40379"
+				    type       	"int"))
+			    result     	"void"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Protected"
+			    uid        	1024489388)
+			(object Operation "operator ="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3D10BC47035F"
+			    parameters 	(list Parameters
+				(object Parameter "right"
+				    quid       	"3D10BD7701F3"
+				    type       	"const Mutex &"))
+			    result     	"Mutex &"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489391
+			    quidu      	"3D1049B40332")
+			(object Operation "lock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"D4F415F7FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489385)
+			(object Operation "unlock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"4304D0E8FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489386)
+			(object Operation "trylock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"A4649BF5FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489387)
+			(object Operation "~Mutex"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A5020C"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "debug"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A5023E"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB935A50284"
+				    type       	"int"
+				    initv      	"1")
+				(object Parameter ""
+				    quid       	"3DB935A502D4"
+				    type       	"const string &"
+				    initv      	
+|""
+				    )
+				(object Parameter ""
+				    quid       	"3DB935A5032E"
+				    type       	"const char *"
+				    initv      	"0"))
+			    result     	"const char *"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "sdebug"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A50388"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB935A503D8"
+				    type       	"int"
+				    initv      	"1")
+				(object Parameter ""
+				    quid       	"3DB935A6004B"
+				    type       	"const string &"
+				    initv      	
+|""
+				    )
+				(object Parameter ""
+				    quid       	"3DB935A600B9"
+				    type       	"const char *"
+				    initv      	"0"))
+			    result     	"string"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "mutex"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations")
+				(object Attribute
+				    tool       	"cg"
+				    name       	"DataMemberMutability"
+				    value      	("DataMemberMutabilitySet" 1))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"DataMemberVisibility"
+				    value      	("DataMemberVisibilitySet" 211)))
+			    quid       	"3D10515D008B"
+			    stereotype 	"mutable"
+			    type       	"pthread_mutex_t"
+			    exportControl 	"Protected"))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++"
+		    nestedClasses 	(list nestedClasses
+			(object Class "Lock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateAssignmentOperation"
+				    value      	("GenerateSet" 206))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"InlineDestructor"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"InlineDefaultConstructor"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"InlineCopyConstructor"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/Mutex.h"))
+			    quid       	"3D1049B40396"
+			    used_nodes 	(list uses_relationship_list
+				(object Uses_Relationship
+				    quid       	"3D1081040003"
+				    supplier   	"Logical View::Common::Thread::Mutex"
+				    quidu      	"3D1049B40332"))
+			    operations 	(list Operations
+				(object Operation "Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"5571A783FEED"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489376)
+				(object Operation "Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text "")))
+				    quid       	"A15218DBFEED"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935A302DB"
+					    type       	"const Lock &"))
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489377)
+				(object Operation "init"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"5FDF0A36FEED"
+				    parameters 	(list Parameters
+					(object Parameter "mtx"
+					    quid       	"3D1049B403E0"
+					    type       	"const pthread_mutex_t &")
+					(object Parameter "options"
+					    quid       	"3D1049B403E1"
+					    type       	"int"
+					    initv      	"0"))
+				    result     	"void"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Private"
+				    uid        	1024489383)
+				(object Operation "locked"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"D5165FA7FEED"
+				    stereotype 	"const"
+				    result     	"bool"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    const      	TRUE
+				    opExportControl 	"Public"
+				    uid        	1024489378)
+				(object Operation "operator bool"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"18054E53FEED"
+				    stereotype 	"const"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    const      	TRUE
+				    opExportControl 	"Public"
+				    uid        	1024489379)
+				(object Operation "operator !"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"E5D40595FEED"
+				    stereotype 	"const"
+				    result     	"bool"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    const      	TRUE
+				    opExportControl 	"Public"
+				    uid        	1024489380)
+				(object Operation "release"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"E2FBE0C8FEED"
+				    result     	"int"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489381)
+				(object Operation "release_without_unlock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"D8B60901FEED"
+				    result     	"void"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489382)
+				(object Operation "relock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D19CF980270"
+				    documentation 	
+|relock() works the othe way around: first obtains a lock 
+|on the new mutex, then releases the current one
+|
+				    
+				    parameters 	(list Parameters
+					(object Parameter "mutex"
+					    quid       	"3D19CFA60158"
+					    type       	"const Thread::Mutex &")
+					(object Parameter "options"
+					    quid       	"3D19CFA70019"
+					    type       	"int"
+					    initv      	"0"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927043)
+				(object Operation "Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A30335"
+				    parameters 	(list Parameters
+					(object Parameter "mutex"
+					    quid       	"3DB935A30353"
+					    type       	"pthread_mutex_t &")
+					(object Parameter "options"
+					    quid       	"3DB935A303C1"
+					    type       	"int"
+					    initv      	"0"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A40034"
+				    parameters 	(list Parameters
+					(object Parameter "mutex"
+					    quid       	"3DB935A4005C"
+					    type       	"const Thread::Mutex &")
+					(object Parameter "options"
+					    quid       	"3DB935A400C0"
+					    type       	"int"
+					    initv      	"0"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "~Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A4012E"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "debug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A401EC"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935A40250"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935A402B5"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935A40323"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"const char *"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "sdebug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A4039B"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935A5002B"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935A500AD"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935A50139"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"string"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "operator ="
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3E43C28D00FA"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3E43C28D012A"
+					    type       	"const Lock &"))
+				    result     	"Lock &"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3E43C28D019C"
+				    documentation 	
+|lock() releases current mutex (if any), then obtains 
+|a lock on the new mutex
+|
+				    
+				    parameters 	(list Parameters
+					(object Parameter "mutex"
+					    quid       	"3E43C28D01CC"
+					    type       	"const Thread::Mutex &")
+					(object Parameter "options"
+					    quid       	"3E43C28D0240"
+					    type       	"int"
+					    initv      	"0"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0))
+			    class_attributes 	(list class_attribute_list
+				(object ClassAttribute "pmutex"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"cg_style"
+					    value      	"No get/set operations"))
+				    quid       	"3D10514502E9"
+				    type       	"pthread_mutex_t *"))
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")
+			(object Class "MutexKind"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/Mutex.h")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	(value Text 
+|enum { DEFAULT    = PTHREAD_MUTEX_TIMED_NP,
+|                     FAST       = DEFAULT,
+|                     RECURSIVE  = PTHREAD_MUTEX_RECURSIVE_NP,
+|                     ERRORCHECK = PTHREAD_MUTEX_ERRORCHECK_NP }
+				    )))
+			    quid       	"3DB935A103A1"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")
+			(object Class "MutexOptions"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/Mutex.h")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	"enum { TRY=1 }"))
+			    quid       	"3DB935A103C9"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")))
+		(object Class "Condition"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateDestructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineDefaultConstructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineCopyConstructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineDestructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineAssignmentOperation"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateCopyConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateAssignmentOperation"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"PutBodiesInSpec"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Thread/Condition.h"))
+		    quid       	"3D1049B50012"
+		    superclasses 	(list inheritance_relationship_list
+			(object Inheritance_Relationship
+			    quid       	"3D1049B5009E"
+			    supplier   	"Logical View::Common::Thread::Mutex"
+			    quidu      	"3D1049B40332"))
+		    operations 	(list Operations
+			(object Operation "Condition"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3D10B9920176"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489390)
+			(object Operation "operator ="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3D10BC84006D"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3D10BD7F0317"
+				    type       	"const Condition &"))
+			    result     	"Condition &"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489392
+			    quidu      	"3D1049B50012")
+			(object Operation "broadcast"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"63F66C39FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489371)
+			(object Operation "signal"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"8892C440FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489372)
+			(object Operation "wait"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"47B70187FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489373)
+			(object Operation "wait"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"30EB4F86FEED"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "sec"
+				    quid       	"3D1049B50095"
+				    type       	"int")
+				(object Parameter "ns"
+				    quid       	"3D1049B50096"
+				    type       	"int"))
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489374)
+			(object Operation "wait"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"EntryCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"ExitCode"
+				    value      	(value Text ""))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"D33D2F2EFEED"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "sec"
+				    quid       	"3D1049B50098"
+				    type       	"double"))
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489375)
+			(object Operation "Condition"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A200EF"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB935A2010D"
+				    type       	"const Condition &"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "~Condition"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A20153"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "debug"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A20185"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB935A201DF"
+				    type       	"int"
+				    initv      	"1")
+				(object Parameter ""
+				    quid       	"3DB935A2022F"
+				    type       	"const string &"
+				    initv      	
+|""
+				    )
+				(object Parameter ""
+				    quid       	"3DB935A20280"
+				    type       	"const char *"
+				    initv      	"0"))
+			    result     	"const char *"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "sdebug"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935A202F8"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB935A20352"
+				    type       	"int"
+				    initv      	"1")
+				(object Parameter ""
+				    quid       	"3DB935A203CA"
+				    type       	"const string &"
+				    initv      	
+|""
+				    )
+				(object Parameter ""
+				    quid       	"3DB935A30050"
+				    type       	"const char *"
+				    initv      	"0"))
+			    result     	"string"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "cond"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations")
+				(object Attribute
+				    tool       	"cg"
+				    name       	"DataMemberMutability"
+				    value      	("DataMemberMutabilitySet" 1)))
+			    quid       	"3D1058FA025A"
+			    stereotype 	"mutable"
+			    type       	"pthread_cond_t"))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++")
+		(object Class "SmartLock"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateCopyConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateAssignmentOperation"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineDefaultConstructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"cg"
+			    name       	"CopyConstructorVisibility"
+			    value      	("VisibilitySet" 43))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"AssignmentVisibility"
+			    value      	("VisibilitySet" 43))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"InlineDestructor"
+			    value      	TRUE)
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Thread/SmartLock.h")
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"BodySourceFile"
+			    value      	"Thread/SmartLock.cc"))
+		    quid       	"3D1049B500A8"
+		    operations 	(list Operations
+			(object Operation "SmartLock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3D10BCC5027A"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489393)
+			(object Operation "operator ="
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3D10BCCC00A3"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3D1997F30141"
+				    type       	"const SmartLock &"))
+			    result     	"SmartLock&"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024489394
+			    quidu      	"3D1049B500A8")
+			(object Operation "rlock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	FALSE))
+			    quid       	"85D1DF88FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489358)
+			(object Operation "wlock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	FALSE))
+			    quid       	"6C3F24E5FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489360)
+			(object Operation "runlock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	FALSE))
+			    quid       	"84F319FCFEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489359)
+			(object Operation "wunlock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationKind"
+				    value      	("OperationKindSet" 200))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	FALSE))
+			    quid       	"88437021FEED"
+			    stereotype 	"const"
+			    result     	"int"
+			    protocol   	"C++"
+			    concurrency 	"Sequential"
+			    const      	TRUE
+			    opExportControl 	"Public"
+			    uid        	1024489361)
+			(object Operation "wlock_upgrade"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE))
+			    quid       	"3D1982B103CB"
+			    stereotype 	"const"
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024927034)
+			(object Operation "rlock_downgrade"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE))
+			    quid       	"3D1982B60364"
+			    stereotype 	"const"
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1024927035)
+			(object Operation "SmartLock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935AD003D"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB935AD0065"
+				    type       	"const SmartLock &"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "~SmartLock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB935AD00B6"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "readers"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"DataMemberMutability"
+				    value      	("DataMemberMutabilitySet" 1))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateSetOperation"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetSetByReference"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations"))
+			    quid       	"3D1049B500F1"
+			    stereotype 	"mutable"
+			    type       	"int"
+			    Containment 	"By Value")
+			(object ClassAttribute "writers"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"DataMemberMutability"
+				    value      	("DataMemberMutabilitySet" 1))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateSetOperation"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetSetByReference"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations"))
+			    quid       	"3D1049B500F2"
+			    stereotype 	"mutable"
+			    type       	"int"
+			    Containment 	"By Value"))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++"
+		    nestedClasses 	(list nestedClasses
+			(object Class "BaseLock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateDefaultConstructor"
+				    value      	("GenerateSet" 206))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"Private assignment & copy constructors")
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateCopyConstructor"
+				    value      	("GenerateSet" 206))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateDestructor"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateAssignmentOperation"
+				    value      	("GenerateSet" 206))
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/SmartLock.h"))
+			    quid       	"3D1049B50102"
+			    operations 	(list Operations
+				(object Operation "BaseLock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"27D9633CFEED"
+				    parameters 	(list Parameters
+					(object Parameter "pl"
+					    quid       	"3D1049B5010E"
+					    type       	"const Thread::SmartLock*"
+					    initv      	"0"))
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489336)
+				(object Operation "locked"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"7B209A65FEED"
+				    stereotype 	"const"
+				    result     	"bool"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    const      	TRUE
+				    opExportControl 	"Public"
+				    uid        	1024489337)
+				(object Operation "operator bool"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"13FE864CFEED"
+				    stereotype 	"const"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    const      	TRUE
+				    opExportControl 	"Public"
+				    uid        	1024489338)
+				(object Operation "operator !"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"97F0E174FEED"
+				    stereotype 	"const"
+				    result     	"bool"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    const      	TRUE
+				    opExportControl 	"Public"
+				    uid        	1024489339))
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")
+			(object Class "Read"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"Inlined constructors & destructors")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/SmartLock.h"))
+			    quid       	"3D1049B5012A"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"3D1049B50170"
+				    supplier   	"Logical View::Common::Thread::SmartLock::BaseLock"
+				    quidu      	"3D1049B50102"))
+			    used_nodes 	(list uses_relationship_list
+				(object Uses_Relationship
+				    quid       	"3D1049B50152"
+				    supplier   	"Logical View::Common::Thread::SmartLock"
+				    quidu      	"3D1049B500A8"))
+			    operations 	(list Operations
+				(object Operation "Read"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"2E156332FEED"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489340)
+				(object Operation "release"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"0A10BCC1FEED"
+				    result     	"int"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489342)
+				(object Operation "relock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D1981B2020C"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3D19821F02E5"
+					    type       	"const Thread::SmartLock &"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927036)
+				(object Operation "Read"
+				    quid       	"3DB935A601E5"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935A601EF"
+					    type       	"const Read &"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "Read"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A60217"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3DB935A6022B"
+					    type       	"const Thread::SmartLock&"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "~Read"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A6025D"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "operator="
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A60271"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935A60285"
+					    type       	"const Read &"))
+				    result     	"Read &"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0
+				    quidu      	"3D1049B5012A")
+				(object Operation "debug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A602CB"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935A602FE"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935A60330"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935A60376"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"const char *"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "sdebug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A603BC"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935A7001A"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935A70088"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935A700EC"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"string"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0))
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")
+			(object Class "Write"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"Inlined constructors & destructors")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/SmartLock.h"))
+			    quid       	"3D1049B50171"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"3D104B070144"
+				    supplier   	"Logical View::Common::Thread::SmartLock::BaseLock"
+				    quidu      	"3D1049B50102"))
+			    used_nodes 	(list uses_relationship_list
+				(object Uses_Relationship
+				    quid       	"3D1049B50198"
+				    supplier   	"Logical View::Common::Thread::SmartLock"
+				    quidu      	"3D1049B500A8"))
+			    operations 	(list Operations
+				(object Operation "Write"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"90340814FEED"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489343)
+				(object Operation "release"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"86E22961FEED"
+				    result     	"int"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489345)
+				(object Operation "relock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D1981ED0080"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3D198225037A"
+					    type       	"const Thread::SmartLock &"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927037)
+				(object Operation "Write"
+				    quid       	"3DB935A7015A"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935A7016E"
+					    type       	"const Write &"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "Write"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A70196"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3DB935A701AA"
+					    type       	"const Thread::SmartLock&"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "~Write"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A701DD"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "operator="
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A701E7"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935A70205"
+					    type       	"const Write &"))
+				    result     	"Write &"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0
+				    quidu      	"3D1049B50171")
+				(object Operation "debug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A70255"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935A7029B"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935A702F5"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935A7034F"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"const char *"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "sdebug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A7039F"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935A80007"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935A80061"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935A80164"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"string"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0))
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")
+			(object Class "Lock"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"Inlined constructors & destructors")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/SmartLock.h"))
+			    quid       	"3D1049B501AE"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"3D1049B600A2"
+				    supplier   	"Logical View::Common::Thread::SmartLock::BaseLock"
+				    quidu      	"3D1049B50102"))
+			    used_nodes 	(list uses_relationship_list
+				(object Uses_Relationship
+				    quid       	"3D1049B60077"
+				    supplier   	"Logical View::Common::Thread::SmartLock"
+				    quidu      	"3D1049B500A8"))
+			    operations 	(list Operations
+				(object Operation "Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"CCA65344FEED"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489346)
+				(object Operation "release"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationIsConst"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"OperationKind"
+					    value      	("OperationKindSet" 200))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"EntryCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"ExitCode"
+					    value      	(value Text ""))
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"7D43F6D0FEED"
+				    result     	"int"
+				    protocol   	"C++"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024489348)
+				(object Operation "relock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D1981F100D6"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3D19821203B9"
+					    type       	"const Thread::SmartLock &")
+					(object Parameter "wr"
+					    quid       	"3D19873E02A4"
+					    type       	"bool"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927038)
+				(object Operation "relock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D1981FF03A7"
+				    parameters 	(list Parameters
+					(object Parameter "wr"
+					    quid       	"3D19820B034A"
+					    type       	"bool"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927033)
+				(object Operation "Lock"
+				    quid       	"3DB935A801FA"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935A8020E"
+					    type       	"const Lock &"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A8025E"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3DB935A8029A"
+					    type       	"const Thread::SmartLock&")
+					(object Parameter "wr"
+					    quid       	"3DB935A802EA"
+					    type       	"bool"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "~Lock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A80344"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "operator="
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A8036C"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935A80394"
+					    type       	"const Lock &"))
+				    result     	"Lock &"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "debug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935A90011"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935A90061"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935A900B1"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935A90101"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"const char *"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "sdebug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AA0252"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935AA02B6"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935AA0310"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935AA037E"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"string"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0))
+			    class_attributes 	(list class_attribute_list
+				(object ClassAttribute "write"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"GenerateSetOperation"
+					    value      	FALSE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"GetSetByReference"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"cg"
+					    name       	"DataMemberVisibility"
+					    value      	("DataMemberVisibilitySet" 211))
+					(object Attribute
+					    tool       	"cg"
+					    name       	"cg_style"
+					    value      	"No get/set operations"))
+				    quid       	"3D1049B600A1"
+				    type       	"bool"
+				    exportControl 	"Protected"
+				    Containment 	"By Value"))
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")
+			(object Class "WriteUpgrade"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"Inlined constructors & destructors")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/SmartLock.h"))
+			    quid       	"3D19866E01D3"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"3D19867F02B3"
+				    supplier   	"Logical View::Common::Thread::SmartLock::Write"
+				    quidu      	"3D1049B50171"))
+			    operations 	(list Operations
+				(object Operation "WriteUpgrade"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D19A88A02E8"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927041)
+				(object Operation "relock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D19869003C6"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3D19869003DA"
+					    type       	"const Thread::SmartLock &"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927039)
+				(object Operation "WriteUpgrade"
+				    quid       	"3DB935AB0018"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935AB002C"
+					    type       	"const WriteUpgrade &"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "WriteUpgrade"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AB005E"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3DB935AB0068"
+					    type       	"const Thread::SmartLock&"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "~WriteUpgrade"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AB009A"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "operator="
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AB00AE"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935AB00CC"
+					    type       	"const WriteUpgrade &"))
+				    result     	"WriteUpgrade &"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0
+				    quidu      	"3D19866E01D3")
+				(object Operation "debug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AB0109"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935AB013B"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935AB016D"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935AB01A9"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"const char *"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "sdebug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AB020D"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935AB032A"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935AB037A"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935AB03D4"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"string"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0))
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")
+			(object Class "LockUpgrade"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"Inlined constructors & destructors")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/SmartLock.h"))
+			    quid       	"3D1986F90132"
+			    superclasses 	(list inheritance_relationship_list
+				(object Inheritance_Relationship
+				    quid       	"3D19870801CA"
+				    supplier   	"Logical View::Common::Thread::SmartLock::Lock"
+				    quidu      	"3D1049B501AE"))
+			    operations 	(list Operations
+				(object Operation "LockUpgrade"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D19A89F00FD"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927042)
+				(object Operation "relock"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"cg"
+					    name       	"Inline"
+					    value      	TRUE)
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3D1987470243"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3D1987470244"
+					    type       	"const Thread::SmartLock &")
+					(object Parameter "wr"
+					    quid       	"3D1987470261"
+					    type       	"bool"))
+				    result     	"int"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	1024927040)
+				(object Operation "LockUpgrade"
+				    quid       	"3DB935AC0064"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935AC0082"
+					    type       	"const LockUpgrade &"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "LockUpgrade"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AC00AA"
+				    parameters 	(list Parameters
+					(object Parameter "lock"
+					    quid       	"3DB935AC00BE"
+					    type       	"const Thread::SmartLock&")
+					(object Parameter "wr"
+					    quid       	"3DB935AC00F0"
+					    type       	"bool"))
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "~LockUpgrade"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AC012C"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "operator="
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AC0140"
+				    parameters 	(list Parameters
+					(object Parameter "right"
+					    quid       	"3DB935AC0168"
+					    type       	"const LockUpgrade &"))
+				    result     	"LockUpgrade &"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0
+				    quidu      	"3D1986F90132")
+				(object Operation "debug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AC01A4"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935AC01E0"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935AC0227"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935AC0263"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"const char *"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0)
+				(object Operation "sdebug"
+				    attributes 	(list Attribute_Set
+					(object Attribute
+					    tool       	"Cplusplus"
+					    name       	"Inline"
+					    value      	TRUE))
+				    quid       	"3DB935AC02B3"
+				    stereotype 	"const"
+				    parameters 	(list Parameters
+					(object Parameter ""
+					    quid       	"3DB935AC02F9"
+					    type       	"int"
+					    initv      	"1")
+					(object Parameter ""
+					    quid       	"3DB935AC0353"
+					    type       	"const string &"
+					    initv      	
+|""
+					    )
+					(object Parameter ""
+					    quid       	"3DB935AC03AD"
+					    type       	"const char *"
+					    initv      	"0"))
+				    result     	"string"
+				    concurrency 	"Sequential"
+				    opExportControl 	"Public"
+				    uid        	0))
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")))
+		(object Class "Attributes"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Thread/Thread.h"))
+		    quid       	"3E43C77403C5"
+		    operations 	(list Operations
+			(object Operation "Attributes"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7750023"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "Attributes"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7750024"
+			    parameters 	(list Parameters
+				(object Parameter "st"
+				    quid       	"3E43C7750025"
+				    type       	"int"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "~Attributes"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C78A02B9"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "detachState"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7A50152"
+			    stereotype 	"const"
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "joinable"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7A50161"
+			    stereotype 	"const"
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "detached"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7A50173"
+			    stereotype 	"const"
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "setDetachState"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7A50184"
+			    parameters 	(list Parameters
+				(object Parameter "st"
+				    quid       	"3E43C7A50193"
+				    type       	"int"))
+			    result     	"Attributes &"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0
+			    quidu      	"3E43C77403C5")
+			(object Operation "setJoinable"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7A501A8"
+			    result     	"Attributes &"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0
+			    quidu      	"3E43C77403C5")
+			(object Operation "setDetached"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3E43C7A501B3"
+			    result     	"Attributes &"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0
+			    quidu      	"3E43C77403C5")
+			(object Operation "operator pthread_attr_t &"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"400E4E110200"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator const pthread_attr_t &"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"400E4E110207"
+			    stereotype 	"const"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator pthread_attr_t *"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"400E4E110214"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "operator const pthread_attr_t *"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"400E4E11021B"
+			    stereotype 	"const"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "Null"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"400E4E110229"
+			    stereotype 	"static"
+			    result     	"const Attributes &"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "attr"
+			    quid       	"3E43C7750020"
+			    type       	"pthread_attr_t"))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++"
+		    nestedClasses 	(list nestedClasses
+			(object Class "AttributeCode"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Thread/Thread.h")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	(value Text 
+|enum 
+|        {
+|              JOINABLE  = PTHREAD_CREATE_JOINABLE,
+|              DETACHED  = PTHREAD_CREATE_DETACHED
+|        }
+				    )))
+			    quid       	"400E4E110181"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F")))
+		(object Association "$UNNAMED$0"
+		    quid       	"3D104B9800D5"
+		    roles      	(list role_list
+			(object Role "plock: const SmartLock *"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations")
+				(object Attribute
+				    tool       	"cg"
+				    name       	"DataMemberMutability"
+				    value      	("DataMemberMutabilitySet" 2))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"DataMemberVisibility"
+				    value      	("DataMemberVisibilitySet" 210)))
+			    quid       	"3D104B990090"
+			    label      	"plock: const SmartLock *"
+			    supplier   	"Logical View::Common::Thread::SmartLock"
+			    quidu      	"3D1049B500A8"
+			    client_cardinality 	(value cardinality "0..1")
+			    exportControl 	"Protected"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$1"
+			    quid       	"3D104B9900C2"
+			    supplier   	"Logical View::Common::Thread::SmartLock::BaseLock"
+			    quidu      	"3D1049B50102"
+			    Containment 	"By Reference")))
+		(object Association "$UNNAMED$2"
+		    quid       	"3D105A130308"
+		    roles      	(list role_list
+			(object Role "cond"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations"))
+			    quid       	"3D105A140151"
+			    label      	"cond"
+			    supplier   	"Logical View::Common::Thread::Condition"
+			    quidu      	"3D1049B50012"
+			    client_cardinality 	(value cardinality "1")
+			    Containment 	"By Value"
+			    exportControl 	"Private"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$3"
+			    quid       	"3D105A140179"
+			    supplier   	"Logical View::Common::Thread::SmartLock"
+			    quidu      	"3D1049B500A8"
+			    is_aggregate 	TRUE)))
+		(object Association "$UNNAMED$4"
+		    quid       	"3DB95464039B"
+		    roles      	(list role_list
+			(object Role "writer_id"
+			    quid       	"3DB95464039C"
+			    label      	"writer_id"
+			    supplier   	"Logical View::Common::Thread::ThrID"
+			    quidu      	"3D1049B401F1"
+			    Containment 	"By Value"
+			    exportControl 	"Private"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$5"
+			    quid       	"3DB95464039F"
+			    supplier   	"Logical View::Common::Thread::SmartLock"
+			    quidu      	"3D1049B500A8"
+			    is_aggregate 	TRUE))))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Main"
+		    quid       	"3D1049B70390"
+		    title      	"Main"
+		    zoom       	85
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::Common::Thread::ThrID" @1
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    ShowOperationSignature 	TRUE
+			    location   	(560, 608)
+			    font       	(object Font
+				size       	9
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@1
+				location   	(99, 147)
+				fill_color 	16777215
+				nlines     	1
+				max_width  	922
+				justify    	0
+				label      	"ThrID")
+			    icon_style 	"Icon"
+			    fill_color 	13434879
+			    quidu      	"3D1049B401F1"
+			    width      	940
+			    height     	946
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::Common::Thread::Key" @2
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    ShowOperationSignature 	TRUE
+			    location   	(2192, 608)
+			    font       	(object Font
+				size       	9
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@2
+				location   	(1719, 113)
+				fill_color 	16777215
+				nlines     	1
+				max_width  	946
+				justify    	0
+				label      	"Key")
+			    icon_style 	"Icon"
+			    fill_color 	13434879
+			    quidu      	"3D1049B402A5"
+			    width      	964
+			    height     	1015
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object ClassView "Class" "Logical View::Common::Thread::Attributes" @3
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    ShowOperationSignature 	TRUE
+			    location   	(944, 1792)
+			    font       	(object Font
+				size       	10
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@3
+				location   	(332, 1335)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	1225
+				justify    	0
+				label      	"Attributes")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3E43C77403C5"
+			    width      	1243
+			    height     	941
+			    annotation 	8)))
+		(object ClassDiagram "Mutexes & Conditions"
+		    quid       	"3E43C29B03B9"
+		    title      	"Mutexes & Conditions"
+		    zoom       	90
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	393
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::Common::Thread::Mutex" @4
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    ShowOperationSignature 	TRUE
+			    location   	(1024, 528)
+			    font       	(object Font
+				size       	10
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@4
+				location   	(252, 179)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	1544
+				justify    	0
+				label      	"Mutex")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3D1049B40332"
+			    width      	1562
+			    height     	725
+			    annotation 	8)
+			(object ClassView "Class" "Logical View::Common::Thread::Mutex::Lock" @5
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    ShowOperationSignature 	TRUE
+			    location   	(1216, 1760)
+			    font       	(object Font
+				size       	10
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@5
+				location   	(267, 1208)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	1898
+				justify    	0
+				label      	"Lock")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3D1049B40396"
+			    compartment 	(object Compartment
+				Parent_View 	@5
+				location   	(267, 1852)
+				font       	(object Font
+				    size       	10
+				    face       	"arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				icon_style 	"Icon"
+				fill_color 	16777215
+				anchor     	2
+				nlines     	18
+				max_width  	0)
+			    width      	1916
+			    height     	1131
+			    annotation 	8)
+			(object UsesView "" @6
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3D1081040003"
+			    client     	@5
+			    supplier   	@4
+			    line_style 	3
+			    origin_attachment 	(1641, 1195)
+			    terminal_attachment 	(1641, 890))
+			(object UsesView "" @7
+			    font       	(object Font
+				size       	10
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    stereotype 	(object SegLabel @8
+				Parent_View 	@7
+				location   	(626, 1040)
+				font       	(object Font
+				    size       	10
+				    face       	"arial"
+				    bold       	FALSE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				anchor     	10
+				anchor_loc 	1
+				nlines     	1
+				max_width  	450
+				justify    	0
+				label      	"<<friend permission>>"
+				pctDist    	0.495549
+				height     	7
+				orientation 	0)
+			    line_color 	3342489
+			    quidu      	"3DB935A501D0"
+			    client     	@4
+			    supplier   	@5
+			    line_style 	3
+			    origin_attachment 	(619, 890)
+			    terminal_attachment 	(619, 1195))
+			(object ClassView "Class" "Logical View::Common::Thread::Condition" @9
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    ShowOperationSignature 	TRUE
+			    location   	(2848, 512)
+			    font       	(object Font
+				size       	10
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@9
+				location   	(2410, 117)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	876
+				justify    	0
+				label      	"Condition")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3D1049B50012"
+			    width      	894
+			    height     	816
+			    annotation 	8)
+			(object InheritView "" @10
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3D1049B5009E"
+			    client     	@9
+			    supplier   	@4
+			    line_style 	3
+			    origin_attachment 	(2401, 528)
+			    terminal_attachment 	(1805, 528))))
+		(object ClassDiagram "SmartLocks"
+		    quid       	"3E43C2A30153"
+		    title      	"SmartLocks"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list))))
+	(object Class_Category "Debug"
+	    attributes 	(list Attribute_Set
+		(object Attribute
+		    tool       	"cg"
+		    name       	"IsNamespace"
+		    value      	TRUE)
+		(object Attribute
+		    tool       	"Cplusplus"
+		    name       	"IsNamespace"
+		    value      	TRUE))
+	    quid       	"3C20B2850241"
+	    stereotype 	"namespace"
+	    exportControl 	"Public"
+	    logical_models 	(list unit_reference_list
+		(object Class "Context"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateDefaultConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateCopyConstructor"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"GenerateAssignmentOperation"
+			    value      	("GenerateSet" 206))
+			(object Attribute
+			    tool       	"cg"
+			    name       	"PutBodiesInSpec"
+			    value      	FALSE)
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Debug.h")
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"BodySourceFile"
+			    value      	"Debug.cc"))
+		    quid       	"3C21B55E02FC"
+		    operations 	(list Operations
+			(object Operation "Context"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"Inline"
+				    value      	FALSE))
+			    quid       	"3C21B594005B"
+			    parameters 	(list Parameters
+				(object Parameter "name"
+				    quid       	"3C21B6D00362"
+				    type       	"const string &")
+				(object Parameter "parent_"
+				    quid       	"3CD686630190"
+				    type       	"Context *"
+				    quidu      	"3C21B55E02FC"
+				    initv      	"0"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1008319522)
+			(object Operation "check"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"Inlined")
+				(object Attribute
+				    tool       	"cg"
+				    name       	"OperationIsConst"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"BodyAnnotations"
+				    value      	"")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3C21B9750352"
+			    stereotype 	"const"
+			    parameters 	(list Parameters
+				(object Parameter "level"
+				    quid       	"3C21B981029B"
+				    type       	"int"))
+			    result     	"bool"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	1008319523)
+			(object Operation "~Context"
+			    quid       	"3DB95464028D"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "level"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB954640293"
+			    stereotype 	"const"
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "setLevel"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB95464029E"
+			    parameters 	(list Parameters
+				(object Parameter "value"
+				    quid       	"3DB9546402A5"
+				    type       	"int"))
+			    result     	"int"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "name"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB9546402B5"
+			    stereotype 	"const"
+			    result     	"const string&"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "initialize"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB9546402C2"
+			    stereotype 	"static"
+			    result     	"void"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "debug_level"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetName"
+				    value      	(value Text "level"))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"SetName"
+				    value      	(value Text "setLevel"))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"SetReturnsValue"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"getMember() but no set operation")
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetResultIsConst"
+				    value      	("GetResultIsConstSet" 0))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetSetByReference"
+				    value      	FALSE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GenerateSetOperation"
+				    value      	TRUE))
+			    quid       	"3C21B57C027D"
+			    type       	"int")
+			(object ClassAttribute "context_name"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"getMember() but no set operation")
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetName"
+				    value      	(value Text "name"))
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetSetByReference"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"SetReturnsValue"
+				    value      	TRUE)
+				(object Attribute
+				    tool       	"cg"
+				    name       	"GetResultIsConst"
+				    value      	("GetResultIsConstSet" 1)))
+			    quid       	"3C21B5800193"
+			    type       	"string")
+			(object ClassAttribute "initialized"
+			    quid       	"3DB954640264"
+			    type       	"bool"
+			    initv      	"false"
+			    static     	TRUE))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++")
+		(object Class "ContextMap"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Debug.cc")
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"ImplementationType"
+			    value      	"multimap<string,Context*>"))
+		    quid       	"3DB95464011F"
+		    stereotype 	"typedef"
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++")
+		(object Class "DebugLevelMap"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Debug.cc")
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"ImplementationType"
+			    value      	"map<string,int>"))
+		    quid       	"3DB954640131"
+		    stereotype 	"typedef"
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++")
+		(object Class "Tracer"
+		    attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"HeaderSourceFile"
+			    value      	"Debug.h")
+			(object Attribute
+			    tool       	"Cplusplus"
+			    name       	"BodySourceFile"
+			    value      	"Debug.cc"))
+		    quid       	"3DB954640201"
+		    operations 	(list Operations
+			(object Operation "Tracer"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB9546402E2"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "startMsg"
+			    quid       	"3DB9546402E3"
+			    parameters 	(list Parameters
+				(object Parameter "level"
+				    quid       	"3DB9546402E4"
+				    type       	"int")
+				(object Parameter "file"
+				    quid       	"3DB9546402E5"
+				    type       	"const char*")
+				(object Parameter "line"
+				    quid       	"3DB9546402E6"
+				    type       	"int")
+				(object Parameter "func"
+				    quid       	"3DB9546402E7"
+				    type       	"const char*")
+				(object Parameter "msg"
+				    quid       	"3DB9546402E8"
+				    type       	"const char*")
+				(object Parameter "objPtr"
+				    quid       	"3DB9546402E9"
+				    type       	"const void*"))
+			    result     	"void"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "~Tracer"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"Inline"
+				    value      	TRUE))
+			    quid       	"3DB9546402EA"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Public"
+			    uid        	0)
+			(object Operation "Tracer"
+			    quid       	"3DB9546402EB"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB9546402EC"
+				    type       	"const Tracer&"))
+			    concurrency 	"Sequential"
+			    opExportControl 	"Private"
+			    uid        	0)
+			(object Operation "operator="
+			    quid       	"3DB9546402ED"
+			    parameters 	(list Parameters
+				(object Parameter ""
+				    quid       	"3DB9546402EE"
+				    type       	"const Tracer&"))
+			    result     	"Tracer&"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Private"
+			    uid        	0
+			    quidu      	"3DB954640201")
+			(object Operation "endMsg"
+			    quid       	"3DB9546402EF"
+			    result     	"void"
+			    concurrency 	"Sequential"
+			    opExportControl 	"Private"
+			    uid        	0))
+		    class_attributes 	(list class_attribute_list
+			(object ClassAttribute "itsDo"
+			    quid       	"3DB9546402DE"
+			    type       	"bool")
+			(object ClassAttribute "itsLevel"
+			    quid       	"3DB9546402DF"
+			    type       	"int")
+			(object ClassAttribute "itsMsg"
+			    quid       	"3DB9546402E1"
+			    type       	"string"))
+		    module     	"Component View::Common"
+		    quidu      	"3DB9359F015F"
+		    language   	"ANSI C++")
+		(object Association "$UNNAMED$6"
+		    quid       	"3CD6863500DF"
+		    roles      	(list role_list
+			(object Role "parent"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"cg"
+				    name       	"cg_style"
+				    value      	"No get/set operations"))
+			    quid       	"3CD68637038B"
+			    label      	"parent"
+			    supplier   	"Logical View::Common::Debug::Context"
+			    quidu      	"3C21B55E02FC"
+			    client_cardinality 	(value cardinality "0..1")
+			    Containment 	"By Reference"
+			    exportControl 	"Private"
+			    is_navigable 	TRUE)
+			(object Role "$UNNAMED$7"
+			    quid       	"3CD6863703BD"
+			    supplier   	"Logical View::Common::Debug::Context"
+			    quidu      	"3C21B55E02FC"
+			    Containment 	"By Reference"
+			    is_aggregate 	TRUE)))
+		(object Class_Category "Internal types and typedefs"
+		    quid       	"3DB954D202C6"
+		    exportControl 	"Public"
+		    logical_models 	(list unit_reference_list
+			(object Class "DLMI"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Debug.cc")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	"DebugLevelMap::iterator"))
+			    quid       	"3DB954640128"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F"
+			    language   	"ANSI C++")
+			(object Class "CMI"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Debug.cc")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	"ContextMap::iterator"))
+			    quid       	"3DB95464010E"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F"
+			    language   	"ANSI C++")
+			(object Class "CDLMI"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Debug.cc")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	"DebugLevelMap::const_iterator"))
+			    quid       	"3DB954640105"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F"
+			    language   	"ANSI C++")
+			(object Class "CCMI"
+			    attributes 	(list Attribute_Set
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"HeaderSourceFile"
+				    value      	"Debug.cc")
+				(object Attribute
+				    tool       	"Cplusplus"
+				    name       	"ImplementationType"
+				    value      	"ContextMap::const_iterator"))
+			    quid       	"3DB9546400FB"
+			    stereotype 	"typedef"
+			    module     	"Component View::Common"
+			    quidu      	"3DB9359F015F"
+			    language   	"ANSI C++"))
+		    logical_presentations 	(list unit_reference_list)))
+	    logical_presentations 	(list unit_reference_list
+		(object ClassDiagram "Main"
+		    quid       	"3C21B56D004B"
+		    title      	"Main"
+		    zoom       	100
+		    max_height 	28350
+		    max_width  	21600
+		    origin_x   	0
+		    origin_y   	0
+		    items      	(list diagram_item_list
+			(object ClassView "Class" "Logical View::Common::Debug::Context" @11
+			    ShowCompartmentStereotypes 	TRUE
+			    IncludeAttribute 	TRUE
+			    IncludeOperation 	TRUE
+			    ShowOperationSignature 	TRUE
+			    location   	(930, 315)
+			    font       	(object Font
+				size       	9
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    label      	(object ItemLabel
+				Parent_View 	@11
+				location   	(734, 55)
+				fill_color 	13434879
+				nlines     	1
+				max_width  	392
+				justify    	0
+				label      	"Context")
+			    icon_style 	"Icon"
+			    line_color 	3342489
+			    fill_color 	13434879
+			    quidu      	"3C21B55E02FC"
+			    width      	410
+			    height     	542
+			    annotation 	8
+			    autoResize 	TRUE)
+			(object AssociationViewNew "$UNNAMED$6" @12
+			    location   	(953, 720)
+			    font       	(object Font
+				size       	9
+				face       	"arial"
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    stereotype 	TRUE
+			    line_color 	3342489
+			    quidu      	"3CD6863500DF"
+			    roleview_list 	(list RoleViews
+				(object RoleView "parent" @13
+				    Parent_View 	@12
+				    location   	(263, 420)
+				    font       	(object Font
+					size       	9
+					face       	"arial"
+					bold       	FALSE
+					italics    	FALSE
+					underline  	FALSE
+					strike     	FALSE
+					color      	0
+					default_color 	TRUE)
+				    label      	(object SegLabel @14
+					Parent_View 	@13
+					location   	(817, 598)
+					font       	(object Font
+					    size       	9
+					    face       	"arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor     	1
+					anchor_loc 	1
+					nlines     	1
+					max_width  	123
+					justify    	0
+					label      	"-parent"
+					pctDist    	0.941383
+					height     	72
+					orientation 	0)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3CD68637038B"
+				    client     	@12
+				    supplier   	@11
+				    vertices   	(list Points
+					(953, 720)
+					(888, 720)
+					(888, 586))
+				    line_style 	3
+				    origin_attachment 	(953, 720)
+				    terminal_attachment 	(888, 586)
+				    label      	(object SegLabel @15
+					Parent_View 	@13
+					location   	(943, 599)
+					font       	(object Font
+					    size       	9
+					    face       	"arial"
+					    bold       	FALSE
+					    italics    	FALSE
+					    underline  	FALSE
+					    strike     	FALSE
+					    color      	0
+					    default_color 	TRUE)
+					anchor     	2
+					anchor_loc 	1
+					nlines     	1
+					max_width  	15
+					justify    	0
+					label      	"0..1"
+					pctDist    	0.935522
+					height     	55
+					orientation 	1))
+				(object RoleView "$UNNAMED$7" @16
+				    Parent_View 	@12
+				    location   	(263, 420)
+				    stereotype 	TRUE
+				    line_color 	3342489
+				    quidu      	"3CD6863703BD"
+				    client     	@12
+				    supplier   	@11
+				    vertices   	(list Points
+					(953, 720)
+					(1018, 720)
+					(1018, 586))
+				    line_style 	3
+				    origin_attachment 	(953, 720)
+				    terminal_attachment 	(1018, 586)))))))))
+    logical_presentations 	(list unit_reference_list))

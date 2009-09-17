@@ -1,0 +1,3 @@
+#!/bin/sh
+
+%LEVEL%../autoconf_share/bootstrap %LEVEL%../autoconf_share

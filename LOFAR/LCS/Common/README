@@ -1,0 +1,21 @@
+LCS/Common package
+==================
+
+The LCS/Common package contains pieces of software that are very
+reusable. Hence the name "common".
+
+Although being one package, one can identify a number of groups, each group
+providing distinct functionality:
+
+  * Blitz++ to AIPS++ conversion functions
+      Conversion methods for Blitz++ and AIPS++ data structures.
+  * Blob Binary Large Objects (Blob)
+      Classes for serializing one or more objects into a blob and
+      de-serializingthe blob to objects.
+  * Data conversion functions
+  * Logging package
+  * Profiling MPI Profiling
+  * Sockets
+  * Shared Memory
+  * Threads
+  * Type name functions

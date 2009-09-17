@@ -1,0 +1,58 @@
+>>>
+/Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp
+startdistproc -mode 0 -nomasterhost -dirs /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test,/Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test -cdn /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp.cd -hfn '/Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/hfn' /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/makemsdistr-part /Users/diepen/sim/LOFAR/installed/gnu_debug /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds
+socketrun 0 /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/hfn '' 0 1  /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/makemsdistr-part /Users/diepen/sim/LOFAR/installed/gnu_debug /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds
+ssh -x -n localhost /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/makemsdistr-part socket localhost 0 2 0 /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /usr /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test  /Users/diepen/sim/LOFAR/installed/gnu_debug /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds  &
+ssh -x -n localhost /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/makemsdistr-part socket localhost 0 2 1 /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /usr /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test  /Users/diepen/sim/LOFAR/installed/gnu_debug /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds  &
+socket localhost 0 2 0 /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /usr /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /Users/diepen/sim/LOFAR/installed/gnu_debug /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds
+socket localhost 0 2 1 /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /usr /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /Users/diepen/sim/LOFAR/installed/gnu_debug /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds
+makems /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset 0 /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds > /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds_0
+makems /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems.parset 1 /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds > /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds_1
+Created 2 distributed MS parts and their VDS files
+Created global VDS file /Users/diepen/sim/LOFAR/CEP/MS/build/gnu_debug/test/tmakems_tmp/vds/tmakems_tmp.ms.gds
+<<<
+StartTime  = 2000/08/03/13:22:30.000
+EndTime    = 2000/08/03/13:24:50.000
+StepTime   = 10
+NChan      = [16,16,16,16]
+StartFreqs = [1170000000,1171600000,1173200000,1174800000]
+EndFreqs   = [1171600000,1173200000,1174800000,1176400000]
+NParts = 2
+Part0.FileSys    = /usr
+Part0.StartTime  = 2000/08/03/13:22:30.000
+Part0.EndTime    = 2000/08/03/13:24:50.000
+Part0.StepTime   = 10
+Part0.NChan      = [16,16]
+Part0.StartFreqs = [1170000000,1170100000,1170200000,1170300000,1170400000,1170500000,1170600000,1170700000,1170800000,1170900000,1171000000,1171100000,1171200000,1171300000,1171400000,1171500000,1171600000,1171700000,1171800000,1171900000,1172000000,1172100000,1172200000,1172300000,1172400000,1172500000,1172600000,1172700000,1172800000,1172900000,1173000000,1173100000]
+Part0.EndFreqs   = [1170100000,1170200000,1170300000,1170400000,1170500000,1170600000,1170700000,1170800000,1170900000,1171000000,1171100000,1171200000,1171300000,1171400000,1171500000,1171600000,1171700000,1171800000,1171900000,1172000000,1172100000,1172200000,1172300000,1172400000,1172500000,1172600000,1172700000,1172800000,1172900000,1173000000,1173100000,1173200000]
+Part1.FileSys    = /usr
+Part1.StartTime  = 2000/08/03/13:22:30.000
+Part1.EndTime    = 2000/08/03/13:24:50.000
+Part1.StepTime   = 10
+Part1.NChan      = [16,16]
+Part1.StartFreqs = [1173200000,1173300000,1173400000,1173500000,1173600000,1173700000,1173800000,1173900000,1174000000,1174100000,1174200000,1174300000,1174400000,1174500000,1174600000,1174700000,1174800000,1174900000,1175000000,1175100000,1175200000,1175300000,1175400000,1175500000,1175600000,1175700000,1175800000,1175900000,1176000000,1176100000,1176200000,1176300000]
+Part1.EndFreqs   = [1173300000,1173400000,1173500000,1173600000,1173700000,1173800000,1173900000,1174000000,1174100000,1174200000,1174300000,1174400000,1174500000,1174600000,1174700000,1174800000,1174900000,1175000000,1175100000,1175200000,1175300000,1175400000,1175500000,1175600000,1175700000,1175800000,1175900000,1176000000,1176100000,1176200000,1176300000,1176400000]
+
+Created 2 MS parts and their VDS files
+Created global VDS file tmakems_tmp.ms.gds
+StartTime  = 2000/08/03/13:22:30.000
+EndTime    = 2000/08/03/13:24:50.000
+StepTime   = 10
+NChan      = [16,16,16,16]
+StartFreqs = [1170000000,1171600000,1173200000,1174800000]
+EndFreqs   = [1171600000,1173200000,1174800000,1176400000]
+NParts = 2
+Part0.FileSys    = unknown
+Part0.StartTime  = 2000/08/03/13:22:30.000
+Part0.EndTime    = 2000/08/03/13:24:50.000
+Part0.StepTime   = 10
+Part0.NChan      = [16,16]
+Part0.StartFreqs = [1170000000,1170100000,1170200000,1170300000,1170400000,1170500000,1170600000,1170700000,1170800000,1170900000,1171000000,1171100000,1171200000,1171300000,1171400000,1171500000,1171600000,1171700000,1171800000,1171900000,1172000000,1172100000,1172200000,1172300000,1172400000,1172500000,1172600000,1172700000,1172800000,1172900000,1173000000,1173100000]
+Part0.EndFreqs   = [1170100000,1170200000,1170300000,1170400000,1170500000,1170600000,1170700000,1170800000,1170900000,1171000000,1171100000,1171200000,1171300000,1171400000,1171500000,1171600000,1171700000,1171800000,1171900000,1172000000,1172100000,1172200000,1172300000,1172400000,1172500000,1172600000,1172700000,1172800000,1172900000,1173000000,1173100000,1173200000]
+Part1.FileSys    = unknown
+Part1.StartTime  = 2000/08/03/13:22:30.000
+Part1.EndTime    = 2000/08/03/13:24:50.000
+Part1.StepTime   = 10
+Part1.NChan      = [16,16]
+Part1.StartFreqs = [1173200000,1173300000,1173400000,1173500000,1173600000,1173700000,1173800000,1173900000,1174000000,1174100000,1174200000,1174300000,1174400000,1174500000,1174600000,1174700000,1174800000,1174900000,1175000000,1175100000,1175200000,1175300000,1175400000,1175500000,1175600000,1175700000,1175800000,1175900000,1176000000,1176100000,1176200000,1176300000]
+Part1.EndFreqs   = [1173300000,1173400000,1173500000,1173600000,1173700000,1173800000,1173900000,1174000000,1174100000,1174200000,1174300000,1174400000,1174500000,1174600000,1174700000,1174800000,1174900000,1175000000,1175100000,1175200000,1175300000,1175400000,1175500000,1175600000,1175700000,1175800000,1175900000,1176000000,1176100000,1176200000,1176300000,1176400000]

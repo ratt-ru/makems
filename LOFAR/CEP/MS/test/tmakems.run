@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Set srcdir if not defined (in case run by hand).
+if test "$srcdir" = ""; then
+  srcdir="../../../test"
+fi
+
+# Symlink to scripts/programs, so they can be started from test directory.
+ln -s $srcdir/../src/makemsdistr .
+ln -s $srcdir/../src/makemsdistr-part .
+ln -s ../src/combinevds .
+ln -s ../src/makems .
+PATH=.:$PATH
+export PATH
+
+# Create ClusterDesc file using pwd.
+wd=`pwd`
+cat > tmakems_tmp.cd <<EOF
+ClusterName = cl
+NNodes = 1
+Node0.NodeName = localhost
+Node0.NodeFileSys = [/usr]
+Node0.NodeMountPoints = [$wd]
+EOF
+
+# Take care that system-dependent output is excluded.
+echo ">>>"
+# Create working directory and untar the ANTENNA table.
+mkdir -p tmakems_tmp/vds
+cd tmakems_tmp
+tar zxf ../tmakems.in_antenna.tgz
+cd ..
+echo "AntennaTableName=$wd/tmakems_tmp/WSRT_ANTENNA" >> tmakems.parset
+
+
+# Create MS parts in a distributed way.
+./makemsdistr -hfn $wd/tmakems_tmp/hfn tmakems.parset $wd/tmakems_tmp.cd $wd
+echo "<<<"
+
+# Print global VDS file without system-dependent names.
+grep -v 'Name *=' tmakems_tmp/vds/tmakems_tmp.ms.gds | grep -v "ClusterDesc *="
+echo
+
+./makems tmakems.parset
+grep -v 'Name *=' tmakems_tmp.ms.gds | grep -v "ClusterDesc *="
+
+# Clean up.
+rm makemsdistr makemsdistr-part combinevds makems

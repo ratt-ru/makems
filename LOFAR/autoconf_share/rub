@@ -1,0 +1,900 @@
+#!/bin/sh
+
+# rub: do recursive update/checkout and build of packages
+#
+#  Copyright (C) 2004
+#  ASTRON (Netherlands Foundation for Research in Astronomy)
+#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#  $Id: rub 13381 2009-06-04 12:40:44Z diepen $
+
+
+# This script is useful to checkout all code needed for a package.
+# CVS and SVN are supported.
+# It checks out the package itself, looks in its configure.in file which
+# other packages it needs, checks those out, etc..
+# If the package already exists in the code tree, the package is updated,
+# otherwise the package is checked out. The log output is written
+# to the file rub.log. The script generates a warning if it finds
+# update conflicts.
+# Furthermore it generates a lofarconf.in.private file which makes it possible
+# to bootstrap, configure and build all those packages (in the correct order).
+#
+# The command has to be run from the LOFAR source directory in the user's tree.
+
+
+# Find the path used to start the script.
+pgmpath=`dirname $0`
+pgmpath=`cd $pgmpath > /dev/null 2>&1  &&  pwd`
+
+# Determine the md5sum to use. Some systems have md5 instead of md5sum.
+# Note that on some systems which always returns 0.
+md5pgm=`which md5sum 2>&1 | sed -e 's%^[^/].*%%'`
+if test "$md5pgm" = ""; then
+  md5pgm=`which md5 2>&1 | sed -e 's%^[^/].*%%'`
+fi
+if test "$md5pgm" = ""; then
+  echo "md5sum nor md5 is found"
+  exit 1
+fi
+export md5pgm
+
+# Keep arguments.
+# Put quotes around an argument if it contains special characters.
+# Escape a " in the argument.
+args=
+for arg in "$@"
+do
+  argx=`echo "$arg" | sed -e "s/[a-zA-Z0-9_/-]//g"`
+  if [ "$argx" = "" ]; then
+    args="$args $arg"
+  else
+    argxx=`echo "$argx" | sed -e "s/'//g"`
+    if [ "$argxx" = "$argx" ]; then
+      args="$args '$arg'"
+    else
+      arg=`echo "$arg" | sed -e 's/"/\\\\"/g'`
+      args="$args \"$arg\""
+    fi
+  fi
+done
+
+# Set default options.
+usesvn=1
+command=svn
+cutag=
+kopt=
+jobsopt=
+variants=
+buildmake=1
+boot=2
+conf=2
+confopt=
+clean=0
+distclean=0
+bldtest=0
+check=0
+checktool=
+memcheck=0
+install=2
+dist=0
+distcheck=0
+rpm=0
+update=1
+updas=1
+skipbuilt=0
+system=0
+recur=1
+
+verstype=
+pkgfound=0
+help=0
+if [ $# = 0 ]; then
+  help=1
+fi
+
+# Handle possible options.
+while [ $# != 0 ]
+do
+  if [ "$1" = "-h"  -o  "$1" = "-help"  -o  "$1" = "--help" ]; then
+    help=1
+    break
+  elif [ "$1" = "-cvs" ]; then
+    shift
+    command="$1"
+    usesvn=0
+    shift
+  elif [ "$1" = "-nocvs" ]; then
+    shift
+    command="svn"
+    usesvn=1
+  elif [ "$1" = "-svn" ]; then
+    shift
+    command="$1"
+    usesvn=1
+    shift
+  elif [ "$1" = "-nosvn" ]; then
+    shift
+    command="cvs"
+    usesvn=0
+  elif [ "$1" = -update ]; then
+    shift
+    update=1
+    updas=1
+  elif [ "$1" = -noupdate ]; then
+    shift
+    update=0
+    updas=0
+  elif [ "$1" = -noupdas ]; then
+    shift
+    updas=0
+  # tag?
+  elif [ "$1" = -r ]; then
+    shift
+    cutag="$1"
+    shift
+  elif [ "$1" = -nor ]; then
+    shift
+    cutag=
+  # continue after error?
+  elif [ "$1" = -k ]; then
+    shift
+    kopt='-k'
+  elif [ "$1" = -nok ]; then
+    shift
+    kopt=
+  # parallel make option?
+  elif [ "$1" = -j ]; then
+    shift
+    jobsopt="-j$1"
+    shift
+  elif [ "$1" = -noj ]; then
+    shift
+    jobsopt=
+  # Which variants to build after the checkout/update?
+  elif [ "$1" = -build ]; then
+    shift
+    case "$1" in
+    -*)
+      echo "-build argument must be a variant; option '$1' was given"
+      exit 1
+      ;;
+    esac
+    variants="$1"
+    shift
+  elif [ "$1" = -nobuild ]; then
+    shift
+    variants=
+  elif [ "$1" = -make ]; then
+    shift
+    buildmake=1
+  elif [ "$1" = -nomake ]; then
+    shift
+    buildmake=0
+  elif [ "$1" = -boot ]; then
+    shift
+    boot=1
+  elif [ "$1" = -noboot ]; then
+    shift
+    boot=0
+  elif [ "$1" = -conf ]; then
+    shift
+    conf=1
+  elif [ "$1" = -noconf ]; then
+    shift
+    conf=0
+  elif [ "$1" = -confopt ]; then
+    shift
+    confopt="$1"
+    shift
+  elif [ "$1" = -noconfopt ]; then
+    shift
+    confopt=""
+  elif [ "$1" = -skipbuilt ]; then
+    shift
+    skipbuilt=1
+    update=0
+    updas=0
+  elif [ "$1" = -noskipbuilt ]; then
+    shift
+    skipbuilt=0
+  elif [ "$1" = -clean ]; then
+    shift
+    clean=1
+  elif [ "$1" = -noclean ]; then
+    shift
+    clean=0
+  elif [ "$1" = -distclean ]; then
+    shift
+    distclean=1
+  elif [ "$1" = -nodistclean ]; then
+    shift
+    distclean=0
+  elif [ "$1" = -test ]; then
+    shift
+    bldtest=1
+  elif [ "$1" = -notest ]; then
+    shift
+    bldtest=0
+  elif [ "$1" = -check ]; then
+    shift
+    check=1
+  elif [ "$1" = -nocheck ]; then
+    shift
+    check=0
+  elif [ "$1" = -memcheck ]; then
+    shift
+    memcheck=1
+  elif [ "$1" = -nomemcheck ]; then
+    shift
+    memcheck=0
+  elif [ "$1" = -checktool ]; then
+    shift
+    checktool="$1"
+    shift
+  elif [ "$1" = -nochecktool ]; then
+    shift
+    checktool=
+  elif [ "$1" = -install ]; then
+    shift
+    install=1
+  elif [ "$1" = -noinstall ]; then
+    shift
+    install=0
+  elif [ "$1" = -dist ]; then
+    shift
+    dist=1
+  elif [ "$1" = -nodist ]; then
+    shift
+    dist=0
+  elif [ "$1" = -distcheck ]; then
+    shift
+    distcheck=1
+  elif [ "$1" = -nodistcheck ]; then
+    shift
+    distcheck=0
+  elif [ "$1" = -rpm ]; then
+    shift
+    rpm=1
+  elif [ "$1" = -norpm ]; then
+    shift
+    rpm=0
+  elif [ "$1" = -system ]; then
+    shift
+    system=1
+  elif [ "$1" = -nosystem ]; then
+    shift
+    system=0
+  elif test "$1" = -recur  -o  "$1" = -recursive; then
+    shift
+    recur=1
+  elif test "$1" = -norecur  -o  "$1" = -norecursive; then
+    shift
+    recur=0
+  elif test "$1" = "-release=max"; then
+    shift
+    verstype=m
+  elif test "$1" = "-release=exact"; then
+    shift
+    verstype=e
+  elif test "$1" = "-release=majorexact"; then
+    shift
+    verstype=me
+  elif test "$1" = "-release=minorexact"; then
+    shift
+    verstype=mme
+  elif test "$1" = "-release=latest"; then
+    shift
+    verstype=l
+  elif test "$1" = "-release=main"; then
+    shift
+    verstype=t
+  elif test "$1" = "-norelease"; then
+    shift
+    verstype=
+  else
+    case "$1" in
+    -release=*)
+      echo "$1 is invalid; valid options are max,exact,majorexact,minorexact,latest,main"
+      exit 1
+      ;;
+    -r*)
+      cutag=`echo $1 | sed -e 's/-r//'`
+      shift
+      ;;
+    -j*)
+      jobsopt='-j'`echo $1 | sed -e 's/-j//'`
+      shift
+      ;;
+    -*)
+      echo "$1 is an unknown rub option"
+      exit 1
+      ;;
+    *)
+      # A package name has been found, so stop parsing options.
+      pkgfound=1
+      break
+      ;;
+    esac
+  fi
+done
+if [ $distclean = 1 ]; then
+  clean=2
+  conf=1
+fi
+if [ $boot = 2  -a  "$variants" = "" ]; then
+  boot=0
+fi
+if [ $boot = 1 ]; then
+  conf=1
+fi
+if [ $usesvn = 1 ]; then
+  updcomm="$command update"
+  chocomm="$command update"
+else
+  updcomm="$command update -dP"
+  chocomm="$command checkout"
+  # svn -N is sticky; in v1.5 the --recursive flag gets supported
+##  updcommf="$svncomm update --recursive"
+##  updcomm="$svncomm update -N"
+##  chocomm="$svncomm update -N"
+fi
+
+if [ $help = 1 ]; then
+  echo ''
+  echo 'rub stands for recursive update and build.'
+  echo 'It checks out/updates LOFAR packages and the packages they depend on.'
+  echo 'It uses the .spec.in or configure.in files to find out if specific'
+  echo 'package versions are to be used.'
+  echo 'If -build is given, the packages are configured, cleaned, built,'
+  echo ' checked, installed, distchecked, and/or rpm-ed for the given variant(s)'
+  echo 'using the script rubbuild.'
+  echo ''
+  echo 'Run as:'
+  echo ' rub [-cvs cvs-command] [-svn svn-command] [-update] [-r<tag>]'
+  echo '     [-recur[sive]] [-release=option] [-build variants]] [-skipbuilt]'
+  echo '     [-system] [-boot] [-conf] [-confopt string] [-k] [-j<option>]'
+  echo '     [-[dist]clean] [-make] [-test] [-check] [-checktool tool] [-memcheck]'
+  echo '     [-install] [-dist] [-distcheck] [-rpm]'
+  echo '     package1 [-v<version>] [...]'
+  echo ''
+  echo '  -cvs cvs-command  is an optional cvs command making it possible to'
+  echo '                    specify (for example) the root.'
+  echo '                    It also tells to use cvs instead of svn'
+  echo '                    -nocvs tells to use svn instead of cvs.'
+  echo '                    Default is -nocvs.'
+  echo '  -svn svn-command  is an optional svn command making it possible to'
+  echo '                    specify (for example) the root.'
+  echo '                    It also tells to use svn instead of cvs'
+  echo '                    -nosvn tells to use cvs instead of svn.'
+  echo '  -update           checkout/update autoconf_share and the source tree.'
+  echo '                     -noupdate prevents it all.'
+  echo '                     -noupdas  prevents updating autoconf_share.'
+  echo '                    Default is -update.'
+  echo '  -r<tag>           tag of the given package(s) to be updated/checked out'
+  echo '                    If given, the tag will be used for all packages'
+  echo '                    (excluding autoconf_share).'
+  echo '  -recur[sive]      Do everything recursively, thus also for all'
+  echo '                    packages used by the given packages.'
+  echo '                    Default is -recur.'
+  echo '  -release=option   defines which release to check out depending on'
+  echo '                    the version given in the LOFAR_INTERNAL macros in'
+  echo '                    configure.in or the Requires line in PKG.spec.in.'
+  echo '                    LOFAR uses release numbers major.minor.patch.'
+  echo '                    exact   Use the versions as given and check if they'
+  echo '                            match if a package is used from multiple packages.'
+  echo '                    majorexact  Check if the major version matches'
+  echo '                                and use the highest minor.patch.'
+  echo '                    minorexact  Check if the major.minor version matches'
+  echo '                                and use the highest patch.'
+  echo '                    max     Use the highest package version given if'
+  echo '                            used from multiple packages.'
+  echo '                    latest  Use latest package release version in repository.'
+  echo '                    main    Always use the MAIN for all packages.'
+  echo '                    Default = -release=max.'
+  echo '  -build variants   one or more variants to be built (e.g. "gnu_debug gnu_opt")'
+  echo '                    By default the build is done in the build subdirectory'
+  echo '                    of the source tree (e.g. in LCS/Common/build/gnu_opt).'
+  echo '                    A variant can be followed by :user@host to do a build'
+  echo '                    on another machine (using ssh). Rub does not wait'
+  echo '                    for such a build to complete'.
+  echo '                    A third part is :buildroot indicating a separate build tree'
+  echo '                    rooting in buildroot. /build is added if not present. E.g.'
+  echo '                    gnu_opt::/adir builds in /adir/build/gnu_opt/LCS/Common).'
+  echo '  -skipbuilt        Skip packages built in the previous build run to'
+  echo '                    speed up the build process (especially with -check).'
+  echo '                    It can be used after an unsuccesful built to start'
+  echo '                    the build at the package that failed.'
+  echo '                    It can also be used when building another package'
+  echo '                    that uses a lot of previously built packages'
+  echo '                    Successfully built packages are logged in file'
+  echo '                    build.result.<variant>.'
+  echo '                    -skipbuilt sets -noupdate, which is undone'
+  echo '                    if -update is given thereafter.'
+  echo '                    Default is -noskipbuilt'.
+  echo '  -system           Do system build for given variants (using buildsys).'
+  echo '                    Options like -make, -conf, etc. are ignored. Implies -k.'
+  echo '                    Default is -nosystem.'
+  echo '  -boot             Always do a bootstrap before the build.'
+  echo '                    It forces -conf.'
+  echo '                    -noboot means do not bootstrap.'
+  echo '                    Default is to only do a bootstrap when needed.'
+  echo '                    If no build is done, the default is -noboot.'
+  echo '  -conf             Always do a configure before the build.'
+  echo '                    -noconf means do not configure.'
+  echo '                    Default is to only do a configure when needed.'
+  echo '  -confopt string   configure options.'
+  echo '  -k                continue after an error?'
+  echo '                    Default is -nok.'
+  echo '  -j<option>        Option for a parallel make. Default is -noj.'
+  echo '  -clean            indicates that all build/<variant> directories'
+  echo '                    will be cleaned in order to start a clean build.'
+  echo '                    Default is -noclean.'
+  echo '  -distclean        indicates that all build/<variant> directories'
+  echo '                    will be fully cleaned in order to start a clean build.'
+  echo '                    The difference with -clean is that the appropriate'
+  echo '                    makefiles and .la files will also be removed.'
+  echo '                    It forces -conf.'
+  echo '                    Default is -nodistclean.'
+  echo '  -make             do a make (compile/link).'
+  echo '                    -nomake is more useful; it skips doing make and'
+  echo '                    implies -noclean and -noinstall.'
+  echo '                    Default is -make.'
+  echo '  -test             indicates that a make test should be done.'
+  echo '                    Default is -notest.'
+  echo '  -check            indicates that a make check should be done.'
+  echo '                    Default is -nocheck.'
+  echo '  -checktool string Optional checking tool to use with make check.'
+  echo '                    E.g. "valgrind --tool=memcheck --num-callers=50 \'
+  echo '                                   --leak-check=yes --track-fds=yes"'
+  echo '  -memcheck         indicates that make memcheck (valgrind) should be done.'
+  echo '                    Default is -nomemcheck.'
+  echo '  -install          indicates that a make install should be done.'
+  echo '                    Default is -install if -build is given.'
+  echo '                    Otherwise -noinstall.'
+  echo '  -dist             indicates that a make dist should be done. The generated'
+  echo '                    tarball is copied to LOFAR/installed/variant/dist.'
+  echo '                    Default is -nodist.'
+  echo '  -distcheck        indicates that a make distcheck should be done.'
+  echo '                    Default is -nodistcheck.'
+  echo '  -rpm              indicates that a make rpm should be done.'
+  echo '                    Default is -norpm.'
+  echo '  package1          is the name of the package to update/checkout and'
+  echo '                    optionally build.'
+  echo '                    Multiple packages can be given separated by whitespace.'
+  echo '                    Each package can be followed by -v<version>, where'
+  echo '                    <version> gives the version of the package to be'
+  echo '                    checked out/updated.'
+  echo '                    A LOFAR release name looks like LCS-Common-2_1'.
+  echo '                    A version can be given fully, but also like'
+  echo '                     2_1  or  2.1   (where . is replaced by _)'
+  echo '                    in which case it is prepended with the package name.'
+  echo '                    -v cannot be used if -r is given.'
+  echo ''
+  echo 'All options can be undone by preceeding them with no (e.g. -nobuild).'
+  echo 'If an option is given multiple times, only the last value takes effect.'
+  echo ''
+  echo 'For example:'
+  echo ' rub -cvs "cvs -d :pserver:user@cvs.astron.nl:/cvs/cvsroot" CEP/CPA/PSS3/BBS'
+  echo ''
+  exit 0
+fi
+
+# Check the consistency of the options.
+if [ $pkgfound != 1 ]; then
+  echo "Error: no package given"
+  echo "  Use 'rub -h' to get a description"
+  exit 1
+fi
+if test $install = 1  -o  $clean != 0  -o  $check = 1  -o  $memcheck = 1 \
+    -o  $conf = 1  -o  $bldtest = 1  -o  $dist = 1  -o  $distcheck = 1 \
+    -o  $rpm = 1; then
+  if [ "$variants" = "" ]; then
+    echo "Error: -build variant is needed with -conf,-(dist)clean,-test,-(mem)check,-install,-dist(check),-rpm"
+    exit 1
+  fi
+fi
+if [ "$verstype" = "" ]; then
+  verstype=m
+  if [ "$cutag" != "" ]; then
+    verstype="tag"
+  fi
+elif [ "$cutag" != "" ]; then
+  "Error: no -release option can be given if a specific -r tag is used"
+  exit 1
+fi
+
+# Get the URL of svn.
+if [ "$usesvn" = 1 ]; then
+  svnurl=`svn info | grep 'URL: ' | sed -e 's/URL: *//' -e 's%/LOFAR/.*%/LOFAR%'`
+  export svnurl
+fi
+
+# Get and check the package names and versions.
+pkg=
+vers=
+PKGS=
+nrpkg=0
+nrvers=0
+while [ $# != 0 ]
+do
+  case "$1" in
+  -v*)
+    if [ "$cutag" != "" ]; then
+      echo "Error: -v cannot be used if a specific -r tag is used"
+      exit 1
+    fi
+    # -v gives the package version.
+    if [ "$pkg" = "" ]; then
+      echo "Error: option $1 is not given right after a package name"
+      exit 1
+    fi
+    vers=`echo $1 | sed -e 's/-v//'`
+    shift
+    if [ "$vers" = "" ]; then
+      # -v and version are separated by whitespace.
+      vers=$1
+      shift
+    fi
+    case "$vers" in
+    -*)
+      echo "Error: package version cannot start with -"
+      exit 1
+      ;;
+    *)
+      if [ "$vers" = "" ]; then
+        echo "Error: no package version given after -v"
+        exit 1
+      fi
+      ;;
+    esac
+    PKGS="$PKGS $pkg#-v$vers"
+    nrpkg=`expr $nrpkg + 1`
+    nrvers=`expr $nrvers + 1`
+    pkg=
+    ;;
+  -*)
+    echo "Error: only the -v option can be given after a package name"
+    exit 1
+    ;;
+  *)
+    # A package name is given.
+    if [ "$pkg" != "" ]; then
+      PKGS="$PKGS $pkg#-v"
+      nrpkg=`expr $nrpkg + 1`
+    fi
+    if [ "$1" = "" ]; then
+      echo "Error: empty package name given"
+      exit 1
+    fi
+    pkg=$1
+    shift
+    ;;
+  esac
+done
+# Add the possibly last package.
+if [ "$pkg" != "" ]; then
+  PKGS="$PKGS $pkg#-v"
+  nrpkg=`expr $nrpkg + 1`
+fi
+
+# Check if all or no packages have a version.
+if [ $nrvers != 0  -a  $nrpkg != $nrvers ]; then
+  echo "Error: all or no packages must be given a version"
+  exit 1
+fi
+
+# Check if variant part is given.
+for variant in $variants
+do
+  p1=`echo $variant | awk -F: '{print $1}'`
+  if [ "$p1" = "" ]; then
+    echo "Error: no variant part given in -build $variant"
+    exit 1
+  fi
+done
+
+# Check if in correct directory.
+curwd=`pwd`
+curwdl=`basename $curwd`
+if [ "$curwdl" != "LOFAR" ]; then
+  echo "Error: rub should be run from the LOFAR directory in the code tree"
+  exit 1
+fi
+\rm -f allpkg.tmp rub.log
+touch allpkg.tmp rub.log
+echo "$0$args" > rub.log
+echo "" >> rub.log
+
+# First update bootstrap and autoconf_share.
+if [ $updas != 0 ]; then
+  if [ -f bootstrap ]; then
+    echo "Update of LOFAR/bootstrap"
+    $updcomm bootstrap >> rub.log 2>&1
+  else
+    echo "Checkout of LOFAR/bootstrap"
+    (cd .. && $chocomm LOFAR/bootstrap) >> rub.log 2>&1
+  fi
+  $pgmpath/rub1 autoconf_share 2 h "" "" "$updas" "$recur" "$usesvn" "$command" || [ "$kopt" = "-k" ] || exit 1
+fi
+\rm -f allpkg.tmp
+touch allpkg.tmp
+
+# Update the packages and optionally all packages they need.
+for PKG in $PKGS
+do
+  pkg=`echo $PKG | sed -e 's%#-v.*%%'`
+  vers=`echo $PKG | sed -e 's%.*#-v%%'`
+  $pgmpath/rub1 $pkg 1 "$verstype" "$vers" "$cutag" "$update" "$recur" "$usesvn" "$command" || [ "$kopt" = "-k" ] || exit 1
+done
+
+# Convert allpkg.tmp to lofarconf.in.private
+# Do it by reversing the order and skipping duplicates.
+if [ -f lofarconf.in.private ]; then
+  mv lofarconf.in.private lofarconf.in.private.bak
+fi
+\rm -f lofarconf.in.private
+touch lofarconf.in.private
+PKGS=
+while [ 1 = 1 ]
+do
+  pkgvers=`tail -1 allpkg.tmp`
+  pkg=`echo $pkgvers | awk '{ print $1 }'`
+  vers=`echo $pkgvers | awk '{ print $2 }'`
+  if [ "$pkg" = "" ]; then
+    break;
+  fi
+  grep -v "^$pkg " allpkg.tmp > allpkg.tmp1
+  mv allpkg.tmp1 allpkg.tmp
+  echo "$pkg $vers" >> lofarconf.in.private
+  PKGS="$PKGS $pkg$vers"
+done
+\rm -f allpkg.tmp
+
+# Now update the full package and show its name.
+for PKG in $PKGS
+do
+  pkg=`echo $PKG | sed -e 's%#-v.*%%'`
+  vers=`echo $PKG | sed -e 's%.*#-v%%'`
+  rtag=
+  tagstr=
+  if [ "$vers" != "" ]; then
+    rtag="-r $vers"
+    tagstr=", tag $vers"
+  fi
+  if [ $update = 0 ]; then
+    echo "Uses package $pkg$tagstr"
+  else
+    echo "Full update of package $pkg$tagstr"
+    if [ "$usesvn" != 1 ]; then
+      echo "$updcomm $rtag $pkg" >> rub.log 2>&1
+      $updcomm $rtag $pkg >> rub.log 2>&1
+      status=$?
+    else
+      # Use the switch command to do this.
+      part="trunk"
+      if [ "$vers" != "" ]; then
+        # $vers can be either in tags or in branches; try both
+        for dir in tags branches
+        do
+          part="$dir/$vers"
+          # if list command succeeds, we've got the correct value for $part
+          if $command list $svnurl/$part/$pkg > /dev/null 2>&1; then
+            break
+          else
+            part=
+          fi
+        done
+        if [ "$part" = "" ]; then
+          echo "Error: version $vers of $pkg not found"
+          exit 1
+        fi
+      fi
+      echo "(cd $pkg  &&  $command switch $svnurl/$part/$pkg)" >> rub.log 2>&1
+      (cd $pkg  &&  $command switch $svnurl/$part/$pkg) >> rub.log 2>&1
+      status=$?
+    fi
+    if [ $status != 0 ]; then
+      echo "Exiting; update/checkout returned with an error status ..."
+      exit 1
+    fi
+  fi
+done
+if [ $update != 0 ]; then
+  echo "See rub.log for the update/checkout details"
+  egrep "^C " rub.log > greplog.tmp 2>&1
+  if [ $? = 0 ]; then
+    echo "Error: there seem to be UPDATE CONFLICTS"
+    cat greplog.tmp
+    \rm -f greplog.tmp
+    exit 1
+  else
+    echo "There are no update conflicts"
+  fi
+  \rm -f greplog.tmp
+fi
+
+echo "Created lofarconf.in.private containing all these packages"
+pkgs=`sed -e s/#.*$//g lofarconf.in.private`
+# Make sure no newlines in variable.
+pkgs=`echo $pkgs`
+
+# System build is a bit different.
+if [ "$system" != 0 ]; then
+  if [ "$variants" = "" ]; then
+    echo "No build to be done"
+    exit 0
+  fi
+  # Check if only 'normal' variants (no colons) are given.
+  for variant in $variants
+  do
+    atemp=`echo $variant | sed -e 's/://'`
+    if [ "$atemp" != "$variant" ]; then
+      echo "-system can only be given with variants containing no : specification"
+      exit 1
+    fi
+  done
+  $pgmpath/buildsys -confopt "$confopt" -checktool "$checktool" "$variants" "$pkgs"
+  exit 0
+fi
+
+# Start fresh if needed.
+echo "See build.log for build details"
+if [ $skipbuilt = 0 ]; then
+  \rm -f build.log
+  \rm -f build.result
+fi  
+touch build.log
+touch build.result
+
+echo "PACKAGES = $pkgs" >> build.log
+echo "VARIANTS = $variants" >> build.log
+echo >> build.log
+
+# Do bootstrap if needed.
+# Make sure bootstrap is executable; Eclipse does not set x bit.
+# Remove the cache, because sometimes it keeps old data.
+if [ $boot != 0 ]; then
+  for pkg in $pkgs
+  do
+    if [ $skipbuilt = 1 ]; then
+      fgrep "$pkg " build.result 2>&1 > /dev/null
+      if [ $? = 0 ]; then
+        echo "  package $pkg already bootstrapped in a previous run" | tee build.log
+        continue
+      fi
+    fi
+   (
+    cd $curwd/$pkg
+    # Determine new md5sum of files affecting the bootstrap.
+    $md5pgm configure.in $pgmpath/*.m4 $pgmpath/makeversion > boot.md5
+    # Check if boot.md5 has changed.
+    chg=1
+    if [ $boot = 2  -a  -f boot.md5-check ]; then
+      $md5pgm --check boot.md5-check > /dev/null 2>&1
+      chg=$?
+    fi
+    if [ $chg = 0 ]; then
+      echo "  package $pkg needs no bootstrapping; md5sum has not changed" | tee -a $curwd/build.log
+    else
+      echo "  bootstrapping package $pkg ..."
+      pwd >> $curwd/build.log
+      rm -rf autom4te.cache >> $curwd/build.log 2>&1
+   
+      # Try to set execution permissions, ignore failure.
+      chmod +x bootstrap >> $curwd/build.log 2>&1 
+
+      # Try to run bootstrap.
+      # First remove md5, so if bootstrap fails it will always be redone.
+      rm -f boot.md5-check
+      ./bootstrap >> $curwd/build.log 2>&1
+      if [ $? != 0 ]; then
+        echo "  bootstrap of package $pkg failed, check file permissions..."
+        exit 1
+      fi
+      # Keep the current md5sum.
+      # md5 again, because configure.in might be changed by makeversion.
+      $md5pgm configure.in $pgmpath/*.m4 $pgmpath/makeversion > boot.md5
+      $md5pgm boot.md5 configure > boot.md5-check
+      pwd >> $curwd/build.log
+    fi
+    echo $pkg '# bootstrapped at' `date` >> $curwd/build.result
+   ) || [ "$kopt" == "-k" ] || exit 1
+  done
+  echo "" >> build.log
+fi
+
+# See if anything has to be built.
+if [ "$variants" = "" ]; then
+  echo "No build to be done"
+  exit 0
+fi
+echo "Variants to be built: $variants"
+
+# Assemble the build options.    
+bopt="$kopt $jobsopt"
+if [ $skipbuilt = 1 ]; then
+  bopt="$bopt -skipbuilt"
+fi  
+if [ $conf = 1 ]; then
+  bopt="$bopt -conf"
+  echo "  Packages will always be configured"
+elif [ $conf = 2 ]; then
+  echo "  Packages will be configured when needed"
+fi
+if [ $clean = 1 ]; then
+  bopt="$bopt -clean"
+  echo "  Packages will be cleaned"
+elif [ $clean = 2 ]; then
+  bopt="$bopt -distclean"
+  echo "  Packages will be distcleaned"
+fi
+if [ $buildmake = 0 ]; then
+  bopt="$bopt -nomake"
+else
+  echo "  Packages will be built"
+  if [ $bldtest = 1 ]; then
+    bopt="$bopt -test"
+    echo "  Packages test programs will be built"
+  fi
+  if [ $check = 1 ]; then
+    if [ "$checktool" = "" ]; then
+      bopt="$bopt -check"
+      echo "  Packages will be checked"
+    else
+      bopt="$bopt -checktool $checktool"
+      echo "  Packages will be checked with '$checktool'"
+    fi
+  fi
+  if [ $memcheck = 1 ]; then
+    bopt="$bopt -memcheck"
+    echo "  Packages will be memchecked"
+  fi
+  if [ $install != 0 ]; then
+    bopt="$bopt -install"
+    echo "  Packages will be installed"
+  fi
+  if [ $dist = 1 ]; then
+    bopt="$bopt -dist"
+    echo "  Packages will be dist-ed"
+    echo "   tarballs are copied to $curwd/installed/<variant>/dist"
+  fi
+  if [ $distcheck = 1 ]; then
+    bopt="$bopt -distcheck"
+    echo "  Packages will be distcheck-ed"
+  fi
+  if [ $rpm = 1 ]; then
+    bopt="$bopt -rpm"
+    echo "  Packages will be rpm-ed"
+  fi
+fi
+
+# Build all variants.
+for variant in $variants
+do
+  # See if a remote build has to be done.
+  p1=`echo $variant | awk -F: '{print $1}'`
+  p2=`echo $variant | awk -F: '{print $2}'`
+  p3=`echo $variant | awk -F: '{print $3}'`
+  if [ "$p2" = "" ]; then
+    # No user@machine given, so do the build locally.
+    $pgmpath/rubbuild $bopt -confopt "$confopt" -build "$p1:$p3" $pkgs
+  else
+    echo "Invoking build on $p2 ..."
+    ssh -x $p2 $pgmpath/rubbuild -bg -srcdir $curwd $bopt -confopt "$confopt" -build "$p1:$p3" $pkgs
+  fi
+done

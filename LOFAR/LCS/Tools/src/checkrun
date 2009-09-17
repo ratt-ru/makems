@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# checkrun builds a test program and runs its test script or the
+# program itself if no test script found.
+# The test script name must be tx.sh or tx_test.sh where tx is the
+# name of the test program.
+#
+# It can be run from the test directory or its parent build directory.
+#
+#
+  if [ "$1" = "-h"  -o  "$1" = "--help" ]; then
+    echo ""
+    echo "checkrun builds test programs and runs the corresponding"
+    echo "test script or the program itself if no test script found."
+    echo "The test script name must be tx.sh or tx_test.sh where tx is the"
+    echo "name of the test program."
+    echo ""
+    echo "Usage:   checkrun [-h] test1 [test2 test3 ...]"
+    exit 0
+  fi
+
+  # See if we are in the test directory or not.
+  if [ -d test ]; then
+    cd test
+  fi
+  cdir=`pwd`
+  bdir=`basename $cdir`
+  if [ "$bdir" != test ]; then
+    echo "Not in test directory or no test directory found"
+    exit 1
+  fi
+
+  if [ "$*" = "" ]; then
+    echo "Run as:   checkrun [-h] test1 [test2 test3 ...]"
+    exit 1
+  fi
+  make checkrun PGM="$*"

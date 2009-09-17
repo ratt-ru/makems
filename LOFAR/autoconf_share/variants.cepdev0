@@ -1,0 +1,12 @@
+gnu.compiler.conf:	CXX=g++
+gnu32.compiler.conf:	CXX=g++
+
+#lofar_root.var:		--with-lofar-default=weekly --with-doxygen-dot --with-ldflags="-all-static"
+lofar_root.var:		--with-lofar-default=weekly --with-doxygen-dot
+
+lapack.var:             --with-ldflags="-lgfortran"
+
+#aipspp.var:		--with-ldflags="-lmir -lXmPgplot -lcpgplot -lpgplot -L/usr/X11/lib -lXm -lcfitsio"
+aipspp.var:		--with-ldflags="-lgfortran"
+
+standard.var:           $(lofar_root) $(aipspp) $(threads) $(sse) $(shmem) $(searchpath) $(python)

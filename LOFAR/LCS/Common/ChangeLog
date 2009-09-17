@@ -1,0 +1,2795 @@
+2006-01-25 15:19  diepen
+
+	* src/DataConvert.cc, test/tDataConvert.cc,
+	  test/tDataConvert.stdout: BugID: 602 Change bit order
+
+2006-01-24 10:07  loose
+
+	* test/Makefile.am: BugID: 557
+
+	  Removed spurious invocation of tComplex.sh.
+
+2006-01-18 09:39  loose
+
+	* include/Common/shmem/Makefile.am: BugID: 596
+
+	  Removed nobase_ from the _HEADERS variable.
+
+2006-01-13 15:17  overeem
+
+	* src/Net/Socket.cc: BugID: 548 Made it more robust.
+
+2006-01-12 16:51  overeem
+
+	* src/Net/Socket.cc: BugID: 548 Reimplementation of the bugfix.
+	  This time the accept call keeps working right for non-blocking
+	  sockets.
+
+2006-01-05 14:00  loose
+
+	* configure.in: BugID: 557
+
+	  The check for Boost.Threads causes havoc for other packages,
+	  because the .so file is in a non-standard directory and
+	  automake/libtool does not add a -rpath for this .so file (I've
+	  posted a question about this on the automake mailing list).
+
+2006-01-05 09:58  overeem
+
+	* include/Common/LofarLog4Cplus.h, test/testLogger.cc: BugID: 146
+	  Created patch for log4cplus 1.0.2 and include global-init.h in
+	  the header- file of the lofarlogger. Updated the testprogram to
+	  test the static initialize class also.
+
+2006-01-04 16:52  loose
+
+	* configure.in, include/Common/lofar_thread.h: BugID: 557
+
+	  Enhanced lofar_thread.h which should now be a real substitute for
+	  the deprecated Thread.h.
+
+2006-01-04 10:08  loose
+
+	* include/Common/Makefile.am: BugID: 352 557
+
+	  Removed any references to nobase_, and removed "local" variable
+	  INSTHDRS as it is not useful anymore.
+
+2006-01-03 16:31  loose
+
+	* include/Common/: LofarTypes.h, Makefile.am, lofar_algorithm.h,
+	  lofar_deque.h, lofar_fstream.h, lofar_iosfwd.h, lofar_iostream.h,
+	  lofar_list.h, lofar_map.h, lofar_set.h, lofar_sstream.h,
+	  lofar_stack.h, lofar_string.h, lofar_thread.h, lofar_vector.h:
+	  BugID: 557
+
+	  Removed the support for "exporting" symbols to the global
+	  namespace. All symbols are now only defined in the LOFAR
+	  namespace.
+
+2006-01-03 15:50  loose
+
+	* configure.in, src/Stopwatch.cc, test/tNumeric.cc,
+	  test/tRunOnNode.cc: BugID: 557
+
+	  Removed some compiler warnings. Updated configure.in to LCS
+	  version 3.0
+
+2006-01-03 15:29  loose
+
+	* test/: Makefile.am, tDebug.cc, tDebug.stdout, tDebug_test.sh,
+	  tLorrays.cc, tLorrays.stdout, tLorrays_test.sh: BugID: 557
+
+	  Removed deprecated Debug, Thread and backward compatibility stuff
+
+2006-01-03 15:26  loose
+
+	* include/Common/Debug.h, include/Common/Makefile.am,
+	  include/Common/Thread.h,
+	  include/Common/lofar_global_symbol_warning.h,
+	  include/Common/lofar_strstream.h, src/Debug.cc, src/Makefile.am:
+	  BugID: 557
+
+	  Removed deprecated Debug, Thread and backward compatibility stuff
+
+2006-01-03 15:11  loose
+
+	* include/Common/BlitzToAips.h: BugID: 557
+
+	  Moved Blitz related stuff from LCS/Common to LCS/Math.
+
+2006-01-03 15:07  loose
+
+	* include/Common/: Lonumerics.h, Lorrays-Blitz.h, Lorrays.h: BugID:
+	  557
+
+	  Moved Blitz related stuff from LCS/Common to LCS/Math.
+
+2006-01-02 12:26  cvs
+
+	* test/: tKeyValueMap.cc, tKeyValueMap.in, tKeyValueMap.stdout,
+	  tKeyValueMap_test.sh: %lofarcvsmv%: Moved to LOFAR/LCS/Blob/test
+
+2006-01-02 12:08  diepen
+
+	* package.dox, include/Common/Makefile.am, src/Makefile.am,
+	  test/Makefile.am: Bugid: 556 Blob code moved to a separate
+	  package
+
+2006-01-02 12:03  cvs
+
+	* test/: tBlobArray.cc, tBlobArrayHeader.cc,
+	  tBlobArrayHeader_test.sh, tBlobArray_test.sh, tBlobField.cc,
+	  tBlobField.in_be, tBlobField.in_le, tBlobField_test.sh,
+	  tBlobHeader.cc, tBlobHeader_test.sh, tBlobStream.cc,
+	  tBlobStream.in_be, tBlobStream.in_le, tBlobStream.stdout,
+	  tBlobStream_test.sh, tBlobString.cc, tBlobString_test.sh:
+	  %lofarcvsmv%: Moved to LOFAR/LCS/Blob/test
+
+2006-01-02 12:00  cvs
+
+	* src/: KeyParser.cc, KeyValue.cc, KeyValueMap.cc, KeyTokenize.ll,
+	  KeyParse.yy, BlobArray.cc, BlobField2.cc, BlobFieldSet.cc,
+	  BlobHeader.cc, BlobIBufChar.cc, BlobIBufStream.cc,
+	  BlobIStream.cc, BlobOBufChar.cc, BlobOBufNull.cc,
+	  BlobOBufStream.cc, BlobOBufString.cc, BlobOStream.cc,
+	  BlobString.cc, BlobStringType.cc: %lofarcvsmv%: Moved to
+	  LOFAR/LCS/Blob/src
+
+2006-01-02 11:56  cvs
+
+	* include/Common/: BlobArray.h, BlobArrayHeader.h, BlobException.h,
+	  BlobField.h, BlobFieldSet.h, BlobHeader.h, BlobIBufChar.h,
+	  BlobIBuffer.h, BlobIBufStream.h, BlobIBufString.h,
+	  BlobIBufVector.h, BlobIStream.h, BlobOBufChar.h, BlobOBuffer.h,
+	  BlobOBufNull.h, BlobOBufStream.h, BlobOBufString.h,
+	  BlobOBufVector.h, BlobOStream.h, BlobString.h,
+	  BlobStringTraits.h, BlobStringType.h, KeyParser.h, KeyValue.h,
+	  KeyValueMap.h, BlobArray.tcc, BlobField.cc: %lofarcvsmv%: Moved
+	  to LOFAR/LCS/Blob/include/Blob
+
+2005-12-27 11:02  loose
+
+	* include/Common/Allocator.h, include/Common/BlitzToAips.h,
+	  include/Common/BlobArray.h, include/Common/BlobArrayHeader.h,
+	  include/Common/BlobException.h, include/Common/BlobField.h,
+	  include/Common/BlobFieldSet.h, include/Common/BlobHeader.h,
+	  include/Common/BlobIBufChar.h, include/Common/BlobIBufStream.h,
+	  include/Common/BlobIBufString.h, include/Common/BlobIBufVector.h,
+	  include/Common/BlobIBuffer.h, include/Common/BlobIStream.h,
+	  include/Common/BlobOBufChar.h, include/Common/BlobOBufNull.h,
+	  include/Common/BlobOBufStream.h, include/Common/BlobOBufString.h,
+	  include/Common/BlobOBufVector.h, include/Common/BlobOBuffer.h,
+	  include/Common/BlobOStream.h, include/Common/BlobString.h,
+	  include/Common/BlobStringTraits.h,
+	  include/Common/BlobStringType.h, include/Common/CheckConfig.h,
+	  include/Common/ComplexBuiltinFP.h,
+	  include/Common/ComplexBuiltinInt.h, include/Common/ComplexC99.h,
+	  include/Common/ComplexStdFP.h, include/Common/ComplexStdInt.h,
+	  include/Common/DataConvert.h, include/Common/DataFormat.h,
+	  include/Common/Debug.h, include/Common/Exception.h,
+	  include/Common/KeyParser.h, include/Common/KeyValue.h,
+	  include/Common/KeyValueMap.h, include/Common/LofarLog4Cplus.h,
+	  include/Common/LofarLogCout.h, include/Common/LofarLogger.h,
+	  include/Common/LofarTypedefs.h, include/Common/LofarTypes.h,
+	  include/Common/Lonumerics.h, include/Common/Lorrays-Blitz.h,
+	  include/Common/Lorrays.h, include/Common/Numeric.h,
+	  include/Common/RunOnNode.h, include/Common/Stopwatch.h,
+	  include/Common/StringUtil.h, include/Common/Thread.h,
+	  include/Common/Timer.h, include/Common/TypeNames.h,
+	  include/Common/VectorUtil.h, include/Common/hexdump.h,
+	  include/Common/lofar_algorithm.h, include/Common/lofar_complex.h,
+	  include/Common/lofar_datetime.h, include/Common/lofar_deque.h,
+	  include/Common/lofar_fstream.h,
+	  include/Common/lofar_global_symbol_warning.h,
+	  include/Common/lofar_iomanip.h, include/Common/lofar_iosfwd.h,
+	  include/Common/lofar_iostream.h, include/Common/lofar_list.h,
+	  include/Common/lofar_map.h, include/Common/lofar_set.h,
+	  include/Common/lofar_sstream.h, include/Common/lofar_stack.h,
+	  include/Common/lofar_string.h, include/Common/lofar_strstream.h,
+	  include/Common/lofar_thread.h, include/Common/lofar_vector.h,
+	  include/Common/Net/FdSet.h, include/Common/Net/Socket.h,
+	  include/Common/shmem/dlmalloc.h,
+	  include/Common/shmem/segbasemap.h,
+	  include/Common/shmem/shmem_alloc.h, src/HEADER.h: BugID: 394
+
+	  Removed argument to the Doxygen \file command. It caused subtle
+	  documentation bugs and it defaults to the current filename
+	  anyway.
+
+2005-12-23 10:17  zwart
+
+	* src/Net/Socket.cc: BugID: 548
+
+	  If the accept call returns EWOULDBLOCK, EAGAIN or EINTR the call
+	  is repeated.
+
+2005-12-22 15:37  romein
+
+	* include/Common/BlobString.h: BugID: 225 Fix 64-bit bug.
+
+2005-12-19 12:09  romein
+
+	* include/Common/BlobArray.tcc: BugID: 51 Solve 64-bit portability
+	  issue.
+
+2005-12-16 10:05  diepen
+
+	* include/Common/BlobArray.h, include/Common/BlobArray.tcc,
+	  include/Common/BlobField.cc, include/Common/BlobField.h,
+	  include/Common/BlobFieldSet.h, include/Common/BlobString.h,
+	  src/BlobArray.cc, src/BlobField2.cc, src/BlobFieldSet.cc,
+	  src/BlobString.cc, test/tBlobField.cc: BugID: 538 Added alignment
+	  control to BlobField, etc.
+
+2005-11-23 14:56  diepen
+
+	* include/Common/Timer.h, src/Timer.cc: BugID: 500 501 Made
+	  operator<< public.  Added functions getElapsed and getCount
+
+2005-11-22 09:42  loose
+
+	* NEWS, configure.in: BugID: 326
+
+	  Merged relevant changes in release 2.4 with the main development
+	  line.
+
+2005-11-18 17:59  loose
+
+	* NEWS: BugID: 326
+
+	  Added extra release info for release 2.4
+
+2005-11-16 16:58  loose
+
+	* ChangeLog, NEWS, configure.in: BugID: 326
+
+	  Prepare for release 2.4
+
+2005-11-11 11:49  overeem
+
+	* include/Common/LofarLogCout.h: BugID: 488 Added 'public'
+	  statement for ALLOC_TRACER_ALIAS.
+
+2005-10-27 12:24  loose
+
+	* ChangeLog, NEWS, configure.in: BugID: 326
+
+	  Merged relevant changes from the 2.3 release branch into the main
+	  develoment line.
+
+2005-10-24 16:36  broekema
+
+	* src/Net/Socket.cc: BugID: 472 Patch committed
+
+2005-10-24 14:15  lofar
+
+	* package.doc, package.dox: BugID: 271 moved al doxygen related
+	  .doc file to .dox
+
+2005-10-04 14:09  diepen
+
+	* src/Makefile.am: BugID: 396 Removed pkgdep accidently left in
+
+2005-10-04 14:03  cvs
+
+	* src/: BlobField.cc, BlobArray.tcc, TypeNames.tcc: %lofarcvsmv%:
+	  Moved to LOFAR/LCS/Common/include/Common
+
+2005-10-04 14:03  cvs
+
+	* include/Common/: BlobField.cc, BlobArray.tcc, TypeNames.tcc:
+	  %lofarcvsmv%: Moved from LOFAR/LCS/Common/src, creating new
+	  revision
+
+2005-10-04 13:59  diepen
+
+	* include/: Makefile.am, Common/Makefile.am,
+	  Common/shmem/Makefile.am: BugID: 396 New Makefile.am for new
+	  directory
+
+2005-10-04 13:53  cvs
+
+	* test/: tBlobStream.out, tComplex.out, tDataConvert.out,
+	  tDebug.out, tKeyValueMap.out, tLorrays.out, tRunOnNode.out,
+	  tStringUtil.out: %lofarcvsmv%: Moved to LOFAR/LCS/Common/test
+
+2005-10-04 13:53  cvs
+
+	* test/: tBlobStream.stdout, tComplex.stdout, tDataConvert.stdout,
+	  tDebug.stdout, tKeyValueMap.stdout, tLorrays.stdout,
+	  tRunOnNode.stdout, tStringUtil.stdout: %lofarcvsmv%: Moved from
+	  LOFAR/LCS/Common/test, creating new revision
+
+2005-10-04 13:52  diepen
+
+	* Common.spec.in, Makefile.am, configure.in, src/Debug.cc,
+	  src/KeyParser.cc, src/KeyTokenize.ll, src/Makefile.am,
+	  src/shmem/Makefile.am, test/Makefile.am: BugID: 396 Make
+	  everything build correctly for distcheck and rpm
+
+2005-10-04 13:23  cvs
+
+	* src/Profiling/PerfProfile.h: %lofarcvsmv%: Moved to
+	  LOFAR/LCS/Common/include/Common/Profiling
+
+2005-10-04 13:23  cvs
+
+	* include/Common/Profiling/PerfProfile.h: %lofarcvsmv%: Moved from
+	  LOFAR/LCS/Common/src/Profiling, creating new revision
+
+2005-10-04 13:22  cvs
+
+	* src/shmem/: dlmalloc.h, segbasemap.h, shmem_alloc.h:
+	  %lofarcvsmv%: Moved to LOFAR/LCS/Common/include/Common/shmem
+
+2005-10-04 13:22  cvs
+
+	* include/Common/shmem/: dlmalloc.h, segbasemap.h, shmem_alloc.h:
+	  %lofarcvsmv%: Moved from LOFAR/LCS/Common/src/shmem, creating new
+	  revision
+
+2005-10-04 13:22  cvs
+
+	* src/Thread/: Condition.h, deprecated_warning.h, Key.h, Mutex.h,
+	  SmartLock.h, Thread.h: %lofarcvsmv%: Moved to
+	  LOFAR/LCS/Common/include/Common/Thread
+
+2005-10-04 13:22  cvs
+
+	* include/Common/Thread/: Condition.h, deprecated_warning.h, Key.h,
+	  Mutex.h, SmartLock.h, Thread.h: %lofarcvsmv%: Moved from
+	  LOFAR/LCS/Common/src/Thread, creating new revision
+
+2005-10-04 13:22  cvs
+
+	* src/Net/backward/Socket.h: %lofarcvsmv%: Moved to
+	  LOFAR/LCS/Common/include/Common/Net/backward
+
+2005-10-04 13:22  cvs
+
+	* include/Common/Net/backward/Socket.h: %lofarcvsmv%: Moved from
+	  LOFAR/LCS/Common/src/Net/backward, creating new revision
+
+2005-10-04 13:21  cvs
+
+	* src/Net/: FdSet.h, Socket.h: %lofarcvsmv%: Moved to
+	  LOFAR/LCS/Common/include/Common/Net
+
+2005-10-04 13:21  cvs
+
+	* include/Common/Net/: FdSet.h, Socket.h: %lofarcvsmv%: Moved from
+	  LOFAR/LCS/Common/src/Net, creating new revision
+
+2005-10-04 13:21  cvs
+
+	* include/Common/HEADER.h: %lofarcvsmv%: Moved to
+	  LOFAR/LCS/Common/src
+
+2005-10-04 13:21  cvs
+
+	* src/HEADER.h: %lofarcvsmv%: Moved from
+	  LOFAR/LCS/Common/include/Common, creating new revision
+
+2005-10-04 13:13  cvs
+
+	* src/: LofarTypes.h, lofar_vector.h, Lonumerics.h,
+	  Lorrays-Blitz.h, Lorrays.h, Numeric.h, RunOnNode.h, Stopwatch.h,
+	  StringUtil.h, Thread.h, Timer.h, TypeNames.h, VectorUtil.h:
+	  %lofarcvsmv%: Moved to LOFAR/LCS/Common/include/Common
+
+2005-10-04 13:13  cvs
+
+	* include/Common/: LofarTypes.h, lofar_vector.h, Lonumerics.h,
+	  Lorrays-Blitz.h, Lorrays.h, Numeric.h, RunOnNode.h, Stopwatch.h,
+	  StringUtil.h, Thread.h, Timer.h, TypeNames.h, VectorUtil.h:
+	  %lofarcvsmv%: Moved from LOFAR/LCS/Common/src, creating new
+	  revision
+
+2005-10-04 13:10  cvs
+
+	* src/: Allocator.h, BlitzToAips.h, BlobArray.h, BlobArrayHeader.h,
+	  BlobException.h, BlobField.h, BlobFieldSet.h, BlobHeader.h,
+	  BlobIBufChar.h, BlobIBuffer.h, BlobIBufStream.h,
+	  BlobIBufString.h, BlobIBufVector.h, BlobIStream.h,
+	  BlobOBufChar.h, BlobOBuffer.h, BlobOBufNull.h, BlobOBufStream.h,
+	  BlobOBufString.h, BlobOBufVector.h, BlobOStream.h, BlobString.h,
+	  BlobStringTraits.h, BlobStringType.h, CheckConfig.h,
+	  ComplexBuiltinFP.h, ComplexBuiltinInt.h, ComplexC99.h,
+	  ComplexStdFP.h, ComplexStdInt.h, DataConvert.h, DataFormat.h,
+	  Debug.h, Exception.h, hexdump.h, KeyParser.h, KeyValue.h,
+	  KeyValueMap.h, lofar_algorithm.h, lofar_complex.h,
+	  lofar_datetime.h, lofar_deque.h, lofar_fstream.h,
+	  lofar_global_symbol_warning.h, lofar_iomanip.h, lofar_iosfwd.h,
+	  lofar_iostream.h, lofar_list.h, LofarLog4Cplus.h, LofarLogCout.h,
+	  LofarLogger.h, lofar_map.h, lofar_set.h, lofar_sstream.h,
+	  lofar_stack.h, lofar_string.h, lofar_strstream.h, lofar_thread.h,
+	  LofarTypedefs.h: %lofarcvsmv%: Moved to
+	  LOFAR/LCS/Common/include/Common
+
+2005-10-04 13:10  cvs
+
+	* include/Common/Allocator.h, include/Common/BlitzToAips.h,
+	  include/Common/BlobArray.h, include/Common/BlobArrayHeader.h,
+	  include/Common/BlobException.h, include/Common/BlobField.h,
+	  include/Common/BlobFieldSet.h, include/Common/BlobHeader.h,
+	  include/Common/BlobIBufChar.h, include/Common/BlobIBuffer.h,
+	  include/Common/BlobIBufStream.h, include/Common/BlobIBufString.h,
+	  include/Common/BlobIBufVector.h, include/Common/BlobIStream.h,
+	  include/Common/BlobOBufChar.h, include/Common/BlobOBuffer.h,
+	  include/Common/BlobOBufNull.h, include/Common/BlobOBufStream.h,
+	  include/Common/BlobOBufString.h, include/Common/BlobOBufVector.h,
+	  include/Common/BlobOStream.h, include/Common/BlobString.h,
+	  include/Common/BlobStringTraits.h,
+	  include/Common/BlobStringType.h, include/Common/CheckConfig.h,
+	  include/Common/ComplexBuiltinFP.h,
+	  include/Common/ComplexBuiltinInt.h, include/Common/ComplexC99.h,
+	  include/Common/ComplexStdFP.h, include/Common/ComplexStdInt.h,
+	  include/Common/DataConvert.h, include/Common/DataFormat.h,
+	  include/Common/Debug.h, include/Common/Exception.h,
+	  include/Common/HEADER.h, src/HEADER.h, include/Common/hexdump.h,
+	  include/Common/KeyParser.h, include/Common/KeyValue.h,
+	  include/Common/KeyValueMap.h, include/Common/lofar_algorithm.h,
+	  include/Common/lofar_complex.h, include/Common/lofar_datetime.h,
+	  include/Common/lofar_deque.h, include/Common/lofar_fstream.h,
+	  include/Common/lofar_global_symbol_warning.h,
+	  include/Common/lofar_iomanip.h, include/Common/lofar_iosfwd.h,
+	  include/Common/lofar_iostream.h, include/Common/lofar_list.h,
+	  include/Common/LofarLog4Cplus.h, include/Common/LofarLogCout.h,
+	  include/Common/LofarLogger.h, include/Common/lofar_map.h,
+	  include/Common/lofar_set.h, include/Common/lofar_sstream.h,
+	  include/Common/lofar_stack.h, include/Common/lofar_string.h,
+	  include/Common/lofar_strstream.h, include/Common/lofar_thread.h,
+	  include/Common/LofarTypedefs.h: %lofarcvsmv%: Moved from
+	  LOFAR/LCS/Common/src, creating new revision
+
+2005-10-04 11:42  diepen
+
+	* Makefile.am, src/Makefile.am, src/shmem/Makefile.am,
+	  test/Makefile.am: BugId: 396 Use $(top_srcdir)/Makefile.common
+
+2005-10-04 11:40  diepen
+
+	* configure.in: BugId: 396 Use lofar_GENERAL
+
+2005-10-04 09:04  diepen
+
+	* include/Common/BlobArray.tcc, src/BlobArray.tcc: BugID: 422
+	  arr.ndim() instead of ndim was used.
+
+2005-10-03 13:33  loose
+
+	* src/Makefile.am: BugID: 420
+
+	  Moved pkgdep.cc from LCS/Common to LCS/Tools.
+
+2005-10-03 12:40  cvs
+
+	* src/pkgdep.cc: %lofarcvsmv%: Moved to LOFAR/LCS/Tools/src
+
+2005-09-27 10:53  diepen
+
+	* src/Makefile.am: BugID: 407 Added lofar_datetime.h
+
+2005-09-21 17:01  loose
+
+	* package.doc: BugID: 394
+
+	  Fixed "bug" that caused description not to appear on doc page.
+
+2005-09-05 15:27  overeem
+
+	* include/Common/lofar_thread.h, src/Makefile.am,
+	  src/lofar_thread.h: BugID: 331 Lofar_threads makes use of boost
+	  threads easier.
+
+2005-09-02 17:18  loose
+
+	* configure.in: BugID: 326
+
+	  Prepare for release 2.3
+
+2005-09-02 16:01  loose
+
+	* ChangeLog, NEWS: BugID: 326
+
+	  Prepare for release 2.3
+
+2005-09-02 15:25  loose
+
+	* include/Common/Thread/deprecated_warning.h,
+	  src/Thread/deprecated_warning.h: BugID: 173
+
+	  Marked Thread.h and related header files deprecated. The user is
+	  encouraged to use Boost.Threads instead.
+
+2005-09-02 15:22  loose
+
+	* src/: Thread.h, Profiling/PerfProfile.h, Thread/Condition.h,
+	  Thread/Key.h, Thread/Mutex.h, Thread/SmartLock.h,
+	  Thread/Thread.h: BugID: 173
+
+	  Marked Thread.h and related header files deprecated. The user is
+	  encouraged to use Boost.Threads instead.
+
+2005-09-01 15:46  loose
+
+	* test/tNumeric.cc: BugID: 239 Fixed missing and redundant
+	  #include's.
+
+2005-08-24 11:10  romein
+
+	* src/Timer.h: BugID: 51 Added multi-threading support for i386 and
+	  x86_64.
+
+2005-08-16 17:19  zwart
+
+	* src/Net/Socket.cc: BugID: 270
+
+	  Added check to see if system call was interupted
+
+2005-08-08 23:27  overeem
+
+	* src/LofarLogger.cc: BugID: 146 Added "ImmediateFlush" to STDERR
+	  logger. (Log4Cplus 1.0.2)
+
+2005-08-04 16:50  romein
+
+	* src/: Timer.cc, Timer.h: BugID: 225 Added timer support for
+	  PowerPC/BlueGene and PowerPC/Linux with xlC and g++
+
+2005-08-04 12:44  loose
+
+	* test/tNumeric.cc: BugID: 239 Removed some dead code.
+
+2005-08-04 12:34  loose
+
+	* src/Makefile.am, src/Numeric.cc, src/Numeric.h, test/Makefile.am,
+	  test/tNumeric.cc, test/tNumeric.sh: BugID: 239
+
+	  First pretty rough version of some numeric functions, e.g.
+	  floating point comparison using a "distance" measure.
+
+2005-08-03 12:57  romein
+
+	* src/BlobHeader.h: BugID: 51 Remove explicit BlobHeader::
+	  qualification where it is not allowed; the xlc compiler is picky
+	  about it.
+
+2005-07-18 09:35  loose
+
+	* src/: ComplexBuiltinFP.h, ComplexC99.h: %[ER: 70]% clog cannot be
+	  used with PVSS
+
+2005-07-08 09:42  diepen
+
+	* src/: ComplexBuiltinFP.h, ComplexC99.h: %[ER: 70]% clog cannot be
+	  used with PVSS
+
+2005-07-06 15:44  romein
+
+	* src/: Timer.cc, Timer.h: %[ER: ]% - Added print-on-destruction
+	  option to constructor.  This simplifies profiling   how much time
+	  is spent in a region of code:
+
+	    void myFunction()
+	    {
+		static NSTimer timer("myFunction", true);
+		timer.start();
+		doWork();
+		timer.stop();
+	    }
+
+	    and the timer's results will be printed at program exit.
+
+	  - Added support for PathScale compiler
+
+2005-07-06 14:32  loose
+
+	* AUTHORS, COPYING, INSTALL, NEWS, README, configure.in: %[ER: 0]%
+
+	  Merged relevant changes from the release 2.2 branch into the main
+	  development line.
+
+2005-07-06 10:15  overeem
+
+	* src/: StringUtil.cc, StringUtil.h: %[ER:285]% Upgrade ACC 1.0 to
+	  1.1 ParameterSet is now in ACC/APS.  ProceControl is now in
+	  ACC/PLC.  ParameterSet getInt changed to getInt32.
+
+2005-07-01 18:16  loose
+
+	* test/tComplex.cc: %[ER: 247]%
+
+	  * Removed check for which header file to include, because this is
+	  now checked	by lofar_complex.h. Also uses make{d,f}complex
+	  macro now.  * Fixed memory leak.
+
+2005-07-01 16:25  loose
+
+	* src/ComplexBuiltinFP.h: %[ER: 247]%
+
+	  After `clog' had been added to the type definitions in
+	  lofar_iostream.h, a collision occurred between the clog()
+	  function and the clog global object. clog() and all other global
+	  functions now have an explicit global namespace indication.
+
+2005-07-01 16:16  loose
+
+	* src/LofarLogCout.cc: %[ER: 0]%
+
+	  It is better to use the buffered output stream clog, instead of
+	  the unbuffered stream cerr, because no locking is being done
+	  within the LofarLogCout routines when logging messages. Hence,
+	  the use of clog avoids two or more messages getting completely
+	  mixed up.
+
+2005-07-01 16:13  loose
+
+	* src/LofarLogCout.h: %[ER: 0]%
+
+	  The macro AUTO_FUNCTION_NAME should be used instead of
+	  __PRETTY_FUNCTION__, because the former is guaranteed to be
+	  defined, whereas the latter is not.
+
+2005-07-01 15:49  loose
+
+	* src/lofar_iostream.h: %[ER: 161]%
+
+	  Added missing clog declaration.
+
+2005-06-10 13:08  overeem
+
+	* src/lofar_datetime.h: %[ER:279]% Bring Boost date time into Lofar
+	  namespace.
+
+2005-06-10 12:18  loose
+
+	* configure.in: %[ER: 252]%
+
+	  Moved LimitExec.cc to LCS/Tools, so that it does not depend on,
+	  e.g., liblog4cplus.so. However, now LCS/Common depends on
+	  LCS/Tools.
+
+2005-06-10 11:52  loose
+
+	* src/Makefile.am: %[ER: 252]%
+
+	  Moved LimitExec.cc to LCS/Tools, so that it does not depend on,
+	  e.g., liblog4cplus.so.
+
+2005-06-09 15:36  loose
+
+	* src/LimitExec.cc: %[ER: 252]%
+
+	  Moved LimitExec.cc to LCS/Tools, so that it does not depend on,
+	  e.g., liblog4cplus.so.
+
+2005-06-01 17:01  loose
+
+	* src/shmem/dlmalloc.h: %[ER: 236]%
+
+	  Minor documentation bug fixes.
+
+2005-06-01 16:48  loose
+
+	* src/: LofarLogger.h, StringUtil.h, Thread.h: %[ER: 236]%
+
+	  Minor documentation bug fixes.
+
+2005-05-30 13:11  zwart
+
+	* src/LofarLog4Cplus.h: %[ER: 276]%
+
+	  fixed TRACER_ALIAS
+
+2005-05-25 14:42  loose
+
+	* src/LofarLog4Cplus.h: %[ER: 236]%
+
+	  Added warning section to documentation of ALLOC_TRACER_CONTEXT.
+
+2005-05-23 10:33  loose
+
+	* src/Profiling/PerfProfile.h: %[ER: 263]%
+
+	  PerfProfile is deprecated. Use the tinyCEP Profiler class
+	  instead.
+
+2005-05-23 10:05  loose
+
+	* test/Makefile.am: %[ER: 252]%
+
+	  Added export of LOFARROOT variable, which is needed to locate
+	  LimitExec.
+
+2005-05-23 09:57  loose
+
+	* src/: Net/backward/Socket.cc, Profiling/PerfProfile.cc,
+	  Thread/SmartLock.cc, Thread/Thread.cc, shmem/segbasemap.cc,
+	  shmem/shmem_alloc.cc: %[PR: 100]%
+
+	  Added #include <lofar_config.h> to source files (*.cc).
+
+2005-05-07 09:46  lofar
+
+	* test/tComplex.cc: define __INSURE__ in variants for insure builds
+	  (This is normally not needed because insure should do this for
+	  you, but for now it seems that it doesn't work for us. It is
+	  under investigation by us and parasoft
+
+2005-05-03 23:27  loose
+
+	* src/lofar_complex.h: %[PR: 100]%
+
+	  Merged changes from the main development line into
+	  LOFAR-PR100-task-branch.
+
+2005-05-03 23:22  loose
+
+	* src/: BlitzToAips.h, Lorrays.h, Profiling/PerfProfile.cc: %[PR:
+	  100]%
+
+	  Merged LOFAR-PR100-task-branch with main development line.
+
+2005-05-03 23:16  loose
+
+	* src/Profiling/PerfProfile.cc: %[PR: 100]%
+
+	  Added line '#include <lofar_config.h>' to .cc files.
+
+2005-05-03 15:00  lofar
+
+	* src/lofar_complex.h: %[ER: 71]% Insure doesn't seem to support or
+	  able to handle builtin complex types.  so added __INSURE__ flag
+	  test to determine what complex type can be used
+
+2005-04-29 16:11  broekema
+
+	* src/lofar_complex.h: %[ER: 247]% Add support for the Blue Gene
+	  compiler
+
+2005-04-20 11:23  loose
+
+	* src/: BlitzToAips.h, Lorrays.h: %[PR: 100]%
+
+	  Removed checks in .h files for preprocessor variables that are
+	  defined in config.h or lofar_config.h.
+
+2005-04-13 17:43  loose
+
+	* src/: LofarLog4Cplus.h, LofarLogCout.h: %[PR: 144]%
+
+	  Removed the line '#undef THROW'. If THROW were previously
+	  defined, we should consider this to be an error now.
+
+2005-04-13 17:39  loose
+
+	* src/: BlobField2.cc, Exception.cc, Exception.h, LofarLogger.h,
+	  Thread/SmartLock.cc: %[PR: 144]%
+
+	  Fixed. Definition of THROW and __HERE__ macros have been removed
+	  from Exception.h. __HERE__ is now defined in LofarLogger.h; THROW
+	  was already being defined in LofarLog{Cout|4Cplus}.h
+
+2005-04-13 16:33  loose
+
+	* configure.in, src/Allocator.cc, src/BlitzToAips.h,
+	  src/BlobArray.cc, src/BlobField.cc, src/BlobField2.cc,
+	  src/BlobFieldSet.cc, src/BlobHeader.cc, src/BlobIBufChar.cc,
+	  src/BlobIBufStream.cc, src/BlobIStream.cc, src/BlobOBufChar.cc,
+	  src/BlobOBufNull.cc, src/BlobOBufStream.cc,
+	  src/BlobOBufString.cc, src/BlobOStream.cc, src/BlobString.cc,
+	  src/BlobStringTraits.h, src/BlobStringType.cc,
+	  src/DataConvert.cc, src/DataFormat.h, src/Debug.cc, src/Debug.h,
+	  src/Exception.cc, src/Exception.h, src/KeyParser.cc,
+	  src/KeyParser.h, src/KeyValue.cc, src/KeyValue.h,
+	  src/KeyValueMap.cc, src/LimitExec.cc, src/LofarLog4Cplus.h,
+	  src/LofarLogCout.cc, src/LofarLogger.cc, src/LofarLogger.h,
+	  src/LofarTypes.h, src/Lorrays.h, src/RunOnNode.cc,
+	  src/RunOnNode.h, src/Stopwatch.cc, src/StringUtil.cc,
+	  src/Timer.cc, src/TypeNames.cc, src/hexdump.cc, src/hexdump.h,
+	  src/pkgdep.cc, src/Profiling/PerfProfile.h,
+	  src/shmem/shmem_alloc.h, test/tBlobArray.cc,
+	  test/tBlobArrayHeader.cc, test/tBlobField.cc,
+	  test/tBlobHeader.cc, test/tBlobStream.cc, test/tBlobString.cc,
+	  test/tComplex.cc, test/tDataConvert.cc, test/tDebug.cc,
+	  test/tHexdump.cc, test/tKeyValueMap.cc, test/tRunOnNode.cc,
+	  test/tStringUtil.cc, test/tTimer.cc, test/testLogger.cc: %[PR:
+	  100]%
+
+	  Removed #include <config.h> and #include <lofar_config.h> from
+	  header files (*.h and *.tcc). Added #include <lofar_config.h> to
+	  source files (*.cc).
+
+2005-04-12 14:20  loose
+
+	* src/shmem/: Makefile.am: %[PR: 150]%
+
+	  The header files of Common/shmem will now be installed in
+	  include/Common/shmem.
+
+2005-04-06 17:28  loose
+
+	* src/Net/Socket.cc: %[ER: 231]%
+
+	  Socket::shutdown() no longer closes the socket; this is now done
+	  by Socket::close(). Otherwise you would get an error when
+	  Socket::~Socket() calls Socket::close() to close an already
+	  closed socket.
+
+2005-04-05 10:09  loose
+
+	* src/Net/Socket.cc: %[PR: 148]%
+
+	  Fixed potential bug in Socket::errstr(), where the wrong system
+	  error code (errno) could be returned.
+
+2005-04-04 12:32  loose
+
+	* src/Net/: Socket.cc, Socket.h: %[ER: 231]%
+
+	  Added close() method.
+
+2005-03-23 12:22  diepen
+
+	* src/DataConvert.h: %[ER: 247]% Needed template<> for integer
+	  complex types if icc was used
+
+2005-03-23 11:37  romein
+
+	* test/: tStringUtil.cc, tStringUtil.out: %[ER: 220]% Fix 64-bit
+	  problems.
+
+2005-03-23 11:01  diepen
+
+	* test/: tComplex.cc, tComplex.out, tComplex.sh: %[ER: 247]% Added
+	  tComplex test program
+
+2005-03-23 10:57  romein
+
+	* test/tStringUtil.cc: %[ER: ]% include <cmath> for definition of
+	  M_E
+
+2005-03-23 10:54  romein
+
+	* src/BlobIStream.h: %[ER: ]% Fix typo and add #include
+
+2005-03-23 09:06  diepen
+
+	* src/Makefile.am: %[ER: 247]% Added new complex .h files
+
+2005-03-23 08:55  diepen
+
+	* src/: ComplexBuiltinFP.h, ComplexBuiltinInt.h, ComplexC99.h,
+	  ComplexStdFP.h, ComplexStdInt.h: %[ER: 247]% Definitions for
+	  builtin or std complex types
+
+2005-03-23 08:53  diepen
+
+	* src/: TypeNames.cc, TypeNames.h: %[ER: 247]% Use same type name
+	  for builtin and std complex (for easy interchange)
+
+2005-03-22 13:47  diepen
+
+	* src/BlobField.cc, src/BlobField.h, src/BlobField2.cc,
+	  src/BlobIStream.cc, src/BlobIStream.h, src/BlobOStream.cc,
+	  src/BlobOStream.h, src/DataConvert.h, src/KeyTokenize.ll,
+	  src/KeyValue.cc, src/LofarTypedefs.h, src/LofarTypes.h,
+	  src/TypeNames.cc, src/TypeNames.h, src/TypeNames.tcc,
+	  src/lofar_complex.h, test/Makefile.am, test/tBlobArray.cc,
+	  test/tBlobField.cc, test/tBlobStream.cc, test/tDataConvert.cc,
+	  test/tKeyValueMap.cc: %[ER: 247]% Use builtin complex
+
+2005-03-22 10:39  zwart
+
+	* src/: BlobField2.cc, DataConvert.h: %[ER: 242]%
+
+	  Added complex<int16>
+
+2005-03-18 15:26  loose
+
+	* src/StringUtil.h, test/tStringUtil.cc, test/tStringUtil.out:
+	  %[ER: 30]%
+
+	  Added methods for converting fundamental numeric types to string.
+
+2005-03-16 09:33  loose
+
+	* configure.in: %[ER: 30]%
+
+	  Updated version number to 2.1
+
+2005-03-15 08:09  diepen
+
+	* test/: tDataConvert.cc, tDataConvert.out: %[ER: 206]% Added a
+	  test for boolToBit and bitToBool
+
+2005-03-15 08:08  diepen
+
+	* src/: DataConvert.cc, DataConvert.h: %[ER: 206]% Added a startbit
+	  argument
+
+2005-03-11 16:44  loose
+
+	* package.doc: %[ER: 236]%
+
+	  Added group Common to group LCS.
+
+2005-03-11 16:40  loose
+
+	* src/Debug.h: %[ER: 236]%
+
+	  Added \deprecated line.
+
+2005-03-02 16:32  loose
+
+	* src/: lofar_fstream.h, lofar_iosfwd.h, lofar_set.h,
+	  lofar_sstream.h: %[ER: 161]%
+
+	  Added using declarations for missing types.
+
+2005-02-25 15:27  overeem
+
+	* src/Net/Socket.cc: %[ER:30]% Extra log message when reading from
+	  an UDP socket.
+
+2005-02-25 15:24  overeem
+
+	* src/: Makefile.am, Net/FdSet.cc, Net/FdSet.h: %[ER:30]% Make a
+	  class around the fd_set structure to do some boring bookkeeping.
+
+2005-02-25 12:04  lofar
+
+	* src/pkgdep.cc: %[ER: 71]% placed all needed images in their own
+	  image directory, so had to change the references to them.
+
+2005-02-18 17:07  overeem
+
+	* src/Net/Socket.cc: %[ER:30]% Explicitly setting itsErrno on
+	  several placed.
+
+2005-02-18 16:50  lofar
+
+	* src/pkgdep.cc: %[ER: 71]% changed place where images can be found
+
+2005-02-10 12:51  loose
+
+	* package.doc: %[ER: 236]%
+
+	  Enhanced the documentation: - Defined a number of groups within
+	  the package group "Common".  - Added (sub)grouping to several
+	  source files.  - Updated comment style to C++ // style.
+
+2005-02-10 11:40  loose
+
+	* src/: Allocator.h, BlitzToAips.h, BlobArray.h, BlobArrayHeader.h,
+	  BlobException.h, BlobField.h, BlobFieldSet.h, BlobHeader.h,
+	  BlobIBufChar.h, BlobIBufStream.h, BlobIBufString.h,
+	  BlobIBufVector.h, BlobIBuffer.h, BlobIStream.h, BlobOBufChar.h,
+	  BlobOBufNull.h, BlobOBufStream.h, BlobOBufString.h,
+	  BlobOBufVector.h, BlobOBuffer.h, BlobOStream.h, BlobString.h,
+	  BlobStringTraits.h, BlobStringType.h, CheckConfig.h,
+	  DataConvert.h, DataFormat.h, Debug.h, Exception.h, KeyParser.h,
+	  KeyValue.h, KeyValueMap.h, LofarLog4Cplus.h, LofarLogCout.h,
+	  LofarLogger.h, LofarTypedefs.h, LofarTypes.h, Lonumerics.h,
+	  Lorrays-Blitz.h, Lorrays.h, Makefile.am, RunOnNode.h,
+	  Stopwatch.h, StringUtil.cc, StringUtil.h, Thread.h, Timer.h,
+	  TypeNames.h, VectorUtil.h, hexdump.h, lofar_algorithm.h,
+	  lofar_complex.h, lofar_deque.h, lofar_fstream.h,
+	  lofar_global_symbol_warning.h, lofar_iomanip.h, lofar_iosfwd.h,
+	  lofar_iostream.h, lofar_list.h, lofar_map.h, lofar_sstream.h,
+	  lofar_stack.h, lofar_string.h, lofar_strstream.h, lofar_vector.h,
+	  Net/Socket.h, Net/backward/Socket.h, Profiling/PerfProfile.h,
+	  Thread/Condition.h, Thread/Key.h, Thread/Mutex.h,
+	  Thread/SmartLock.h, shmem/dlmalloc.h, shmem/segbasemap.h,
+	  shmem/shmem_alloc.h: %[ER: 236]%
+
+	  Enhanced the documentation: - Defined a number of groups within
+	  the package group "Common".  - Added (sub)grouping to several
+	  source files.  - Updated comment style to C++ // style.
+
+2005-02-09 17:09  loose
+
+	* src/: Allocator.h, BlitzToAips.h, BlobArray.h, BlobArrayHeader.h,
+	  BlobException.h, BlobField.h, BlobFieldSet.h, BlobHeader.h,
+	  BlobIBufChar.h, BlobIBufStream.h, BlobIBufString.h,
+	  BlobIBufVector.h, BlobIBuffer.h, BlobIStream.h, BlobOBufChar.h,
+	  BlobOBufNull.h, BlobOBufStream.h, BlobOBufString.h,
+	  BlobOBufVector.h, BlobOBuffer.h, BlobOStream.h, BlobString.h,
+	  BlobStringTraits.h, BlobStringType.h, CheckConfig.h,
+	  DataConvert.h, DataFormat.h, Debug.h, Exception.h, HEADER.h,
+	  KeyParser.h, KeyValue.h, KeyValueMap.h, LofarLog4Cplus.h,
+	  LofarLogCout.h, LofarLogger.h, LofarTypedefs.h, LofarTypes.h,
+	  Lonumerics.h, Lorrays-Blitz.h, Lorrays.h, RunOnNode.h,
+	  Stopwatch.h, StringUtil.h, Thread.h, Timer.h, TypeNames.h,
+	  VectorUtil.h, hexdump.h, lofar_algorithm.h, lofar_complex.h,
+	  lofar_fstream.h, lofar_global_symbol_warning.h, lofar_iomanip.h,
+	  lofar_iostream.h, lofar_list.h, lofar_map.h, lofar_sstream.h,
+	  lofar_stack.h, lofar_string.h, lofar_strstream.h, lofar_vector.h:
+	  %[ER: 236]%
+
+	  The \file command expects a complete filename, i.e. with the
+	  trailing ".h"
+
+2005-02-09 11:27  lofar
+
+	* src/: Allocator.h, BlitzToAips.h, BlobArray.h, BlobArrayHeader.h,
+	  BlobException.h, BlobField.h, BlobFieldSet.h, BlobHeader.h,
+	  BlobIBufChar.h, BlobIBufStream.h, BlobIBufString.h,
+	  BlobIBufVector.h, BlobIBuffer.h, BlobIStream.h, BlobOBufChar.h,
+	  BlobOBufNull.h, BlobOBufStream.h, BlobOBufString.h,
+	  BlobOBufVector.h, BlobOBuffer.h, BlobOStream.h, BlobString.h,
+	  BlobStringTraits.h, BlobStringType.h, CheckConfig.h,
+	  DataConvert.h, DataFormat.h, Debug.h, Exception.h, HEADER.h,
+	  KeyParser.h, KeyValue.h, KeyValueMap.h, LofarLog4Cplus.h,
+	  LofarLogCout.h, LofarLogger.h, LofarTypedefs.h, LofarTypes.h,
+	  Lonumerics.h, Lorrays-Blitz.h, Lorrays.h, RunOnNode.h,
+	  Stopwatch.h, StringUtil.h, Thread.h, Timer.h, TypeNames.h,
+	  VectorUtil.h, hexdump.h, lofar_algorithm.h, lofar_complex.h,
+	  lofar_deque.h, lofar_fstream.h, lofar_global_symbol_warning.h,
+	  lofar_iomanip.h, lofar_iosfwd.h, lofar_iostream.h, lofar_list.h,
+	  lofar_map.h, lofar_sstream.h, lofar_stack.h, lofar_string.h,
+	  lofar_strstream.h, lofar_vector.h: %[ER: 236]% added \addtogroup
+	  and \file comments for documentation also includeguard will
+	  include LOFAR_ now also in name
+
+2005-02-08 08:04  diepen
+
+	* src/Makefile.am: %[ER: 70]% Removed finddep which was added as a
+	  test
+
+2005-02-07 11:28  diepen
+
+	* src/Makefile.am: %[ER: 70]% Removed BlobField.cc from SOURCES
+
+2005-02-04 13:52  diepen
+
+	* src/LofarLogCout.h: %[ER: 70]% Qualify left with std:: (to fix
+	  problem in MeqJonesExpr)
+
+2005-01-31 15:39  romein
+
+	* src/shmem/: dlmalloc.c, shmem_alloc.cc: %[ER: 220]% Fixed 64-bit
+	  bugs.
+
+2005-01-31 15:38  romein
+
+	* src/: Timer.cc, Timer.h: %[ER: 220]% Added Itanium support.
+
+2005-01-25 08:39  diepen
+
+	* test/tKeyValueMap.out: %[ER: 206]% Added an extra test
+
+2005-01-24 11:40  diepen
+
+	* src/KeyTokenize.ll: %[ER: 206]% Removed debug statement
+
+2005-01-24 10:42  diepen
+
+	* test/: tKeyValueMap.cc, tKeyValueMap.in: %[ER: 206]% Added test
+	  for parsing from a file
+
+2005-01-24 10:42  diepen
+
+	* src/: KeyParser.cc, KeyParser.h, KeyTokenize.ll, KeyValue.cc:
+	  %[ER: 206]% Added parser from a file and improved the parser
+
+2005-01-21 13:24  diepen
+
+	* src/pkgdep.cc: %[ER: 207]% Fixed problem in display of flat tree
+
+2005-01-21 13:03  diepen
+
+	* src/pkgdep.cc: %[ER: 207]% Skip single parents if wanted Fixed a
+	  few little problems
+
+2005-01-20 11:42  loose
+
+	* src/Net/Socket.cc: %[PR: 141]%
+
+	  Socket destructor does not break connection anymore, but only
+	  closes its own socket descriptor (this was the original
+	  behaviour, before it was inadvertently changed in rev 1.3).
+
+2005-01-20 09:36  diepen
+
+	* src/pkgdep.cc: %[ER: 207]% Improved the XHTML output
+
+2005-01-19 15:18  diepen
+
+	* src/: Makefile.am, VectorUtil.h: %[ER: 206]% Created operator<<
+	  for a vector object
+
+2005-01-18 15:26  diepen
+
+	* src/pkgdep.cc: %[ER: 221]% Improved generated html pages
+
+2005-01-17 14:56  diepen
+
+	* src/pkgdep.cc: %[ER: 221]% Added header and footer for XHTML
+
+2005-01-14 14:46  broekema
+
+	* src/Net/Socket.cc: %[ER: 182]% BG/L crashed on  the fcntl call.
+	  Remove for BG/L for now, but this should be investigasted.
+
+2005-01-14 14:13  broekema
+
+	* src/Net/: Socket.cc, Socket.h: %[ER: 229]% moved the
+	  lofar_config.h include to the .cc file
+
+2005-01-13 15:44  overeem
+
+	* src/Net/Socket.cc: %[ER:30]% Also resetting internal errorcode to
+	  SK_OK when returning from setDefaults for BG.
+
+2005-01-13 15:35  romein
+
+	* src/KeyValue.cc: %[ER: 223]% Avoid icc (EM64T) compiler bug.
+
+2005-01-13 08:40  overeem
+
+	* src/Net/Socket.cc: %[ER:30]% Blue Gene does not have sockopt
+	  calls, made them dependent from the HAVE_BGL definition.  On
+	  read/write errors the socket is not immediately closed anymore
+	  allowing the user to get the SocketID from the Socket in trouble.
+	  Prevents redundant administration is several cases.
+
+2005-01-10 08:33  diepen
+
+	* src/: BlobArray.h, BlobField.h, BlobIStream.h: %[ER: 38]% Fixed
+	  doxygen tags
+
+2005-01-07 10:56  diepen
+
+	* configure.in: %[ER: 222]% Removed lofar_AIPSPP which was there as
+	  a test
+
+2005-01-07 08:56  diepen
+
+	* configure.in, src/BlitzToAips.h, src/BlobArray.h,
+	  src/BlobArray.tcc, src/Lorrays-Blitz.h: %[ER: 222]% Use AIPS++
+	  casa namespace
+
+2005-01-06 18:02  loose
+
+	* src/: Makefile.am, shmem/Makefile.am: %[ER: 177]%
+
+	  Shared memory can now be enabled or disabled using
+	  --with-shmem=[yes|no] during configure. Furthermore,
+	  --with-shmem=yes has been made the default for the standard
+	  variant (e.g. debug, opt, mpich, etc.); the bgl and fakebgl
+	  variants use --with-shmem=no by default.
+
+2005-01-03 16:06  overeem
+
+	* src/StringUtil.cc, src/StringUtil.h, test/tStringUtil.cc,
+	  test/tStringUtil.out: %[ER:30]% ltrim and rtrim functions allow
+	  other definitions of whitespace as the last parameter.
+
+2005-01-03 11:47  romein
+
+	* src/: Stopwatch.cc, Thread/Mutex.h: %[ER:220]% Various changes on
+	  behalf of x86_64 architecture
+
+2005-01-03 08:42  overeem
+
+	* src/: StringUtil.cc, StringUtil.h: %[ER:30]% Added ltrim and
+	  rtrim functions for removing leading or trailing whitespace from
+	  C strings or C++ strings.
+
+2005-01-03 08:41  overeem
+
+	* test/: tStringUtil.cc, tStringUtil.out: %[ER:30]% Update to test
+	  ltrim and rtrim also.
+
+2004-12-27 15:59  diepen
+
+	* src/pkgdep.cc: %[ER: 70]% Added a few options
+
+2004-12-24 16:02  diepen
+
+	* src/pkgdep.cc: %[ER: 70]% Added ability to write JavaScript
+	  output
+
+2004-12-24 15:12  broekema
+
+	* src/Thread/Mutex.h: %[ER: 182]% BG doesn't know pthreads.
+
+2004-12-24 15:09  diepen
+
+	* src/BlobStringTraits.h: %[ER: 70]% Also compile for BlueGene
+
+2004-12-24 15:05  diepen
+
+	* src/: BlobField2.cc, DataConvert.h: %[ER: 38]% Added BlobField
+	  instantiation for complex<uint16>
+
+2004-12-24 13:26  lofar
+
+	* src/pkgdep.cc: %[ER:71 ]% removed root packages check by request
+	  of Ger van Diepen
+
+2004-12-23 08:55  diepen
+
+	* src/BlobOStream.h: %[PR: 134]% Implemented size function
+
+2004-12-15 14:16  overeem
+
+	* src/LofarLogger.cc: %[ER:30]% The function readlink may return -1
+	  which caused a segfault when the link that was read does not
+	  exist.
+
+2004-12-15 14:13  overeem
+
+	* src/Net/Socket.cc: %[ER:30]% Updated Socket to the Blue Gene
+	  which has no netdb.h functions. Embellished the logging messages
+	  and made sure the sockets use the right blockingmode directly
+	  after creation.
+
+	  Modified TH_Socket to implement real non-blocking
+	  connect/accept/read-calls.
+
+2004-12-15 00:19  schaaf
+
+	* src/Net/Socket.cc: %[ER: 181]% make use of netdb functionality
+	  optinal for compatibility with BGL
+
+2004-12-14 13:28  overeem
+
+	* src/Net/: Socket.cc, Socket.h: %[ER:30]% Update for Sun OS.
+
+2004-12-09 15:47  overeem
+
+	* src/: StringUtil.cc, StringUtil.h: %[ER:30]% Added timeString
+	  function to create a humna readable time of a time_t value.
+
+2004-12-09 15:07  diepen
+
+	* test/tBlobField.in_le: %[ER: 38]% Checked in proper little-endian
+	  file
+
+2004-12-09 15:01  diepen
+
+	* src/DataConvert.h: %[ER: 38]% Added function for char and uchar
+	  (to 'convert' version in BlobHeader)
+
+2004-12-09 15:00  diepen
+
+	* src/BlobArray.cc: %[ER: 38]% Fixed alignment problem Do not
+	  assume that ndim is aligned (got segv on SUN)
+
+2004-12-09 14:59  diepen
+
+	* src/KeyValue.cc: %[ER: 38]% Problem on SUN with tellg (returns
+	  -1)
+
+2004-12-09 14:58  diepen
+
+	* test/: tBlobField.cc, tBlobField.in_be, tBlobField.in_le,
+	  tBlobStream.in_le: %[ER: 38]% Have some real bigendian test files
+
+2004-12-06 11:50  diepen
+
+	* test/testLogger.cc: %[ER: 70]% getDebugContext changed into
+	  getLFDebugContext
+
+2004-12-06 11:13  zwart
+
+	* src/: BlobArray.h, BlobField2.cc, BlobIStream.cc, BlobIStream.h,
+	  BlobOStream.cc, BlobOStream.h, DataConvert.h, LofarTypedefs.h,
+	  LofarTypes.h, Lonumerics.h, TypeNames.cc, TypeNames.h: %[ER:
+	  182]%
+
+	  Remove scomplex type
+
+2004-12-06 09:57  overeem
+
+	* src/LofarLogger.cc: %[ER:30]% libgen contains prototype for
+	  basename call.
+
+2004-12-06 09:49  overeem
+
+	* src/BlobField.cc: %[ER:30]% Typecast to size_t iso unsinged int
+	  to be more platform compatible.
+
+2004-12-02 17:49  loose
+
+	* configure.in: %[ER: 30]%
+
+	  Updated version number in automake initialization macro; added
+	  no-define avoiding the definition of PACKAGE and VERSION.
+
+2004-12-01 16:52  zwart
+
+	* src/: BlobArray.h, BlobField2.cc, BlobIStream.cc, BlobIStream.h,
+	  BlobOStream.cc, BlobOStream.h, DataConvert.h, LofarTypedefs.h,
+	  LofarTypes.h, Lonumerics.h, TypeNames.cc, TypeNames.h: %[ER:
+	  182]%
+
+	  Added a new type: complex<short> a.k.a. scomplex
+
+2004-12-01 14:01  loose
+
+	* src/: LofarLog4Cplus.h, LofarLogCout.h, LofarLogger.h: %[ER:
+	  119]%
+
+	  Redefined the logger macros so that they now use the full package
+	  name LOFARLOGGER_FULLPACKAGE, which is the concatenation of the
+	  package name LOFARLOGGER_PACKAGE (as derived by lofarconf) and an
+	  optional user-defined sub-package name LOFARLOGGER_SUBPACKAGE.
+
+2004-11-30 10:06  diepen
+
+	* src/: Makefile.am, pkgdep.cc: %[ER: 207]% Program to show the
+	  package dependency tree
+
+2004-11-29 13:50  smirnov
+
+	* src/: Debug.cc, backward/Debug.cc: %[ER: 16]% More "fixes"(???)
+	  to Debug.cc
+
+2004-11-29 11:12  noordam
+
+	* src/backward/Debug.cc: %[ER: 16]% Added using namespace std
+	  declaration because it wouldn't compile otherwise
+
+2004-11-29 11:08  diepen
+
+	* src/LofarLogCout.h: %[ER: 70]% Rename getDebugContext to
+	  getLFDebugContext to avoid confusion with Debug.h
+
+2004-11-26 16:19  diepen
+
+	* src/LofarLogCout.h: %[ER: 70]% Improved comments
+
+2004-11-26 16:17  diepen
+
+	* src/: LofarLogCout.cc, LofarLogCout.h: %[ER: 70]% Removed all
+	  obsolete functions Changed namespace to LFDebug to avoid problems
+	  with normal Debug.h
+
+2004-11-26 16:16  diepen
+
+	* src/LofarLogger.h: %[ER: 70]% Standardised include guard
+
+2004-11-26 14:04  smirnov
+
+	* src/Thread/Thread.h: %[ER: 16]% Updated Thread to use namespace
+	  LOFAR
+
+2004-11-23 10:17  schaaf
+
+	* test/: tRunOnNode.cc, tRunOnNode.out: %[ER: 119]% replaced logger
+	  output with cout
+
+2004-11-22 11:28  loose
+
+	* test/tRunOnNode.out: %[PR: 119]%
+
+	  Removed. It only contained information from the logger, which
+	  should always be discarded, because it might differ between build
+	  variants and even run-time environments.
+
+2004-11-22 09:54  loose
+
+	* src/LofarLogCout.h: %[ER: 161]%
+
+	  Stupid mistake: forgot to include lofar_sstream.h. The code
+	  compiled fine with threads enabled, because in that case,
+	  Thread.h would be included, which would, in turn, include
+	  lofar_sstream.h. This obviously failed miserably when configured
+	  without thread support.
+
+2004-11-22 09:51  loose
+
+	* src/backward/Debug.cc: %[ER: 161]%
+
+	  Added warning comment.
+
+2004-11-19 15:44  loose
+
+	* src/LimitExec.cc: %[PR: 118]%
+
+	  Fixed. LimitExec now returns -1 when the child was terminated by
+	  a signal; else it returns the child's exit status.
+
+2004-11-19 15:08  loose
+
+	* src/LofarLogCout.h: %[ER: 161]%
+
+	  * Fixed name clash with preprocessor macro Debug.  * Added
+	  explicit LOFAR::Debug specification in some macros.  * Reversed
+	  trace level numbering in output message, in order to comply with
+	   the trace level numbering of log4cplus.  * Fixed formatting bug
+	  in Debug::stream_time().  * Reordered code because ssprintf() was
+	  used before being declared.
+
+2004-11-19 14:59  loose
+
+	* src/backward/Debug.cc: %[ER: 161]%
+
+	  * Removed explicit std:: namespace specifications.  * Removed
+	  spurious ends in an ostringstream.  * Tracer::startMsg() and
+	  Tracer::endMsg() now use "TRACE" instead of "trace",	 in order
+	  to be compliant with the LofarLogger format.
+
+2004-11-19 14:53  loose
+
+	* src/Debug.h: %[ER: 161]%
+
+	  * Added deprecated warning.  * Fixed formatting bug in
+	  Debug::stream_time() * Reordered code, because ssprintf() was
+	  used before being declared.
+
+2004-11-18 17:49  loose
+
+	* src/Makefile.am: %[ER: 161]%
+
+	  Added lofar_iomanip.h.
+
+2004-11-18 17:47  loose
+
+	* src/lofar_iomanip.h: %[ER: 161]%
+
+	  Initial version.
+
+2004-11-18 13:04  diepen
+
+	* src/Timer.cc, src/Timer.h, test/tTimer.cc: %[ER: 146]% Renamed to
+	  NSTimer (to avoid AIPS++ confusion)
+
+2004-11-18 13:03  diepen
+
+	* src/KeyValue.cc: %[ER: 146]% Add possibility to retrieve a vector
+	  from a vector of KeyValue
+
+2004-11-17 23:46  loose
+
+	* src/LofarLogCout.h: %[ER: 30]%
+
+	  Oops! Added line that we lost between rev. 1.4 and 1.5.
+
+2004-11-17 13:25  romein
+
+	* src/Makefile.am, src/Timer.cc, src/Timer.h, test/Makefile.am,
+	  test/tTimer.cc: %[ER: 199]% Low-overhead, high-precision timer
+	  for i386 and x86_64 architecture.
+
+2004-11-15 12:49  diepen
+
+	* src/Makefile.am: %[ER: 70]% Make KeyParse before KeyParser
+
+2004-11-15 12:21  diepen
+
+	* src/lofar_complex.h: %[ER: 70]% Needed use std::conj for
+	  ParmTableAIPS
+
+2004-11-15 10:47  loose
+
+	* src/Net/Socket.cc: %[ER: 30]%
+
+	  Reverted to the previous version. Throwing an exception was
+	  causing too much trouble. Besides, the error reporting facilities
+	  were too limiting, because only one type of exception was being
+	  thrown, whereas the status code provides a much richer source of
+	  information.
+
+2004-11-11 17:20  loose
+
+	* src/Makefile.am: %[PR: 109]%
+
+	  Fixed. In order to make tracing of missing .h or .cc files
+	  easier, I've put every filename on a single line.
+
+2004-11-11 14:20  loose
+
+	* src/Makefile.am: %[PR: 109]%
+
+	  Added lofar_global_warning_symbol.h to INSTHDRS.
+
+2004-11-10 14:30  loose
+
+	* test/Makefile.am: %[PR: 110]%
+
+	  Added XFAIL_TESTS for tLorrays_test.sh, so it will be recognized
+	  as an expected failure. This is necessary, until the Blitz++
+	  "problem" with version 0.7 has been solved.
+
+2004-11-05 18:03  loose
+
+	* src/Net/Socket.cc: %[ER: 30]%
+
+	  Socket constructor now throws an exception when initServer() or
+	  initClient() fails.
+
+2004-11-02 11:34  loose
+
+	* src/BlobArray.tcc: %[ER: 38]%
+
+	  Another typo in the c'tor of a blitz Array. Most of these error
+	  surface now, because LCS/Common did not have HAVE_BLITZ defined
+	  before.
+
+2004-10-29 15:47  loose
+
+	* configure.in: %[ER: 184]%
+
+	  Re-added the line check_LONG_LONG -- it was used by PL o.a. --
+	  and it was considered so common that it deserves its place here
+	  and not in PL.
+
+2004-10-29 11:40  loose
+
+	* configure.in: %[ER: 30]%
+
+	  Added check for log4cplus and Blitz++; removed check for
+	  long-long (it was not used).
+
+2004-10-26 14:10  diepen
+
+	* src/Makefile.am: %[ER: 70]% Change such that make install works
+	  correctly
+
+2004-10-26 14:07  loose
+
+	* src/BlobArray.tcc: %[ER: 38]%
+
+	  Fixed bug in call of c'tor for TinyVector.
+
+2004-10-26 12:52  diepen
+
+	* src/BlobArray.tcc: %[ER: 38]% Fixed typo in blitz part
+
+2004-10-21 16:50  smirnov
+
+	* src/: Thread/Thread.h, backward/Debug.cc: %[ER: 16]% More fixes
+	  to accomodate namespace LOFAR (specifically related to Thread)
+
+2004-10-21 14:57  loose
+
+	* src/LofarLog4Cplus.h: %[ER: 161]%
+
+	  Removed using declarations. It does not belong in a header file.
+
+2004-10-21 14:56  loose
+
+	* src/lofar_complex.h: %[ER: 161]%
+
+	  Oops! The symbols to be made global should be from namespace
+	  LOFAR, not from namespace std.
+
+2004-10-21 14:55  loose
+
+	* src/Thread/Thread.h: %[ER: 161]%
+
+	  You cannot say 'using LOFAR::Thread', because 'Thread' is a
+	  namespace. Hence, we needed another trick to make the LOFAR
+	  "symbol" 'Thread' global: we introduced a new global namespace
+	  'Thread' which "imports" the namespace 'LOFAR::Thread'.
+
+2004-10-20 15:41  overeem
+
+	* src/Net/Socket.cc: %[ER:30]% Changed loglevel of some messages.
+
+2004-10-20 14:19  loose
+
+	* src/: HEADER.cc, HEADER.h: %[PR: 100]%
+
+	  Changed the template files according to the aforementioned
+	  problem report.
+
+2004-10-20 12:22  loose
+
+	* test/tBlobField.cc: %[PR: 99]%
+
+	  Fixed. Moved the #include<Common/BlobField.cc> line past the
+	  implementation of dataConvert() for type XX.
+
+2004-10-20 10:20  schaaf
+
+	* src/Net/Socket.cc: %[ER: 164]% layout
+
+2004-10-20 00:00  loose
+
+	* test/testLogger.cc: %[ER: 89]%
+
+	  Fixed bug: Quoted string should be in double quotes, not single
+	  quotes.
+
+2004-10-19 21:55  broekema
+
+	* test/testLogger.cc: %[ER: 160]% INIT_TRACER_CONTEXT is only valid
+	  if ENABLE_TRACER is defined. Added a guard to protect against
+	  this.
+
+2004-10-19 16:31  schaaf
+
+	* test/: Makefile.am, tRunOnNode.cc, tRunOnNode.log_prop,
+	  tRunOnNode.out, tRunOnNode.sh: %[ER: 163]% initial version; test
+	  basis functionality
+
+2004-10-19 16:30  schaaf
+
+	* src/: Makefile.am, RunOnNode.cc, RunOnNode.h: %[ER: 163]% Initial
+	  version of RunOnNode; see test directory for usage example
+
+2004-10-19 15:49  diepen
+
+	* src/lofar_complex.h: %[ER: 70]% Outcommented conj (otherwise
+	  MeqMatrix does not compile)
+
+2004-10-19 12:00  loose
+
+	* src/Debug.h: %[ER: 161]%
+
+	  Solved ambiguity problems when both Debug.h and LofarLogCout.h
+	  were included and "using namespace LOFAR" was used. The macros in
+	  Debug.h now explicitly use "::Debug" instead of "Debug".
+
+2004-10-19 10:06  loose
+
+	* src/shmem/segbasemap.cc: %[ER: 161]%
+
+	  Whoops! Forgot the using LOFAR::map declaration.
+
+2004-10-19 10:04  loose
+
+	* src/shmem/segbasemap.cc: %[ER: 161]%
+
+	  Changed header comment tokens.
+
+2004-10-18 16:57  overeem
+
+	* test/Makefile.am: %[ER:30]% Added testSocket.
+
+2004-10-18 16:56  overeem
+
+	* test/testSocket.cc: %[ER:30]% Added deletion of used sockets.
+
+2004-10-18 15:49  loose
+
+	* configure.in: %[ER: 161]%
+
+	  Added the optional external package "log4cplus" again. The
+	  fallback scenario in LofarLogger should now handle things
+	  properly (using LofarLogCout).
+
+2004-10-18 15:47  loose
+
+	* src/Thread/Thread.h: %[ER: 161]%
+
+	  * Debug was moved back into the global namespace.  * Added using
+	  declaration for with backward compatibility.
+
+2004-10-18 15:45  loose
+
+	* src/shmem/shmem_alloc.cc: %[ER: 161]%
+
+	  Minor.
+
+2004-10-18 15:44  loose
+
+	* src/shmem/Makefile.am: %[ER: 161]%
+
+	  Removed the AM_CPPFLAGS line. Backward compatibility is no longer
+	  needed.
+
+2004-10-18 15:42  loose
+
+	* src/: Stopwatch.cc, Stopwatch.h, Profiling/PerfProfile.cc,
+	  Profiling/PerfProfile.h: %[ER: 161]%
+
+	  Moved code into namespace LOFAR.
+
+2004-10-18 15:41  loose
+
+	* src/Lorrays-Blitz.h: %[ER: 161]%
+
+	  The Lorray-types (incl. LoVec, LoMat and LoCube) now reside in
+	  namespace LOFAR. Use the compiler directive
+	  MAKE_LOFAR_SYMBOLS_GLOBAL for backward compatibility.
+
+2004-10-18 15:37  loose
+
+	* src/Lorrays.h: %[ER: 161]%
+
+	  Removed include of <config.h>. Only <lofar_config.h> should be
+	  included.
+
+2004-10-18 15:35  loose
+
+	* src/Lonumerics.h: %[ER: 161]%
+
+	  Removed spurious semicolon in macro definition.
+
+2004-10-18 15:34  loose
+
+	* src/Makefile.am: %[ER: 161]%
+
+	  Added the LofarLogger "specialization" files LofarLogCout.{h,cc}
+	  and LofarLog4Cplus.{h,cc}.
+
+2004-10-18 15:32  loose
+
+	* src/: Debug.cc, Debug.h, LofarLogCout.cc, backward/Debug.cc:
+	  %[ER: 161]%
+
+	  * Removed Debug from namespace LOFAR, because it caused trouble
+	  in combination   with LofarLogCout, which mimics the behaviour of
+	  Debug. The common part of   the Debug.cc file has been moved to
+	  the directory Common/backward and is	 included by Debug.cc and
+	  LofarLogCout.cc in the Common directory
+
+2004-10-18 13:18  overeem
+
+	* src/LofarLogCout.h: %[ER:30]% Renamed internal macros to avoid
+	  nameclash with old Debug.cc
+
+2004-10-18 11:26  overeem
+
+	* src/Net/Socket.cc: %[ER:30]% Name of UNIX socket was not always
+	  cleared before fill.	Unix Socket was not always removed properly
+	  in destructor.
+
+2004-10-18 08:58  overeem
+
+	* test/testSocket.cc: %[ER:30]% Testprogram for manually testing
+	  the Socket class.
+
+2004-10-15 18:26  smirnov
+
+	* configure.in, src/BlitzToAips.h, src/Net/Socket.cc: %[ER: 16]%
+	  Socket currently broken for UNIX sockets, still fixing VArious
+	  modifications for namespace LOFAR
+
+2004-10-15 17:10  loose
+
+	* src/LimitExec.c: %[ER: 30]%
+
+	  A C++ version of the same program was already present, so this
+	  file can moved to the proverbial attic.
+
+2004-10-15 12:09  overeem
+
+	* test/: tBlobArray.cc, tBlobArrayHeader.cc, tBlobField.cc,
+	  tBlobHeader.cc, tBlobStream.cc, tBlobString.cc, tDataConvert.cc,
+	  tHexdump.cc, tKeyValueMap.cc, tStringUtil.cc, testLogger.cc:
+	  %[ER:30]% Update for name of logfile.
+
+2004-10-15 12:07  overeem
+
+	* src/LofarLogCout.h: %[ER:30]% Solved bug in INIT_LOGGER macro
+	  that caused segmentation fault.
+
+2004-10-15 09:41  loose
+
+	* src/LofarLogCout.h: %[ER:30]%
+
+	  Autoappend ".debug" when filename does not contain it.
+
+2004-10-14 18:25  broekema
+
+	* src/BlobFieldSet.cc: %[ER: 160]% INIT_TRACER_CONTEXT should be
+	  guarded, since it is only available when ENABLE_TRACER is
+	  defined.
+
+2004-10-14 17:00  overeem
+
+	* src/LofarLog4Cplus.h: %[ER:30]% Autoappend ".log_prop" when
+	  filename does not contain it.
+
+2004-10-14 15:42  overeem
+
+	* src/: LofarLog4Cplus.h, LofarLogger.h: %[ER:30]% Moved inclusion
+	  of StringUtil from log4cplus version to global version.
+
+2004-10-14 14:28  overeem
+
+	* src/Net/backward/: Socket.cc, Socket.h: %[ER:30]% Former version
+	  of Socket class. For backward compatibility.
+
+2004-10-14 14:27  overeem
+
+	* src/Net/: Socket.cc, Socket.h: %[ER:30]% Renewed implementation
+	  of Socket class. See mail of 14/10/04.  Full support of
+	  blocking/non-blocking and LofarLogger.
+
+2004-10-14 12:23  loose
+
+	* test/tLorrays.cc: %[ER: 161]%
+
+	  Moved the 'using namespace LOFAR' line outside the #ifdef.
+
+2004-10-14 12:22  loose
+
+	* test/Makefile.am: %[ER: 161]%
+
+	  Removed the AM_CXXFLAGS line.
+
+2004-10-14 12:21  loose
+
+	* src/: BlitzToAips.h, LofarTypes.h, Lorrays-Blitz.h: %[ER: 161]%
+
+	  Moved all declarations into namespace LOFAR.
+
+2004-10-14 12:20  loose
+
+	* src/CheckConfig.h: Added standard LOFAR header
+
+2004-10-14 12:18  loose
+
+	* src/: BlobException.h, Exception.h: Changed include guard
+
+2004-10-13 16:43  loose
+
+	* src/lofar_global_symbol_warning.h: %[ER: 161]%
+
+	  * Almost all code in the 'Common' package now resides in the
+	  namespace LOFAR.    Work is still in progress.  * The lofar_*.h
+	  files (like lofar_string.h) now make the using declarations of
+	  the standard types in the namespace LOFAR, instead of the global
+	  namespace.	For backward compatibility, the compiler
+	  MAKE_LOFAR_SYMBOLS_GLOBAL can be    used. It is recommended that
+	  you use these lofar_*.h header files instead of    the standard
+	  header files.  * The line 'AM_CPPFLAGS =
+	  MAKE_LOFAR_SYMBOLS_GLOBAL' has been added to most of	 the
+	  Makefile.am files. The packages that are currently being built in
+	    the weekly build are known to compile using the new 'Common'
+	  package when	 backward compatibility is enabled. Where
+	  necessary, source code or header   files were modified. This
+	  usually meant adding a line like e.g.    'using LOFAR::Thread'.
+
+2004-10-13 14:02  loose
+
+	* src/lofar_sstream.h: %[ER: 161]%
+
+	  Initial version.
+
+2004-10-13 14:00  loose
+
+	* src/: Makefile.am, blitz_array-impl.h: %[ER: 161]%
+
+	  Removed blitz_array-impl.h; it was not used anywhere.
+
+2004-10-13 11:49  loose
+
+	* src/BlitzToAips.h, src/Debug.cc, src/Debug.h, src/Exception.cc,
+	  src/KeyParse.yy, src/LofarLog4Cplus.h, src/LofarLogCout.h,
+	  src/LofarLogger.cc, src/LofarLogger.h, src/Stopwatch.cc,
+	  src/Thread.h, src/lofar_algorithm.h, src/lofar_complex.h,
+	  src/lofar_deque.h, src/lofar_fstream.h, src/lofar_iosfwd.h,
+	  src/lofar_iostream.h, src/lofar_list.h, src/lofar_map.h,
+	  src/lofar_stack.h, src/lofar_string.h, src/lofar_strstream.h,
+	  src/lofar_vector.h, src/Net/Socket.cc, src/Net/Socket.h,
+	  src/Thread/Condition.h, src/Thread/Key.h, src/Thread/Mutex.h,
+	  src/Thread/SmartLock.cc, src/Thread/SmartLock.h,
+	  src/Thread/Thread.cc, src/Thread/Thread.h, src/shmem/Makefile.am,
+	  src/shmem/segbasemap.cc, src/shmem/shmem_alloc.cc,
+	  test/Makefile.am: %[ER: 161]%
+
+	  * Almost all code in the 'Common' package now resides in the
+	  namespace LOFAR.    Work is still in progress.  * The lofar_*.h
+	  files (like lofar_string.h) now make the using declarations of
+	  the standard types in the namespace LOFAR, instead of the global
+	  namespace.	For backward compatibility, the compiler
+	  MAKE_LOFAR_SYMBOLS_GLOBAL can be    used. It is recommended that
+	  you use these lofar_*.h header files instead of    the standard
+	  header files.  * The line 'AM_CPPFLAGS =
+	  MAKE_LOFAR_SYMBOLS_GLOBAL' has been added to most of	 the
+	  Makefile.am files. The packages that are currently being built in
+	    the weekly build are known to compile using the new 'Common'
+	  package when	 backward compatibility is enabled. Where
+	  necessary, source code or header   files were modified. This
+	  usually meant adding a line like e.g.    'using LOFAR::Thread'.
+
+2004-10-13 10:12  diepen
+
+	* test/: Makefile.am, tLorrays.cc: %[ER: 70]% Made tLorrays run
+
+2004-10-13 08:57  diepen
+
+	* test/tHexdump.cc: %[ER: 70]% Use coorect filename in INIT_LOGGER
+	  Use standard file name for test output
+
+2004-10-11 13:25  overeem
+
+	* test/Makefile.am: %[ER:30]% Added tHexdump.
+
+2004-10-11 12:22  overeem
+
+	* test/: tHexdump.cc, tHexdump.log_prop, tHexdump_test.sh:
+	  %[ER:30]% Test program for testing hexdump.cc.
+
+2004-10-11 12:20  overeem
+
+	* src/Makefile.am: %[ER:30]% Added hexdump files.
+
+2004-10-11 12:19  overeem
+
+	* src/: hexdump.cc, hexdump.h: %[ER:30]% New utility to create a
+	  hexdump of a given area of memory.  The destination can be
+	  stdout, a file, a char* or a string.
+
+2004-10-08 12:18  loose
+
+	* test/tDebug.cc: %[ER: 30]%
+
+	  Debug class now resides in namespace LOFAR.
+
+2004-10-06 09:42  diepen
+
+	* src/LofarLogCout.h: %[ER: 70]% Removed argv from INIT_LOGGER
+	  macro
+
+2004-09-30 14:45  overeem
+
+	* src/lofar_strstream.h: %[ER: ]% Test on GNU_MINOR was wrong, it
+	  should test on 1 iso 3.
+
+2004-09-30 09:36  diepen
+
+	* src/: BlobField.cc, BlobField2.cc, Makefile.am: %[ER: 38]% Moved
+	  non-templated code to BlobField2.cc (otherwise duplicate symbols
+	  when BlobField.cc is included elsewhere)
+
+2004-09-14 16:49  overeem
+
+	* test/testLogger.debug: %[ER:89]% Property file to be used with
+	  testLogger when 'Debug' implementation is used in stead of the
+	  log4cplus implementation.
+
+2004-09-14 16:47  overeem
+
+	* test/testLogger.cc: %[ER:89]% Update for split in LofarLogger
+	  implementation for Log4Cplus and Debug.
+
+2004-09-14 16:45  overeem
+
+	* src/: LofarLog4Cplus.h, LofarLogCout.h: %[ER:89]% Package
+	  dependant implementation of the LofarLogger macro's.
+
+2004-09-14 16:44  overeem
+
+	* src/: LofarLogger.cc, LofarLogger.h: %[ER:89]% The macro's of the
+	  LofarLogger are now moved to two other headerfiles:
+	  LofarLog4Cplus.h and LofarLogCout.h The first one implements the
+	  macro's for use with log4Cplus, the latter implements them on the
+	  'Debug' way.
+
+	  Function 'formatString' is moved to Common/StringUtil because it
+	  belongs the more than in the LofarLogger.
+
+2004-09-14 16:38  overeem
+
+	* src/: StringUtil.cc, StringUtil.h: %[ER:89]% Moved function
+	  'formatString' from LofarLogger source to this place because this
+	  is were it belongs.
+
+2004-09-01 10:14  smirnov
+
+	* src/Lorrays-Blitz.h: %[ER: 16]% Changed min() to std::min()
+
+2004-08-31 09:02  diepen
+
+	* src/: BlitzToAips.h, BlobArray.h, BlobArray.tcc, Lorrays-Blitz.h:
+	  %[ER: 70]% Changed for new AIPS++ structure
+
+2004-08-30 12:50  diepen
+
+	* src/BlobOBufString.cc, src/BlobString.cc, test/tBlobString.cc:
+	  %[ER: 38]% cater for fact that std::string can use counted
+	  reference
+
+2004-08-24 13:52  diepen
+
+	* src/BlobFieldSet.cc, src/BlobFieldSet.h, src/BlobIStream.cc,
+	  src/BlobIStream.h, src/BlobOBufChar.cc, src/BlobOBufChar.h,
+	  src/BlobOBufString.cc, src/BlobOBufString.h, src/BlobString.cc,
+	  src/BlobString.h, src/LofarLogger.cc, test/tBlobField.cc,
+	  test/tBlobString.cc: %[ER: 38]% Added the possibility to add a
+	  blob to a BlobFieldSet (for Transport)
+
+2004-08-20 14:04  smirnov
+
+	* src/: Debug.cc, Debug.h: %[ER: 16]% Disabled debug output in
+	  optimized builds (i.e. when LOFAR_DEBUG is not defined)
+
+2004-08-20 13:53  smirnov
+
+	* src/Debug.h: %[ER: 16]% Disabled debug output for optimized
+	  builds
+
+2004-07-16 10:58  diepen
+
+	* src/: BlobOBufChar.cc, BlobOBufChar.h, BlobOStream.h: %[ER: 38]%
+	  Added clear function
+
+2004-07-13 09:24  diepen
+
+	* src/LofarLogger.h: %[ER: 70]% Make sure LOFARLOGGER_PACKAGE is
+	  always defined
+
+2004-07-09 09:31  diepen
+
+	* src/: BlobField.h, BlobIBufChar.h, BlobOBufChar.h: %[ER: 70]%
+	  Fixed few compile errors found by gcc-3.4
+
+2004-07-07 12:24  smirnov
+
+	* src/Debug.h: %[ER: 16]% Added another LocalDebugContext: for
+	  namespaces
+
+2004-07-05 12:20  coolen
+
+	* src/LofarLogger.cc, src/LofarLogger.h, test/testLogger.cc: %[ER:
+	  70]% log4cplus is not required anymore , if log4cplus not
+	  available tracing will go t o stdout
+
+2004-07-05 12:19  coolen
+
+	* configure.in: %[ER: 70]% log4cplus is not required anymore , if
+	  log4cplus not available tracing will go to stdout
+
+2004-06-23 09:16  coolen
+
+	* test/Makefile.am: %[ER: 70]% Added CHECKTOOLPROGS line to create
+	  possibilites for extra checkbuilds like valgrind
+
+2004-06-21 16:17  diepen
+
+	* src/LofarLogger.h: %[PR: 76]% Make it possible to use in
+	  single-threaded mode
+
+2004-06-11 10:54  wierenga
+
+	* src/: LofarTypedefs.h, LofarTypes.h: %[PR:81 ]%
+
+	  Added int8/uint8 type definitions.
+
+2004-05-19 12:08  diepen
+
+	* src/LofarLogger.h: %[ER: 70]% Fixed the problem in case one does
+	  not do "using namespace LOFAR"
+
+2004-04-26 15:37  diepen
+
+	* src/LofarLogger.h: %[ER: 105]% Renamed AssertError to ASSERTError
+	  to avoid collision with Debug.h
+
+2004-04-26 15:29  diepen
+
+	* test/: Makefile.am, tBlobField.cc, tBlobField.in_be,
+	  tBlobField.in_le, tBlobStream.cc, tBlobStream.in_be,
+	  tBlobStream.in_le, tBlobStream.out: %[ER: 38]% Removed
+	  tBlob(Array)Header Changed test program for changes in classes
+
+2004-04-26 15:28  diepen
+
+	* src/: BlobArray.cc, BlobArray.h, BlobArray.tcc,
+	  BlobArrayHeader.h, BlobException.h, BlobField.cc,
+	  BlobFieldSet.cc, BlobHeader.cc, BlobHeader.h, BlobHeader.tcc,
+	  BlobIStream.cc, BlobIStream.h, BlobOStream.cc, BlobOStream.h,
+	  Makefile.am: %[ER: 38]% Removed obsolete template
+	  Blob(Array)Header Added option to skip objecttype in header Use
+	  THROW and BlobException everywhere
+
+2004-04-23 16:01  diepen
+
+	* configure.in, src/BlobArray.cc, src/BlobArray.tcc,
+	  src/BlobArrayHeader.h, src/BlobField.cc, src/BlobFieldSet.cc,
+	  src/BlobFieldSet.h, src/BlobHeader.tcc, src/BlobIBufChar.cc,
+	  src/BlobIBufChar.h, src/BlobIStream.cc, src/BlobOBufChar.cc,
+	  src/BlobOBufChar.h, src/BlobOBufString.h, src/BlobOBufVector.h,
+	  src/BlobOStream.cc, src/BlobString.cc, src/KeyValue.cc,
+	  src/LofarLogger.h, src/Makefile.am, test/Makefile.am,
+	  test/tBlobArray.cc, test/tBlobArrayHeader.cc, test/tBlobField.cc,
+	  test/tBlobHeader.cc, test/tBlobStream.cc, test/tBlobString.cc,
+	  test/tDataConvert.cc, test/tKeyValueMap.cc, test/tStringUtil.cc,
+	  test/testLogger.cc, test/testLogger_test.sh: %[ER: 38]% Use
+	  LofarLogger everywhere
+
+2004-04-22 14:19  diepen
+
+	* test/: testLogger.cc, testLogger.log_prop, testlogger.properties:
+	  %[ER: 38]% Renamed log properties file to log_prop (as used in
+	  runtest.sh)
+
+2004-04-21 13:51  diepen
+
+	* src/: BlobOBufChar.cc, BlobOBufChar.h: %[ER: 70]% Set
+	  itsReservedSize in reserve and made it out-of-line Renamed
+	  expandIfNeeded to resizeIfNeeded
+
+2004-04-19 11:26  loose
+
+	* src/: HEADER.cc, HEADER.g, HEADER.h, HEADER.pl, HEADER.sh: %[ER:
+	  30]%
+
+	  Updated copyright line.
+
+2004-04-01 13:17  diepen
+
+	* src/BlobFieldSet.h: %[ER: 38]% Added function version
+
+2004-03-15 10:35  wierenga
+
+	* src/Makefile.am: %[ER:70]%
+
+	  Cannot use if HAVE_LOG4CPLUS because its definition from
+	  autoconf_share/lofar_external.m4 is not recognised by older
+	  versions of autoconf/automake.
+
+2004-03-12 13:02  wierenga
+
+	* src/LofarLogger.h: %[ER:70 ]% Add #undef THROW before #define
+	  THROW to undefine the definition from Exception.h.
+
+2004-03-12 09:45  wierenga
+
+	* src/LimitExec.cc: %[ER: 70]%
+
+	  Renamed LimitExec.c to LimitExec.cc to make sure it is compiled
+	  with the c++ compiler.
+
+2004-03-12 09:44  wierenga
+
+	* src/Makefile.am: %[ER:70 ]%
+
+	  Removed use of += within LOG4CPLUS condition. It doesn't work on
+	  older automake versions.  Renamed LimitExec.c to LimitExec.cc
+	  because the gcc compiler could not link with the c++ log4cplus
+	  library! This is a problem caused by the fact that for any
+	  configured packages all libraries are unconditionally added to
+	  LDADD. What we should really have is a LOG4CPLUS_LDADD which can
+	  then be used as needed.
+
+2004-03-11 14:21  wierenga
+
+	* configure.in, src/Makefile.am: %[ER:70]%
+
+	  Compile in LofarLogger only when log4cplus is correctly
+	  configured.
+
+2004-03-10 08:45  diepen
+
+	* test/: tBlobArray.cc, tBlobField.cc: %[ER: 38]% Added
+	  useBlobHeader tests
+
+2004-03-10 08:44  diepen
+
+	* src/: BlobField.cc, BlobField.h, BlobFieldSet.cc, BlobFieldSet.h:
+	  %[ER: 38]% Added control of useBlobHeader and fixedShape
+
+2004-03-10 08:38  diepen
+
+	* src/: BlobArray.cc, BlobArray.h, BlobArray.tcc: %[ER: 38]%
+	  Specialise to handle a vector of bools correctly Added argument
+	  useBlobHeader to avoid a header for each array
+
+2004-03-10 08:30  diepen
+
+	* src/: BlobIStream.cc, BlobIStream.h, BlobOStream.cc,
+	  BlobOStream.h: %[ER: 38]% Added a function to handle a vector of
+	  bools without its length
+
+2004-03-01 16:28  diepen
+
+	* test/: tKeyValueMap.cc, tKeyValueMap.out: %[ER: 72]% Added tests
+	  of H:M:S and D.M.S
+
+2004-03-01 16:28  diepen
+
+	* src/: KeyTokenize.ll, KeyValue.cc, KeyValue.h: %[ER: 72]% Support
+	  specification of values as H:M:S or D.M.S
+
+2004-02-23 09:20  diepen
+
+	* src/BlobFieldSet.h: %[ER: 38]% Improved comments
+
+2004-02-23 08:51  diepen
+
+	* src/BlobField.h, src/BlobFieldSet.cc, src/BlobIStream.cc,
+	  src/BlobIStream.h, src/BlobOStream.cc, src/BlobOStream.h,
+	  src/BlobString.h, test/tBlobArray.cc, test/tBlobArrayHeader.cc,
+	  test/tBlobStream.cc, test/tKeyValueMap.cc: %[ER: 38]% Removed
+	  pointer from BlobStream arguments (to be consistent with others)
+
+2004-02-23 08:50  diepen
+
+	* test/tBlobField.cc: %[ER: 38]% Added a few more tests to handle
+	  unconverted data
+
+2004-02-18 16:30  diepen
+
+	* src/: BlobArray.cc, BlobArray.h, BlobField.cc, BlobField.h,
+	  BlobHeader.h: %[ER: 38]% Take care that array header gets
+	  converted when field set is converted
+
+2004-02-18 15:36  diepen
+
+	* test/tBlobField.in_be: %[ER: 38]% Proper big endian version
+
+2004-02-18 15:22  diepen
+
+	* src/: BlobField.cc, BlobField.h: %[ER: 38]% Do type check using
+	  type_info instead of typeNames
+
+2004-02-18 15:22  diepen
+
+	* src/LofarTypes.h: %[ER: 38]% Always include sys/types.h (there
+	  were problems on SUN)
+
+2004-02-18 13:57  diepen
+
+	* test/tBlobStream.in_be: %[ER: 38]% Improved version
+
+2004-02-18 13:12  diepen
+
+	* src/DataFormat.h: %[ER: 38]% Needed to include lofar_config.h
+
+2004-02-18 12:18  diepen
+
+	* test/tBlobStream.in_be: %[ER: 38]% Big-endian version of the file
+
+2004-02-18 11:19  diepen
+
+	* src/BlobOBufChar.h: %[ER: 38]% Added reserve function
+
+2004-02-18 11:18  diepen
+
+	* src/BlobIBufChar.h: %[ER: 38]% Added getBuffer and size function
+
+2004-02-18 11:16  diepen
+
+	* src/LofarTypes.h: %[ER: 38]% Added some indentation to ifdef
+
+2004-02-18 11:15  diepen
+
+	* src/DataConvert.h: %[ER: 72]% Added conversion functions for
+	  arrays of all native data types
+
+2004-02-18 11:14  diepen
+
+	* src/Makefile.am: %[ER: 38]% Added BlobField(Set)
+
+2004-02-18 11:13  diepen
+
+	* src/: BlobArray.h, BlobArray.tcc: %[ER: 38]% Removed align
+	  argument from set/getSpace functions; align is now always done by
+	  means of the putStart in setSpace
+
+2004-02-18 11:11  diepen
+
+	* src/: BlobArrayHeader.h, BlobHeader.h, BlobHeader.tcc: %[ER: 38]%
+	  Changed following comments from review - added end-of-blob marker
+
+2004-02-18 11:10  diepen
+
+	* src/: BlobIStream.cc, BlobIStream.h: %[ER: 38]% Changed following
+	  comments from review - get can only be done after a getStart -
+	  keep mustConvert and dataFormat
+
+2004-02-18 11:08  diepen
+
+	* src/: BlobOStream.cc, BlobOStream.h: %[ER: 38]% Changed following
+	  comments from review - added end-of-blob - replaced header8
+	  constructor argument by putStart align argument - put can only be
+	  done after a putStart
+
+2004-02-18 11:06  diepen
+
+	* src/: BlobField.cc, BlobField.h, BlobFieldSet.cc, BlobFieldSet.h:
+	  %[ER: 72]% Classes to define a 'static' blob in a dynamic way
+
+2004-02-18 11:05  diepen
+
+	* test/: Makefile.am, tBlobArray.cc, tBlobArrayHeader.cc,
+	  tBlobField_test.sh, tBlobHeader.cc, tBlobStream.cc,
+	  tBlobStream.in_be, tBlobStream.in_le, tBlobStream.out,
+	  tBlobString.cc, tDataConvert.cc: %[ER: 38]% Changed following the
+	  comments in the review
+
+2004-02-18 11:04  diepen
+
+	* test/: tBlobField.cc, tBlobField.in_be, tBlobField.in_le: %[ER:
+	  72]% Tests for class BlobField(Set)
+
+2004-02-13 12:29  overeem
+
+	* test/testlogger.properties: %[ER:89]% Propertiesfile to be used
+	  by the testLogger.
+
+2004-02-13 12:27  overeem
+
+	* test/testLogger.cc: %[ER:89]% Demo/test program to demonstrate
+	  the use of the lofar logger.
+
+2004-02-13 12:25  overeem
+
+	* src/: LofarLogger.h, LofarLogger.cc: %[ER:89]% Version for tryout
+	  by others.
+
+2004-02-10 11:57  diepen
+
+	* test/: Makefile.am, tBlobArrayHeader_test.sh, tBlobArray_test.sh,
+	  tBlobHeader_test.sh, tBlobString_test.sh, tDataConvert_test.sh:
+	  %[ER: 70]% Added scripts for upcoming LofarLogger change
+
+2004-02-10 10:07  diepen
+
+	* src/shmem/: dlmalloc.c, dlmalloc.h: %[ER: 70]% Renamed mstate to
+	  mstate_shm for gcc-2.96
+
+2004-02-10 09:48  diepen
+
+	* src/KeyParser.cc: %[ER: 72]% Moved KeyTokenize outside LOFAR
+	  namespace
+
+2004-02-09 16:35  diepen
+
+	* src/KeyParser.h: %[ER: 64]% Moved forward declaration of
+	  KeyTokenizewrap out of LOFAR namespace
+
+2004-02-09 12:14  diepen
+
+	* src/Makefile.am: %[ER: 70]% Renamed include_HEADERS to
+	  pkginclude_HEADERS
+
+2004-02-03 14:49  diepen
+
+	* test/tBlobArrayHeader.cc: %[ER: 38]% Delete data at the end to
+	  avoid leak
+
+2004-02-03 10:09  loose
+
+	* src/fwd/PL.h: %[ER: 65]%
+
+	  Moved forward declarations to PL directory. This is a more
+	  logical location.
+
+2004-02-02 13:10  diepen
+
+	* src/: Allocator.h, BlobArray.h, BlobIBufChar.h, BlobIBufStream.h,
+	  BlobIBufVector.h, BlobIBuffer.h, BlobIStream.h, BlobOBufChar.h,
+	  BlobOBufString.h, BlobOBufVector.h, BlobOStream.h, BlobString.h,
+	  BlobStringTraits.h, BlobStringType.h, DataConvert.h,
+	  DataFormat.h, LofarTypedefs.h, LofarTypes.h, TypeNames.h: %[ER:
+	  38]% Updated comments for doxygen
+
+2004-02-02 13:10  diepen
+
+	* src/BlobArray.cc: %[ER: 38]% Fixed bug (no elements allocated in
+	  vector)
+
+2004-01-30 13:37  smirnov
+
+	* src/: Common-Model.cat, Debug.cc, Debug.h: %[ER: 16]% Added
+	  option to redirect debug output into a file.	Use the
+	  Debug::redirectOutput() function, or "-d:filename" on the command
+	  line.
+
+2004-01-30 12:33  diepen
+
+	* test/tDataConvert.cc: %[ER: 70]% Removed compiler errors for
+	  gcc-3.3
+
+2004-01-30 12:16  diepen
+
+	* test/tDebug.out: %[ER: 70]% It needed one more line
+
+2004-01-29 09:07  diepen
+
+	* src/Makefile.am: %[ER: 89]% Temporarily removed LofarLogger from
+	  compile
+
+2004-01-28 17:05  smirnov
+
+	* src/Lorrays.h: %[ER: 16]% Added include config.h
+
+2004-01-28 16:25  overeem
+
+	* src/Makefile.am: %[ER:89]% Added LofarLogger to makefile
+
+2004-01-28 16:18  overeem
+
+	* src/LofarLogger.cc: [%ER:89]% First version of the library part
+
+2004-01-28 16:18  overeem
+
+	* src/LofarLogger.h: [%ER:89]% First version of the preprocessor
+	  API's
+
+2004-01-28 08:40  diepen
+
+	* src/BlobString.cc, src/BlobString.h, test/tBlobArray.cc: %[ER:
+	  38]% Added flag to BlobString to prevent extension
+
+2004-01-26 09:56  smirnov
+
+	* src/Thread/Mutex.h: %[ER: 16]% Fixed bug with copy-constructor of
+	  unattached Mutex::Lock
+
+2004-01-26 09:51  diepen
+
+	* src/KeyParser.cc: %[ER: 72]% stdio.h is needed on lofar3
+
+2004-01-21 12:08  smirnov
+
+	* src/Common-Model.cat: %[ER: 16]% brought the Rose model
+	  up-to-date; this got a bunch of IDs inserted into the sources,
+	  hence the massive update.
+
+2004-01-19 14:52  diepen
+
+	* src/BlobArrayHeader.h, src/BlobHeader.h, src/BlobHeader.tcc,
+	  src/BlobIBufChar.cc, src/BlobIBufChar.h, src/BlobIBufStream.cc,
+	  src/BlobIBufStream.h, src/BlobIBufString.h, src/BlobIBufVector.h,
+	  src/BlobIBuffer.h, src/BlobIStream.cc, src/BlobIStream.h,
+	  src/BlobOBufChar.cc, src/BlobOBufChar.h, src/BlobOBufNull.cc,
+	  src/BlobOBufNull.h, src/BlobOBufStream.cc, src/BlobOBufStream.h,
+	  src/BlobOBufString.cc, src/BlobOBufString.h,
+	  src/BlobOBufVector.h, src/BlobOBuffer.h, src/BlobOStream.cc,
+	  src/BlobOStream.h, src/BlobString.cc, src/BlobString.h,
+	  src/BlobStringTraits.h, src/BlobStringType.cc,
+	  src/BlobStringType.h, src/Debug.h, src/KeyParse.yy,
+	  src/KeyParser.cc, src/KeyParser.h, src/KeyTokenize.ll,
+	  src/KeyValue.cc, src/KeyValue.h, src/KeyValueMap.cc,
+	  src/KeyValueMap.h, src/LofarTypedefs.h, src/LofarTypes.h,
+	  test/tBlobArray.cc, test/tBlobArrayHeader.cc,
+	  test/tBlobHeader.cc, test/tBlobStream.cc, test/tBlobString.cc,
+	  test/tKeyValueMap.cc: %[ER: 38]% Put Blobs in namespace LOFAR
+
+2004-01-16 12:25  diepen
+
+	* src/KeyParser.cc: %[ER: 72]% Allow empty string
+
+2004-01-15 16:48  smirnov
+
+	* src/Debug.h, test/tDebug.cc: %[ER: 16]% Changed default
+	  definition of sdebug() to return the Debug context name
+
+2004-01-12 16:21  diepen
+
+	* src/KeyParse.yy, src/KeyParser.cc, src/KeyParser.h,
+	  src/KeyTokenize.ll, src/Makefile.am, test/tKeyValueMap.cc,
+	  test/tKeyValueMap.out: %[ER: 72]% Added scanner/parser for
+	  key=value line
+
+2003-12-23 11:25  loose
+
+	* test/: Makefile.am, tStringUtil.cc, tStringUtil.out,
+	  tStringUtil_test.sh: %[ER: 30]% Added StringUtil class. This
+	  class contains useful string utilities. It is meant to be a class
+	  containing static methods only (it's a bit like a namespace).
+
+2003-12-23 11:13  loose
+
+	* src/: Makefile.am, StringUtil.cc, StringUtil.h: %[ER: 30]% Added
+	  StringUtil class. This class contains useful string utilities. It
+	  is meant to be a class containing static methods only (it's a bit
+	  like a namespace).
+
+2003-12-22 12:08  diepen
+
+	* src/: BlobStringTraits.h, Debug.h, Exception.h, HEADER.h,
+	  KeyValue.h, Lorrays.h, Profiling/PerfProfile.h, fwd/PL.h,
+	  shmem/shmem_alloc.h: %[ER: 70]% Alas lofar_config.h is needed
+	  because Make may create new config.h
+
+2003-12-19 13:26  diepen
+
+	* src/fwd/PL.h: %[ER: 70]% Use config.h instead of lofar_config.h
+
+2003-12-19 11:12  diepen
+
+	* src/: BlobStringTraits.h, Debug.h, HEADER.h, KeyValue.h,
+	  Lorrays.h, Profiling/PerfProfile.h, shmem/shmem_alloc.h: %[ER:
+	  70]% Include config.h again instead of lofar_config.h
+
+2003-12-17 16:18  diepen
+
+	* src/: BlobArray.tcc, BlobStringTraits.h, DataFormat.h, Debug.h,
+	  HEADER.h, KeyValue.h, KeyValueMap.h, Lorrays.h,
+	  Profiling/PerfProfile.cc, Profiling/PerfProfile.h, fwd/PL.h,
+	  shmem/shmem_alloc.cc, shmem/shmem_alloc.h: %[ER: 70]% Include
+	  lofar_config.h instead of config.h
+
+2003-12-17 16:17  diepen
+
+	* configure.in: %[ER: 70]% Test for LONG_LONG
+
+2003-12-16 14:52  loose
+
+	* src/fwd/PL.h: %[ER: 61]% Added file with forward class
+	  declarations. This file can be used when someone needs to forward
+	  declare a class from the PL package, but does not want to include
+	  the associated PL header file. In this way, we can keep compile
+	  time dependencies between packaging minimal.
+
+2003-12-12 16:29  smirnov
+
+	* src/Debug.h: %[ER: 16]% Small fixes to make debug contexts better
+	  compatible with namespaces
+
+2003-12-12 16:09  diepen
+
+	* src/BlobString.cc, test/tBlobString.cc: %[ER: 38]% Do not use
+	  DbgAssert anymore in BlobString::resize; instead always resize
+
+2003-12-12 15:25  brentjens
+
+	* src/LofarTypes.h: %[PR: 53]%
+
+	  Added #if(HAVE_QT) directive to prevent nameclash with QT
+	  definitions of uchar. If QT is present, load qglobal.h, else
+	  maintain original "using" declarations.
+
+	  In order to prevent future namclashes, the using declarations
+	  should be moved to the .cc files that need them. Ideally, there
+	  should not be any "using" declarations in any .h file.
+
+2003-12-11 07:59  diepen
+
+	* src/BlobStringTraits.h: %[ER: 38]% Include dtl_config, otherwise
+	  specialization may not be known in time
+
+2003-12-11 07:58  diepen
+
+	* src/BlobArray.tcc: %[ER: 38]% Fixed problem with AIPS++ arrays;
+	  IPosition does not have a data function
+
+2003-12-09 12:31  diepen
+
+	* src/lofar_strstream.h: %[ER: 62]% Do not include strstream for
+	  gcc version 3.3 and higher
+
+2003-12-09 12:09  diepen
+
+	* src/: BlobHeader.h, BlobIStream.cc, BlobOStream.cc: %[ER: 38]%
+	  Added class BlobHeaderBase for ease of use
+
+2003-12-09 08:25  diepen
+
+	* src/: BlobArray.h, BlobArray.tcc: %[ER: 38]% Added align argument
+	  to set/getSpaceBlobArray
+
+2003-12-09 08:24  diepen
+
+	* src/BlobIStream.cc: %[ER: 38]% Fixed problem in reading back ints
+	  when conversion was needed
+
+2003-12-09 08:23  diepen
+
+	* test/: tBlobStream.in_be, tBlobStream.in_le: %[ER: 38]% Test
+	  input for tBlobStream with different byte ordenings
+
+2003-12-09 07:54  diepen
+
+	* test/: tBlobStream.cc, tBlobStream.out: %[ER: 38]% Added test of
+	  all possible data types
+
+2003-12-09 07:53  diepen
+
+	* src/: BlobIStream.cc, BlobIStream.h, BlobOStream.cc,
+	  BlobOStream.h, DataConvert.cc, DataConvert.h: %[ER: 38]% Added
+	  functionality to store bools as bits
+
+2003-12-08 10:01  diepen
+
+	* test/tBlobArray.cc: %[ER: 38]% Added test of align
+
+2003-12-08 10:00  diepen
+
+	* src/: BlobArray.h, BlobArray.tcc: %[ER: 38]% Renamed reserve to
+	  setSpace and find to getSpace
+
+2003-12-08 09:59  diepen
+
+	* src/: BlobIStream.cc, BlobIStream.h, BlobOStream.cc,
+	  BlobOStream.h: %[ER: 38]% Renamed reserve to setSpace and skip to
+	  getSpace Added align function Removed itsCanGet and itsCanPut
+
+2003-12-08 08:48  diepen
+
+	* src/BlobIBufStream.cc, src/BlobOBufStream.cc, src/LofarTypes.h,
+	  test/tBlobStream.cc: %[ER: 38]% Make it compile with gcc-2.95.3
+
+2003-12-03 13:52  diepen
+
+	* src/: BlobArray.h, Debug.h: %[ER: 38]% Fixed typo in
+	  documentation
+
+2003-12-03 13:51  diepen
+
+	* src/: KeyValue.h, KeyValueMap.h: %[ER: 38]% Updated comments
+
+2003-12-03 12:03  loose
+
+	* src/: HEADER.cc, HEADER.h: %[ER: 30]% Added "namespace LOFAR" to
+	  template .cc and .h files.
+
+2003-12-01 15:18  diepen
+
+	* test/: Makefile.am, tKeyValueMap.cc, tKeyValueMap.out,
+	  tKeyValueMap_test.sh: %[ER: 38]% Added test program for
+	  KeyValueMap
+
+2003-12-01 15:17  diepen
+
+	* test/tBlobStream.cc: %[ER: 38]% Added test of BlobOBufNull
+
+2003-12-01 15:15  diepen
+
+	* src/: Allocator.h, BlobOBufNull.cc, BlobOBufNull.h, KeyValue.cc,
+	  KeyValue.h, KeyValueMap.cc, KeyValueMap.h, Makefile.am: %[ER:
+	  38]% Added a few new classes
+
+2003-12-01 13:48  loose
+
+	* src/Debug.h, src/Exception.cc, src/Exception.h, test/tDebug.cc:
+	  %[ER: 61]% Moved Exception class from namespace LCS to namespace
+	  LOFAR.
+
+2003-12-01 13:47  diepen
+
+	* src/: BlobString.cc, BlobString.h: %[ER: 38]% Added constructor
+	  and getString
+
+2003-11-28 15:44  diepen
+
+	* src/Allocator.cc, src/Allocator.h, src/BlobArray.cc,
+	  src/BlobArray.h, src/BlobArray.tcc, src/BlobArrayHeader.h,
+	  src/BlobHeader.cc, src/BlobHeader.h, src/BlobHeader.tcc,
+	  src/BlobIBufChar.cc, src/BlobIBufChar.h, src/BlobIBufStream.cc,
+	  src/BlobIBufStream.h, src/BlobIBufString.h, src/BlobIBufVector.h,
+	  src/BlobIBuffer.h, src/BlobIStream.cc, src/BlobIStream.h,
+	  src/BlobOBufChar.cc, src/BlobOBufChar.h, src/BlobOBufStream.cc,
+	  src/BlobOBufStream.h, src/BlobOBufString.cc,
+	  src/BlobOBufString.h, src/BlobOBufVector.h, src/BlobOBuffer.h,
+	  src/BlobOStream.cc, src/BlobOStream.h, src/BlobString.cc,
+	  src/BlobString.h, src/BlobStringTraits.h, src/BlobStringType.cc,
+	  src/BlobStringType.h, src/DataConvert.cc, src/DataConvert.h,
+	  src/DataFormat.h, src/LofarTypedefs.h, src/Makefile.am,
+	  src/TypeNames.cc, src/TypeNames.h, src/TypeNames.tcc,
+	  test/Makefile.am, test/tBlobArray.cc, test/tBlobArrayHeader.cc,
+	  test/tBlobHeader.cc, test/tBlobStream.cc, test/tBlobStream.out,
+	  test/tBlobStream_test.sh, test/tBlobString.cc,
+	  test/tDataConvert.cc, test/tDebug.cc: %[ER: 38]% First version of
+	  classes to create blobs
+
+2003-11-19 09:23  diepen
+
+	* src/lofar_fstream.h: %[ER: 55]% Use fstream instead of fstream.h
+
+2003-11-17 15:47  diepen
+
+	* src/: LofarTypedefs.h, LofarTypes.h, Lonumerics.h: %[ER: 55]%
+	  Added convenience typedefs to LofarTypes and removed from
+	  Lonumerics Use namespace only in LofarTypes
+
+2003-11-17 13:51  loose
+
+	* src/HEADER.h: %[ER: 19]% Added conditional include of <config.h>
+
+2003-10-29 14:54  smirnov
+
+	* src/Debug.h, test/tDebug.cc: %[ER: 16]% Cleaned up debug context
+	  definition macros
+
+2003-10-08 17:20  diepen
+
+	* src/BlitzToAips.h: %[ER: 30]% Fixed ifdef (BLITZ was used instead
+	  of AIPSPP)
+
+2003-10-08 17:11  diepen
+
+	* src/: LofarTypes.h, Makefile.am: %[ER: 30]% Added LofarTypes.h
+
+2003-09-30 13:31  smirnov
+
+	* src/Debug.cc, src/Debug.h, test/tDebug.out: %[ER: 16]% Tied the
+	  debug stream to cerr rather than cout. This necessitated a change
+	  to the dprintf() macro.  Throw() now dumps the exception message
+	  to the debug stream at level 1.
+
+2003-09-30 12:38  loose
+
+	* src/Debug.h: %[ER: 19]% Forgot to modify one instance of
+	  HAVE___FUNCTION__. Did it now.
+
+2003-09-29 18:00  loose
+
+	* src/: Exception.cc, Exception.h: %[ER: 19]% Now this is rather
+	  awkward... The THROW macro does not work with stringstream.  It
+	  never did, and never could. I was so eager to minimize
+	  compile-time dependencies that I did not want to include
+	  <sstream>. But my approach failed miserably, because you cannot
+	  construct a stringstream using a number of arguments glued
+	  together using operator<<. You really must shift these arguments
+	  into the stringstream within the THROW macro. Hence, I got rid of
+	  the extra constructor taking an ostringstream as its first
+	  argument, for I don't see any use for it anymore. Sigh! I really
+	  need to do better unit testing.
+
+2003-09-29 17:44  smirnov
+
+	* src/Debug.h, test/tDebug.cc: %[ER: 16]% Based Debug (and Assert)
+	  errors off of LCS::Exception.  Cleaned up Assert macros.
+
+2003-09-19 15:40  loose
+
+	* configure.in: %[ER: 30]% Added check for PRETTY_FUNCTION.
+
+2003-09-19 15:39  loose
+
+	* src/HEADER.h: %[ER: 30]% Changed definition of include guard.
+	  Doxygen only ignores #ifndef and not #if !defined(), and we do
+	  not want our include guards documented, do we?
+
+2003-09-19 15:31  loose
+
+	* src/Exception.h: %[ER: 19]% Added documentation.
+
+2003-09-19 15:23  loose
+
+	* src/Debug.h: %[ER: 19]% Changed check for HAVE___FUNCTION__ into
+	  check for both HAVE_PRETTY_FUNCTION and HAVE_FUNCTION which are
+	  defined by configure.
+
+2003-09-15 12:39  smirnov
+
+	* src/: Makefile.am, debug_methods.g: %[ER: 16]% Moved
+	  debug_methods.g to CEP/CPA/GlishUtil
+
+2003-08-27 15:13  diepen
+
+	* src/Lorrays.h: Removed erronous CVS diff lines
+
+2003-08-22 12:15  loose
+
+	* src/Exception.h: Moved macro definitions outside of namespace
+	  LCS. It doesn't matter to the compiler, cause preprocessor macros
+	  are global by definition, but it might confuse the human reader.
+	  Removed the macro EXCEPTION, because it cannot be used outside
+	  namespace LCS.
+
+2003-08-21 18:25  loose
+
+	* src/Makefile.am: Added Exception.{h,cc}
+
+2003-08-21 18:24  loose
+
+	* src/: Exception.cc, Exception.h: Initial version
+
+2003-08-21 18:21  loose
+
+	* src/: HEADER.cc, HEADER.h: Changed comment '//' into '//#'.
+	  Doxygen will be told to ignore the latter type of comment.
+
+2003-08-21 13:20  diepen
+
+	* Makefile.am, bootstrap, configure.in, src/BlitzToAips.h,
+	  src/CheckConfig.h, src/Common-Model.cat, src/Debug.cc,
+	  src/Debug.h, src/HEADER.cc, src/HEADER.g, src/HEADER.h,
+	  src/HEADER.pl, src/HEADER.sh, src/LimitExec.c, src/Lonumerics.h,
+	  src/Lorrays-Blitz.h, src/Lorrays.h, src/Makefile.am,
+	  src/Stopwatch.cc, src/Stopwatch.h, src/Thread.h,
+	  src/blitz_array-impl.h, src/debug_methods.g,
+	  src/lofar_algorithm.h, src/lofar_complex.h, src/lofar_deque.h,
+	  src/lofar_fstream.h, src/lofar_iosfwd.h, src/lofar_iostream.h,
+	  src/lofar_list.h, src/lofar_map.h, src/lofar_stack.h,
+	  src/lofar_string.h, src/lofar_strstream.h, src/lofar_vector.h,
+	  src/Net/Socket.cc, src/Net/Socket.h,
+	  src/Profiling/PerfProfile.cc, src/Profiling/PerfProfile.h,
+	  src/Thread/Condition.h, src/Thread/Key.h, src/Thread/Mutex.h,
+	  src/Thread/SmartLock.cc, src/Thread/SmartLock.h,
+	  src/Thread/Thread.cc, src/Thread/Thread.h, src/shmem/Makefile.am,
+	  src/shmem/dlmalloc.c, src/shmem/dlmalloc.h,
+	  src/shmem/segbasemap.cc, src/shmem/segbasemap.h,
+	  src/shmem/shmem_alloc.cc, src/shmem/shmem_alloc.h,
+	  test/Makefile.am, test/tDebug.cc, test/tDebug.out,
+	  test/tDebug_test.sh, test/tLorrays.cc, test/tLorrays.out,
+	  test/tLorrays_test.sh: Moved Common to LCS
+

@@ -1,0 +1,102 @@
+#!/bin/sh
+
+# makedoc builds the doxygen documentation in the subdirectory doc of the
+# current directory. It builds the documentation for all header files, etc.
+# at the current package and below.
+# E.g. if in directory LOFAR, all documentation is built in LOFAR/docxxhtml.
+#      If in LOFAR/LCS/Common/build/gnu_debug, all LCS/Common documentation
+#        is built in LOFAR/LCS/Common/build/gnu_debug/docxxhtml.
+#
+# doxygen must be found in your PATH.
+# If the dot program is found in your path, doxygen is told to generate
+# graphical class info as well.
+#
+  lfr_host=`uname -n | sed -e "s%\..*%%"`
+
+  if [ "$1" = "-h"  -o  "$1" = "--help" ]; then
+    echo "makedoc runs doxygen to build the class documentation from all header"
+    echo "files in the current directory and below."
+    echo ""
+    echo "Usage:   makedoc [targetdir]"
+    echo "  The default target directory is LOFAR/installed/doc/html"
+    echo "  If the target directory already exists, it will be renamed"
+    echo "  with a .bak extension."
+    echo "  If target directory . is given, ./doc/html will be used instead."
+    echo ""
+    echo "doxygen is taken from --with-doxygen in the variants[.$lfr_host] file."
+    echo "If not available, it is taken from the PATH."
+    exit 0
+  fi
+
+  # Find the package and LOFAR directory.
+  pkgdir=`pwd | sed -e "s%/build/.*%%" -e "s%/build$%%"`;
+  lfrdir=`echo $pkgdir | sed -e "s%/LOFAR/.*%/LOFAR%"` ;
+  confdir=$lfrdir/autoconf_share
+  projnm=`echo $pkgdir | sed -e "s%.*/LOFAR/%%" -e "s%.*/LOFAR$%LOFAR%"` ;
+  if [ ! -d $confdir ]; then
+    echo "Error: the autoconf_share directory could not be found."
+    echo "Check your working directory is somewhere in the LOFAR tree."
+    exit 1
+  fi
+  targetdir=$(echo "$1" | sed 's%/$%%')
+  if [ "$targetdir" = "" ]; then
+    targetdir=$lfrdir/installed/doc/html
+  fi
+  if [ "$targetdir" = "." ]; then
+    targetdir=doc/html
+  fi
+
+  # Try to find out which doxygen to use from the variants file.
+  doxline=
+  if [ -r $confdir/variants.$lfr_host ]; then
+    doxline=`grep with-doxygen= $confdir/variants.$lfr_host`
+  fi
+  if [ "$doxline" = ""  -a  -r $confdir/variants ]; then
+    doxline=`grep with-doxygen= $confdir/variants`
+  fi
+  doxdir=`echo $doxline | sed 's/.*--with-doxygen=\([^ ]\+\).*/\1/'`
+  if [ "$doxdir" != ""  -a  -x $doxdir/doxygen ]; then
+    doxcmd=$doxdir/doxygen
+  else
+    doxcmd=`which doxygen`
+    if [ ! -x "$doxcmd" ]; then
+      echo "error: doxygen cannot be found"
+      exit 1
+    fi
+  fi
+
+  # Rename target if already existing.
+  if [ -d $targetdir ]; then
+    \rm -rf $targetdir.bak
+    mv $targetdir $targetdir.bak
+    echo "Old $targetdir renamed to $targetdir.bak"
+  fi
+  mkdir -p $targetdir  ||  exit 1
+  cd $targetdir > /dev/null  ||  exit 1
+
+  # Copy the standard doxygen.cfg and use own autoconf_share (for e.g. filter).
+  sed -e "s%/home/lofar/weekly/LOFAR/autoconf_share%$confdir%" $confdir/doxygen.cfg > doxygen.cfg
+
+  DOXYGENDOT=`which dot 2>&1`
+  if [ -x "$DOXYGENDOT" ]; then
+    DOXYGENDOT=`dirname $DOXYGENDOT`
+    echo "HAVE_DOT                = YES" >> doxygen.cfg
+    echo "DOT_PATH                = $DOXYGENDOT" >> doxygen.cfg
+  fi
+
+  echo "PROJECT_NAME            = $projnm" >> doxygen.cfg
+  echo "OUTPUT_DIRECTORY        = $targetdir" >> doxygen.cfg
+  echo "STRIP_FROM_PATH         = $lfrdir" >> doxygen.cfg
+  echo "INPUT                   = $pkgdir" >> doxygen.cfg
+  echo "IMAGE_PATH              = $pkgdir" >> doxygen.cfg
+  echo "INPUT_FILTER            = $confdir/slash2spanning.pl" >> doxygen.cfg
+  echo "GENERATE_TAGFILE        = `basename $projnm`.tag" >> doxygen.cfg
+
+  \rm -f doxygen.log
+  touch doxygen.log
+  # Get stderr on screen and both stout and stderr in log file.
+  echo "Running $doxcmd $targetdir/doxygen.cfg ..."
+  $doxcmd doxygen.cfg 2>&1 >> doxygen.log | tee -a doxygen.log
+
+  echo " Doxygen output generated in $targetdir"
+  echo " Log file in $targetdir/doxygen.log"

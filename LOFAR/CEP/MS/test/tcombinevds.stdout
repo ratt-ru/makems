@@ -1,0 +1,29 @@
+Name       = tcombinevds_tmp.vdsout
+ClusterDesc= /Users/diepen/cdesc.data
+StartTime  = 2007/07/27/16:04:49.000
+EndTime    = 2007/07/28/16:04:48.000
+StepTime   = 30.199
+NChan      = [8,10,1,4]
+StartFreqs = [10,20,100,110]
+EndFreqs   = [20,30,110,150]
+NParts = 2
+>>>Part0.Name       = tcombinevds.in_vds1
+<<<
+Part0.FileSys    = /Users/diepen
+Part0.ClusterDesc= /Users/diepen/cdesc.data
+Part0.StartTime  = 2007/07/27/16:04:49.000
+Part0.EndTime    = 2007/07/28/16:04:48.000
+Part0.StepTime   = 30.199
+Part0.NChan      = [8,10]
+Part0.StartFreqs = [10,20]
+Part0.EndFreqs   = [20,30]
+>>>Part1.Name       = tcombinevds.in_vds2
+<<<
+Part1.FileSys    = /Users/diepen
+Part1.ClusterDesc= /Users/diepen/cdesc.data
+Part1.StartTime  = 2007/07/27/16:04:49.000
+Part1.EndTime    = 2007/07/28/16:04:48.000
+Part1.StepTime   = 30.199
+Part1.NChan      = [1,4]
+Part1.StartFreqs = [100,110,120,130,140]
+Part1.EndFreqs   = [110,120,130,140,150]

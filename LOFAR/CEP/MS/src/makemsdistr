@@ -1,0 +1,141 @@
+#!/bin/sh
+
+# makemsdistr.cc: Create an MS in a distributed way.
+#
+#  Copyright (C) 2009
+#  ASTRON (Netherlands Foundation for Research in Astronomy)
+#  P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#  $Id: rub 12308 2008-12-15 13:10:34Z loose $
+
+
+# Find the path used to start the script.
+pgmpath=`dirname $0`
+pgmpath=`cd $pgmpath > /dev/null 2>&1  &&  pwd`
+
+# Check if LOFARROOT is set.
+if test "$LOFARROOT" = ""; then
+  echo "LOFARROOT is undefined; source lofarinit.(c)sh first"
+  exit 1
+fi
+
+hfn=
+# Handle possible options.
+while [ $# != 0 ]
+do
+  if [ "$1" = "-hfn" ]; then
+    shift
+    hfn="$1"
+    shift
+  elif [ "$1" = "-nohfn" ]; then
+    shift
+    hfn=
+  else
+    case "$1" in
+    -*)
+      echo "$1 is an unknown makemsdistr option"
+      exit 1
+      ;;
+    *)
+      # Stop parsing options.
+      break
+      ;;
+    esac
+  fi
+done
+
+if test $# = 0  -o  $# = 1; then
+  echo "Run as:  makemsdistr -hfn hfn parsetfile clusterdescfile [dir1 dir2, ...]"
+  exit 1
+fi
+
+psn=$1
+shift
+cdn=$1
+shift
+dirs=$*
+test "$psn" = ""  &&  psn="makems.cfg"
+parsetcdn=`getparsetvalue $psn ClusterDescName 2>/dev/null` ||  parsetcdn=
+test "$cdn" = ""  &&  cdn=$parsetcdn
+if test "$cdn" = ""; then
+  echo "No ClusterDescName given on command line nor parset file"
+  exit 1
+fi
+
+# Find out the number of parts and the nodes to use.
+nparts=`getparsetvalue $psn NParts`  ||  exit 1
+if test "$dirs" = ""; then
+  dirs=`getparsetvalue $psn Dirs`   ||  dirs=
+fi
+
+# Get name of MS and path of VDS file.
+msname=`getparsetvalue $psn MSName` ||  exit 1
+# Use ms-path if no VDSPath given.
+mspath=`dirname $msname`
+# Create ms basename without a possible _.%d representing the seqnr.
+msbase=`basename $msname | sed -e 's/_[^_]*%d//'`
+msvdsp=`getparsetvalue $psn VDSPath` ||  msvdsp=$mspath
+# Make VDS-path absolute.
+msvdsp=`cd $msvdsp > /dev/null  &&  pwd`  ||  exit 1
+
+# Find all directories and turn it into a list separated by commas.
+# Possible whitespace and [] are removed.
+dirs=`echo "$dirs" | sed -e 's/\[//g' -e 's/]//g' -e 's/,/ /g' -e 's/"//g' -e "s/'//g"`
+if test "$dirs" = ""; then
+  dirs=.
+fi
+
+# Make dirs nparts long.
+msdirs=
+np=0
+while test $np != $nparts
+do
+  for dir in $dirs
+  do
+    if test $np = 0; then
+      msdirs=$dir
+    else 
+      msdirs="$msdirs,$dir"
+    fi
+    np=`expr $np + 1`
+    if test $np = $nparts; then
+      break;
+    fi
+  done
+done
+
+# Copy parset to the VDS-path that is certainly globally accessible.
+psname=$msvdsp/$msbase.$USER.$$.parset
+cp $psn $psname
+# Make clusterdescname absolute.
+dn=`dirname $cdn`
+cdn=`cd $dn > /dev/null; pwd`/`basename $cdn`
+
+# Start the distributed processes.
+# They write the name of the created VDS-file into $msvdsp/$msbase.gds_*.
+rm -f $msvdsp/$msbase.gds_*
+echo "startdistproc -useenv -mode 0 -nomasterhost -dirs $msdirs -cdn $cdn -hfn '$hfn' $pgmpath/makemsdistr-part $psname $msvdsp $msvdsp/$msbase.gds $cdn"
+startdistproc -useenv -mode 0 -nomasterhost -dirs "$msdirs" -cdn $cdn -hfn "$hfn" $pgmpath/makemsdistr-part $psname $msvdsp $msvdsp/$msbase.gds $cdn
+
+# Combine all VDS files.
+vdsnames=`cat $msvdsp/$msbase.gds_*`
+rm -f $msvdsp/$msbase.gds_*
+rm -f $psname
+
+combinevds $msvdsp/$msbase.gds $vdsnames
+echo "Created $nparts distributed MS parts and their VDS files"
+echo "Created global VDS file $msvdsp/$msbase.gds"

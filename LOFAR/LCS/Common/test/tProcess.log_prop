@@ -1,0 +1,5 @@
+log4cplus.rootLogger=TRACE, TESTOUT
+log4cplus.logger.TRC=TRACE5
+log4cplus.appender.TESTOUT=log4cplus::ConsoleAppender
+log4cplus.appender.TESTOUT.layout=log4cplus::PatternLayout
+log4cplus.appender.TESTOUT.layout.ConversionPattern=%-5p %c{3} - %m%n

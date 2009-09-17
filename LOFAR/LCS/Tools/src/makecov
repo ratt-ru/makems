@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# makecov: Create the gcov output and convert to html
+#
+# Copyright (C) 2009
+# ASTRON (Netherlands Foundation for Research in Astronomy)
+# P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# $Id$
+
+# cd to test directory if needed.
+if test -d test; then
+  cd test
+fi
+curdir=`pwd`
+bdir=`basename $curdir`
+if [ "$bdir" != test ]; then
+  echo "Not in test directory or no test directory found"
+  exit 1
+fi
+
+# Determine LOFAR package.
+basedir=`echo $curdir | sed -e "s%\(.*/LOFAR\)/.*%\1%"`
+srcdir=`echo $curdir | sed -e "s%.*/LOFAR/%%" -e "s%/build/.*%%"`
+lpkg=`basename $srcdir | tr [A-Z] [a-z]`
+
+# Symlink to files in src, so they can be found by gcov.
+for FIL in `find .. -name "*.gcno"` `find .. -name "*.gcda"`
+do
+  if test ! -e `basename $FIL`; then
+    ln -s $FIL
+  fi
+done
+
+# Run gcov on all those files (-f is generate function info).
+# Ignore the code generated for the version info.
+echo "Running gcov ..."
+srcfiles=`find $basedir/$srcdir -name "*.cc" | grep -v 'Package__Version.cc' | grep -v "version$lpkg.cc"`
+gcov -f $srcfiles > gcov.out
+
+# Get the output of nm.
+# Only keep file and function name.
+# Remove superfluous blanks.
+echo "Running nm ..."
+nm -o `find ../src -name "*.a"` | fgrep ' T ' | sed -e 's/.*\.a://' -e 's/\.o: [0123456789abcdef]* T /.cc /' -e 's/  */ /' -e 's/ $//' > nm.out
+
+# Transform to html files.
+echo "Creating html files ..."
+processgcov gcov.out $basedir/$srcdir nm.out
+
+echo ""
+echo "Browse file://$curdir/gcov.html to see results"

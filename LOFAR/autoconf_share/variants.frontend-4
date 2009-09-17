@@ -1,0 +1,12 @@
+#gnubgp.compiler.conf:	CC=/opt/gnu-linux/bin/powerpc-bgp-linux-gcc CXX=/opt/gnu-linux/bin/powerpc-bgp-linux-g++
+gnubgp.compiler.conf:	CC=/usr/bin/gcc CXX=/usr/bin/g++ CCAS=/opt/gnu-linux/bin/powerpc-bgp-linux-gcc
+
+gnu.compiler.aipspp.var: --with-casacore=/home/romein/projects/casacore-0.3.0/stage --without-wcs
+
+bgp.variant.conf:	$(lofar_root) $(debugopt) $(nothreads) $(noshmem) $(bgp_cpp) $(bgp_ldd) --without-tinycep --without-log4cplus --with-bglmpich='/bgsys/drivers/ppcfloor/comm' --with-fftw2='/home/romein/packages/fftw-2.1.5-single-precision' --with-cppflags='-DHAVE_BGP -I/bgsys/drivers/ppcfloor/comm/include -I/bgsys/drivers/ppcfloor/arch/include'
+fpic.variant.conf:	$(debugopt) $(threads) $(aipspp) --without-log4cplus --with-cppflags='-fPIC' $(ion_searchpath) --with-ldflags='-L/bgl/lofar-utils/mass/lib' --with-libs='-lmass'
+
+
+bgp_cpp.var:		--with-cppflags='-DHAVE_BGP'
+bgp_ldd.var:		--with-ldflags='-L/bgsys/drivers/ppcfloor/comm/lib -L/bgsys/drivers/ppcfloor/runtime/SPI' --with-libs='-lcxxmpich.cnk -lmpich.cnk -ldcmfcoll.cnk -ldcmf.cnk -lpthread -lrt -lSPI.cna -lm'
+#bgp_ldd.var:		--with-ldflags='-L/bgsys/drivers/ppcfloor/comm/lib -L/bgsys/drivers/ppcfloor/runtime/SPI -L/opt/ibmcmp/vac/bg/9.0/bglib' --with-libs=' -lcxxmpich.cnk -lmpich.cnk -ldcmfcoll.cnk -ldcmf.cnk -lpthread -lrt -lSPI.cna -lxl -lm'

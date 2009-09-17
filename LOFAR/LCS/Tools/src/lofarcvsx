@@ -1,0 +1,98 @@
+#!/bin/sh
+#-----------------------------------------------------------------------------
+# lofarcvsx: Set or clear x-bit of files within the LOFAR CVS repository
+#-----------------------------------------------------------------------------
+#
+# Copyright (C) 2005
+# ASTRON (Netherlands Foundation for Research in Astronomy)
+# P.O.Box 2, 7990 AA Dwingeloo, The Netherlands, seg@astron.nl
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# $Id: lofarcvsx 6417 2005-09-20 08:48:52Z diepen $
+
+
+#-----------------------------------------------------------------------------
+# Usage: lofarcvsx option <source>
+#-----------------------------------------------------------------------------
+# lofarcvsx sets or clears the x-bit of files within the master
+# CVS repository. The change history is preserved with BOTH
+# the new copy and the deleted original. However, all tags are stripped from
+# the new copy. This is done so that (1) history is preserved, (2) old states
+# of the system can be retrieved using old tags, and (3) new tags do not
+# affect the deleted files.
+#
+# Option -set sets the x-bit of the given file(s).
+# Option -clear clears the x-bit of the given file(s).
+
+#
+# Status returns:
+#    0:  initialization succeeded
+#    1:  initialization error
+#
+#=============================================================================
+
+  # The "cvs X" command will be executed on the cvs server.
+  ##REMOTE_CMD="ssh -q cvs@dop50.astron.nl cvs" ###
+  REMOTE_CMD="ssh -q cvs@cvs.astron.nl cvs"
+
+  SOURCES=
+  DESTINATION=
+  OPTION=
+
+# Check arguments.
+  if [ "$1" = "-h" ]; then
+    echo ""
+    echo "lofarcvsx can set or clear the x-bit of source files in the CVS repository."
+    echo ""
+    echo "Usage: lofarcvsmv option <source-list>" 1>&2
+    echo "All file names must be relative to the cvs root."
+    echo " e.g.   LOFAR/LCS/Common/src/BlobOStream.h"
+    echo ""
+    echo "lofarcvsx has two options:"
+    echo " -set    sets the x-bit"
+    echo " -clear  clears the x-bit"
+    echo ""
+    echo "Note that for file name completion and wildcarding, it is usually"
+    echo "easiest if the working directory is just above the LOFAR directory".
+    exit 0
+  fi
+
+  options=
+  if [ "$1" = "-set" ]; then
+    OPTION=SET
+    options="1$options"
+    shift
+  fi
+  if [ "$1" = "-clear" ]; then
+    OPTION=CLEAR
+    options="1$options"
+    shift
+  fi
+  NR=$#
+  if [ "$options" != "1"  -o  $NR -lt 1 ]; then
+    echo "Usage: lofarcvsx option <source-list>" 1>&2
+    echo "  One option (-set, -clear) must be given" 1>&2
+    echo "  Use  lofarcvsmv -h  for help information" 1>& 2
+    exit 1
+  fi
+
+  # Handle all files.
+  for SOURCE in $*
+  do
+    $REMOTE_CMD X $OPTION $SOURCE dummy
+  done
+
+  exit 0

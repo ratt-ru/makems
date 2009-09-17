@@ -1,0 +1,14 @@
+gnu.compiler.aipspp.var: --with-casacore=/Users/diepen --with-wcs=/Users/diepen/askapsoft/3rdparty/wcslib/tags/wcslib-4.2/install --with-lapack=/Users/diepen/askapsoft/3rdparty/lapack/tags/lapack-3.1.1/install --with-blas=/Users/diepen/askapsoft/3rdparty/blas/tags/blas-2007.02.28/install --with-pyrap=/Users/diepen 
+
+log4c.var: --without-log4cplus --with-log4cxx=/Users/diepen/askapsoft/3rdparty/log4cxx/tags/log4cxx-0.10.0/install
+#log4c.var: --without-log4cplus --without-log4cxx
+
+zoid.var: --without-zoid
+
+shmem.var: --without-shmem
+
+boost.var: --with-boost=/usr/local
+
+cppflags.var: --with-cppflags="-DUSE_NO_TH_ETHERNET"
+
+mpich.var: --with-mpich=/usr/local

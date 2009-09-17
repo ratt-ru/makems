@@ -1,0 +1,468 @@
+The system is: Linux - 2.6.28-15-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/gcc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/g++ 
+Build flags: -W;-Wall;-Woverloaded-virtual;-Wno-unknown-pragmas
+Id flags: 
+
+The output was:
+0
+CMakeCXXCompilerId.cpp:67: warning: deprecated conversion from string constant to ‘char*’
+CMakeCXXCompilerId.cpp:151: warning: deprecated conversion from string constant to ‘char*’
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/testCCompiler.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTryCompileExec.dir/testCCompiler.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc        CMakeFiles/cmTryCompileExec.dir/testCCompiler.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CMakeCCompilerABI.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTryCompileExec.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-2.6/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc        CMakeFiles/cmTryCompileExec.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec.dir/testCXXCompiler.cxx.o
+/usr/bin/g++    -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas     -o CMakeFiles/cmTryCompileExec.dir/testCXXCompiler.cxx.o -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/g++    -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas     CMakeFiles/cmTryCompileExec.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/g++    -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas     -o CMakeFiles/cmTryCompileExec.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-2.6/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/g++    -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas     CMakeFiles/cmTryCompileExec.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file execinfo.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc        CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the function backtrace exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckFunctionExists.c.o
+/usr/bin/gcc   -DCHECK_FUNCTION_EXISTS=backtrace   -o CMakeFiles/cmTryCompileExec.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.6/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc     -DCHECK_FUNCTION_EXISTS=backtrace   CMakeFiles/cmTryCompileExec.dir/CheckFunctionExists.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining size of ushort passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining size of uint passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining size of ulong passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining size of long long passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file dlfcn.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file inttypes.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file memory.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file net/ethernet.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file netinet/in.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file signal.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stdlib.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file string.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file strings.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/mman.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/resource.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/stat.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/time.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file unistd.h exists passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o
+/usr/bin/gcc   -pthread     -o CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread     CMakeFiles/cmTryCompileExec.dir/CheckIncludeFile.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Determining size of unsigned short passed with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+
+Performing C SOURCE FILE Test HAVE___PRETTY_FUNCTION__ succeded with the following output:
+Change Dir: /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+make[1]: Entering directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/src.c.o
+/usr/bin/gcc   -pthread  -DHAVE___PRETTY_FUNCTION__   -o CMakeFiles/cmTryCompileExec.dir/src.c.o   -c /home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec.dir/link.txt --verbose=1
+/usr/bin/gcc    -pthread  -DHAVE___PRETTY_FUNCTION__   CMakeFiles/cmTryCompileExec.dir/src.c.o  -o cmTryCompileExec -rdynamic 
+make[1]: Leaving directory `/home/oms/MakeMS/LOFAR/build/gnu_opt/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+    #include <stdio.h> 
+    int main() { puts(__PRETTY_FUNCTION__); }
+    

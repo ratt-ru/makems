@@ -1,0 +1,24 @@
+(1,2)(3,4)
+(-5,10)(4,6)(-2,-2)(-5,-10)(0.44,0.08)
+(3.16578,1.9596)
+(1,2)(4,5)(6,7)(7,8)
+(1,2)(3,4)
+(-5,10)(4,6)(-2,-2)(-5,-10)(0.44,0.08)
+(3.16578,1.9596)
+(10,20)
+nriter=1 nrval=1001
+>>>
+std::complex fi          : avg =   49 us, total =   49 us, count =         1
+std::complex ff          : avg = 76.7 us, total = 76.7 us, count =         1
+dcomplex mfill           : avg = 12.5 us, total = 12.5 us, count =         1
+dcomplex ffill           : avg = 56.6 us, total = 56.6 us, count =         1
+std::complex *           : avg =  144 us, total =  144 us, count =         1
+std::complex *~          : avg =  234 us, total =  234 us, count =         1
+mdcomplex *              : avg =  101 us, total =  101 us, count =         1
+_Complex *               : avg = 13.7 us, total = 13.7 us, count =         1
+_Complex *~              : avg = 36.1 us, total = 36.1 us, count =         1
+dcomplex *               : avg = 15.3 us, total = 15.3 us, count =         1
+dcomplex *~              : avg = 71.6 us, total = 71.6 us, count =         1
+real,imag *              : avg =   28 us, total =   28 us, count =         1
+real,imag *~             : avg = 26.9 us, total = 26.9 us, count =         1
+<<<

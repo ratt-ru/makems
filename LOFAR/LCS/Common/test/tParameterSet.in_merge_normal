@@ -1,0 +1,19 @@
+# comment line
+a.b.c=7
+a.b.lange_naam="dit is een wat langere naam"
+
+a.b.c     = 700			# outlining around = sign is possible.
+a.c.a     = nog een afkorting
+a.b.double= 3.1415926535897932384626433832795# this is just added to a.b.double
+a.b.c.d.e.f.g.h='tjee wat een levels!'
+a.b=0
+
+a.b.time1=15 s
+ a.b.time2=15m
+a.b.time3=15 hour
+
+vtest.intVector1Dim = [ 3, 20485, 
+                	002, 4904 , 25 ]
+#vtest.intVector1Dim = [ 3, "20485, 002, '4904' ]
+#vtest.intVector1Dim = [ 3, "20485, 002, '4904" ]
+
