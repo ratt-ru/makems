@@ -1,1 +1,0 @@
-/usr/bin/g++   -W -Wall -Woverloaded-virtual -Wno-unknown-pragmas -pthread -g -O2   CMakeFiles/makems.dir/makems.cc.o  -o makems -rdynamic libms.a ../../../LCS/Common/src/libcommon.a -lpthread -Wl,-Bstatic -lcasa_ms -lcasa_measures -lcasa_scimath -lcasa_tables -lcasa_scimath_f -lcasa_casa -Wl,-Bdynamic -lm -Wl,-rpath,:::::::::::::::::::::::::::::::::::::::::::: 

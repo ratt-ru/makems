@@ -1,2 +1,0 @@
-/usr/bin/ar cr libms.a  CMakeFiles/ms.dir/MSCreate.cc.o
-/usr/bin/ranlib libms.a
