@@ -1,0 +1,16 @@
+StartFreq=1.4e9
+StepFreq=1e6
+StartTime=2000/08/03/13:22:30
+StepTime=180
+RightAscension=00:00:00.00
+Declination=60.00.00.00
+NBands=1
+NFrequencies=32
+NTimes=160
+NParts=1
+#TileSizeFreq=16
+#TileSizeRest=10
+WriteAutoCorr=T
+AntennaTableName=EVN_ANT
+MSName=EVN1.MS
+MSDesPath=.

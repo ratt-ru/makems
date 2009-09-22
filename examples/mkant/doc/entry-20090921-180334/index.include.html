@@ -1,0 +1,28 @@
+
+        <HR WIDTH=100%>
+        <H2>Making some antenna tables</H2>
+        <DIV ALIGN=right><P><SMALL>Logged on 09/21/2009 06:03:34 PM</SMALL></P></DIV>
+
+        
+        <A CLASS="COMMENTS">
+      <P>The mkant.py program uses pyrap to generate the antenna table. It gets its antenna information from the locations.dat file. You can look at the top of the program to see which arrays it has predefined. Otherwise you can make your own array from the dishes in the locations.dat file.</P>
+      <P>Some examples:</P>
+      <P>mkant.py VLAA_ANT VLAA</P>
+      <P>mkant.py EVN_ANT EVN</P>
+      <P>mkant.py LOFAR_ANT LOFAR_CORE_HBA </P>
+      <P>mkant.py MYARR_ANT "['EB', 'JB', 'MC', 'NT', 'TR']"</P>
+      <P>When you create your own arrays you use python list syntax. The locations file is based on data from the vlbi sched program. The existing Lofar stations have been added to the file as well as locations for WSRT antennas that were missing.</P>
+    </A>
+
+        <H3>Data products</H3>
+        <TABLE BORDER=1 FRAME=box RULES=all CELLPADDING=5>
+
+        <TR><TD COLSPAN=2><P><A HREF="entry-20090921-180334/VLAA_ANT.tar.gz">VLAA_ANT.tar.gz</A></P></TD></TR>
+
+        <TR><TD COLSPAN=2><P><A HREF="entry-20090921-180334/EVN_ANT.tar.gz">EVN_ANT.tar.gz</A></P></TD></TR>
+
+        <TR><TD COLSPAN=2><P><A HREF="entry-20090921-180334/LOFAR_ANT.tar.gz">LOFAR_ANT.tar.gz</A></P></TD></TR>
+
+        <TR><TD COLSPAN=2><P><A HREF="entry-20090921-180334/MYARR_ANT.tar.gz">MYARR_ANT.tar.gz</A></P></TD></TR>
+
+        </TABLE>
