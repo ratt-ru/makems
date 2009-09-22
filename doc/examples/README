@@ -1,0 +1,6 @@
+The make_ms.sh script is a simple wrapper around makems. It will also run
+lwimager to insert MODEL_DATA and CORRECTED_DATA columns into the MS (which
+is required before an MS can be used by MeqTrees.)
+
+Oleg Smirnov <osmirnov@gmail.com>
+ 
