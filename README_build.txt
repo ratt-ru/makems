@@ -25,3 +25,5 @@ distributed MS, as we compile without this capability.) In a nutshell, there is
 a makems.cfg file, and an ANTENNA table (referenced from that file.) For an
 example, go into makems/doc/examples, and run "makems makems.cfg". This will create
 an MS called test.MS_p0.
+
+Also see the makems/doc/makeant tool, and documentation therein.
