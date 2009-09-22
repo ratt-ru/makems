@@ -23,5 +23,5 @@ Using the makems tool
 makems.pdf describes use of the tool (ignore the parts about building a
 distributed MS, as we compile without this capability.) In a nutshell, there is
 a makems.cfg file, and an ANTENNA table (referenced from that file.) For an
-example, go into MakeMS/examples, and run "makems makems.cfg". This will create
+example, go into makems/doc/examples, and run "makems makems.cfg". This will create
 an MS called test.MS_p0.
