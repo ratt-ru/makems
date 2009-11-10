@@ -30,6 +30,9 @@
 #include <Common/StreamUtil.h>
 #include <Common/StringUtil.h>
 #include <string>
+#include <cstdio>
+
+using namespace std;
 
 namespace LOFAR {
 

@@ -31,6 +31,7 @@
 #include <Common/lofar_iomanip.h>
 #include <cstring>
 #include <cstdarg>
+#include <cstdio>
 #include <ctime>
 #include <errno.h>
 
@@ -190,8 +191,8 @@ bool	StringToBool(const string& aString) throw(Exception)
 int16	StringToInt16(const string& aString, const char* fmt) throw(Exception)
 {
 	int16		theShort;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theShort) : 
-			   sscanf(aString.c_str(), "%hd", &theShort)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theShort) : 
+			   std::sscanf(aString.c_str(), "%hd", &theShort)) != 1) {
 		THROW (Exception, aString + " is not an short value");
 	}
 
@@ -201,8 +202,8 @@ int16	StringToInt16(const string& aString, const char* fmt) throw(Exception)
 uint16	StringToUint16(const string& aString, const char* fmt) throw(Exception)
 {
 	uint16		theUshort;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theUshort) : 
-			   sscanf(aString.c_str(), "%hu", &theUshort)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theUshort) : 
+			   std::sscanf(aString.c_str(), "%hu", &theUshort)) != 1) {
 		THROW (Exception, aString + " is not an unsigned short value");
 	}
 
@@ -212,8 +213,8 @@ uint16	StringToUint16(const string& aString, const char* fmt) throw(Exception)
 int32	StringToInt32(const string& aString, const char* fmt) throw(Exception)
 {
 	int32		theInt;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theInt) : 
-			   sscanf(aString.c_str(), "%d", &theInt)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theInt) : 
+			   std::sscanf(aString.c_str(), "%d", &theInt)) != 1) {
 		THROW (Exception, aString + " is not an integer value");
 	}
 	return (theInt);
@@ -222,8 +223,8 @@ int32	StringToInt32(const string& aString, const char* fmt) throw(Exception)
 uint32	StringToUint32(const string& aString, const char* fmt) throw(Exception)
 {
 	uint32		theUint;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theUint) : 
-			   sscanf(aString.c_str(), "%u", &theUint)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theUint) : 
+			   std::sscanf(aString.c_str(), "%u", &theUint)) != 1) {
 		THROW (Exception, aString + " is not an unsigned int value");
 	}
 
@@ -234,8 +235,8 @@ uint32	StringToUint32(const string& aString, const char* fmt) throw(Exception)
 int64	StringToInt64(const string& aString, const char* fmt) throw(Exception)
 {
 	int64		theLong;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theLong) : 
-			   sscanf(aString.c_str(), "%lld", &theLong)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theLong) : 
+			   std::sscanf(aString.c_str(), "%lld", &theLong)) != 1) {
 		THROW (Exception, aString + " is not a long integer value");
 	}
 
@@ -245,8 +246,8 @@ int64	StringToInt64(const string& aString, const char* fmt) throw(Exception)
 uint64	StringToUint64(const string& aString, const char* fmt) throw(Exception)
 {
 	uint64		theUlong;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theUlong) : 
-			   sscanf(aString.c_str(), "%llu", &theUlong)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theUlong) : 
+			   std::sscanf(aString.c_str(), "%llu", &theUlong)) != 1) {
 		THROW (Exception, aString + " is not an unsigned long integer value");
 	}
 
@@ -257,8 +258,8 @@ uint64	StringToUint64(const string& aString, const char* fmt) throw(Exception)
 float	StringToFloat(const string& aString, const char* fmt) throw(Exception)
 {
 	float		theFloat;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theFloat) : 
-			   sscanf(aString.c_str(), "%g", &theFloat)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theFloat) : 
+			   std::sscanf(aString.c_str(), "%g", &theFloat)) != 1) {
 		THROW (Exception, aString + " is not a float value");
 	}
 
@@ -269,8 +270,8 @@ float	StringToFloat(const string& aString, const char* fmt) throw(Exception)
 double	StringToDouble(const string& aString, const char* fmt) throw(Exception)
 {
 	double		theDouble;
-	if ((fmt ? sscanf(aString.c_str(), fmt, &theDouble) : 
-			   sscanf(aString.c_str(), "%lg", &theDouble)) != 1) {
+	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theDouble) : 
+			   std::sscanf(aString.c_str(), "%lg", &theDouble)) != 1) {
 		THROW (Exception, aString + " is not a double value");
 	}
 
@@ -512,7 +513,7 @@ string compactedArrayString(const string&	orgStr)
 	for (int idx = 0; idx < nrElems; idx++) {
 		long	value;
 		long	lastValue;
-		if (sscanf(strVector[idx].c_str(), scanMask.c_str(), &value) != 1) {
+		if (std::sscanf(strVector[idx].c_str(), scanMask.c_str(), &value) != 1) {
 			LOG_DEBUG_STR("Element " << strVector[idx] << " does not match mask " 
 						<< scanMask << ". Returning orignal string.");
 			return (orgStr);
@@ -520,7 +521,7 @@ string compactedArrayString(const string&	orgStr)
 
 		// check for already compacted elements.
 		rangeElem = (strVector[idx].find("..",0) != string::npos);
-		if (rangeElem && (sscanf(strVector[idx].c_str(), rangeScanMask.c_str(), &value, &lastValue) != 2)) {
+		if (rangeElem && (std::sscanf(strVector[idx].c_str(), rangeScanMask.c_str(), &value, &lastValue) != 2)) {
 			LOG_DEBUG_STR("RangeElement " << strVector[idx] << " does not match mask " 
 						<< rangeScanMask << ". Returning orignal string.");
 			return (orgStr);
