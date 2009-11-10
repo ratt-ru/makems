@@ -25,8 +25,10 @@
 
 #include <Common/hexdump.h>
 #include <Common/StringUtil.h>
+#include <stdio.h>
 
 using namespace LOFAR;
+using namespace std;
 
 namespace LOFAR
 {
