@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <cstring>
+#include <cstdio>
 
 #if !defined(USE_NOSOCKETS)
 // netdb is not available on Cray XT machines with Catamount.
@@ -38,6 +39,8 @@
 #include <netdb.h>
 #endif
 #endif
+
+using namespace std;
 
 namespace LOFAR {
 
