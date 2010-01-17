@@ -132,7 +132,7 @@ void readParms (const string& parset)
   }
   // Get remaining parameters.
   itsWriteAutoCorr  = params.getBool   ("WriteAutoCorr", False);
-  itsWriteImagerCol = params.getBool   ("WriteImagerColumns", False);
+  itsWriteImagerCol = params.getBool   ("WriteImagerColumns", True);
   itsMsName         = params.getString ("MSName");
   itsFlagColumn     = params.getString ("FlagColumn", "");
   itsNFlags         = params.getInt    ("NFlagBits", 8);

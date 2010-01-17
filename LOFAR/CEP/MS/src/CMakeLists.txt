@@ -39,6 +39,7 @@ lofar_add_library(ms ${ms_LIB_SRCS})
 
 foreach(prog ${ms_PROGRAMS})
   lofar_add_bin_program(${prog} ${prog}.cc)
+  target_link_libraries(${prog} -ldl)
 endforeach(prog ${ms_PROGRAMS})
 
 #install(PROGRAMS
