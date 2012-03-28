@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Create an Measurement Set Antenna table using the values
 # from a SCHED location file.
@@ -7,9 +8,9 @@
 #
 # Version: 20090914
 
-import pyrap_tables
-from pyrap_tables import tablecreatescalarcoldesc as cldsc
-from pyrap_tables import tablecreatearraycoldesc as clarrdsc
+import pyrap.tables
+from pyrap.tables import tablecreatescalarcoldesc as cldsc
+from pyrap.tables import tablecreatearraycoldesc as clarrdsc
 import re
 import sys
 import os.path
@@ -47,10 +48,10 @@ WSRT = ['WRT0','WRT1','WRT2','WRT3','WRT4',
 WSRT10 = ['WRT0','WRT1','WRT2','WRT3','WRT4',
           'WRT5','WRT6','WRT7','WRT8','WRT9']
 
-LOFAR_CORE_LBA = ['CS002LBA', 'CS003LBA', 'CS004LBA', 'CS005LBA',
-                 'CS006LBA', 'CS007LBA', 'CS021LBA', 'CS024LBA',
-                 'CS030LBA', 'CS032LBA', 'CS103LBA', 'CS201LBA',
-                 'CS301LBA', 'CS302LBA', 'CS401LBA', 'CS501LBA']
+LOFAR_CORE_LBA = [  'CS001LBA', 'CS002LBA', 'CS003LBA', 'CS004LBA', 'CS005LBA', 'CS006LBA', 'CS007LBA', 'CS011LBA', 
+                    'CS013LBA', 'CS017LBA', 'CS021LBA', 'CS024LBA', 'CS026LBA', 'CS028LBA', 'CS030LBA', 'CS031LBA', 
+                    'CS032LBA', 'CS101LBA', 'CS103LBA', 'CS201LBA', 'CS301LBA', 'CS302LBA', 'CS401LBA', 'CS501LBA' ];
+
 LOFAR_CORE_HBA = ['CS002HBA0', 'CS002HBA1', 'CS003HBA0', 'CS003HBA1',
                  'CS004HBA0', 'CS004HBA1', 'CS005HBA0', 'CS005HBA1',
                  'CS006HBA0', 'CS006HBA1', 'CS007HBA0', 'CS007HBA1',
@@ -59,12 +60,18 @@ LOFAR_CORE_HBA = ['CS002HBA0', 'CS002HBA1', 'CS003HBA0', 'CS003HBA1',
                  'CS103HBA0', 'CS103HBA1', 'CS201HBA0', 'CS201HBA1',
                  'CS301HBA0', 'CS301HBA1', 'CS302HBA0', 'CS302HBA1',
                  'CS401HBA0', 'CS401HBA1', 'CS501HBA0', 'CS501HBA1']
+
 LOFAR_REMOTE_LBA = ['RS106LBA', 'RS208LBA', 'RS306LBA', 'RS307LBA',
-                   'RS503LBA', 'RS509LBA']
+                   'RS503LBA', 'RS509LBA'];
+                   
 LOFAR_REMOTE_HBA = ['RS106HBA', 'RS208HBA', 'RS306HBA', 'RS307HBA',
                    'RS503HBA', 'RS509HBA']
-LOFAR_INTERNATIONAL_LBA = ['DE601LBA', 'DE602LBA', 'DE603LBA']
-LOFAR_INTERNATIONAL_HBA = ['DE602HBA']
+
+LOFAR_INTERNATIONAL_LBA = [ 'DE601LBA', 'DE602LBA', 'DE603LBA', 'DE604LBA', 'DE605LBA', 'FR606LBA', 'SE607LBA', 'UK608LBA' ]
+
+LOFAR_INTERNATIONAL_HBA = [ 'DE601HBA', 'DE602HBA', 'DE603HBA', 'DE604HBA', 'DE605HBA', 'FR606HBA', 'SE607HBA', 'UK608HBA','PT999HBA' ]
+
+
 LOFAR_CORE = LOFAR_CORE_LBA + LOFAR_CORE_HBA
 LOFAR_REMOTE = LOFAR_REMOTE_LBA + LOFAR_REMOTE_HBA
 LOFAR_INTERNATIONAL = LOFAR_INTERNATIONAL_LBA + LOFAR_INTERNATIONAL_HBA
@@ -220,7 +227,7 @@ desc = tablecreatedesc([offset_desc, position_desc, type_desc,
         dish_desc, flag_desc, mount_desc, name_desc, station_desc])
 
 # Create and populate our table
-table = pyrap_tables.table(ms_out, desc, nrow=len(ant_list), readonly=False)
+table = pyrap.tables.table(ms_out, desc, nrow=len(ant_list), readonly=False)
 table.putcolkeywords('OFFSET', {'QuantumUnits': ['m', 'm', 'm'],
     'MEASINFO': {'Ref': 'ITRF', 'type': 'position'}})
 table.putcolkeywords('POSITION', {'QuantumUnits': ['m', 'm', 'm'],
