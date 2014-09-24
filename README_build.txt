@@ -6,7 +6,7 @@ Prerequisites: a subset of the MeqTrees stuff (cmake 2.6, blitz, etc.)
 The build, in a nutshell:
 
 $ cd $HOME 
-$ svn co svn://lofar9.astron.nl/var/svn/repos/trunk/makems  # or svn+ssh://
+$ git clone git@github.com:ska-sa/makems.git
 $ cd makems/LOFAR
 $ mkdir -p build/gnu_opt
 $ cd build/gnu_opt
