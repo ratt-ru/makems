@@ -77,7 +77,7 @@ namespace LOFAR
 #endif
         }
         if (filename) {
-          char* h = strrchr(filename,'/');
+          const char* h = strrchr(filename,'/');
           if (h) {
             filename = h+1;
           }
