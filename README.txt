@@ -1,3 +1,12 @@
+Building and using the makems tool using Docker
+========================
+
+docker build -t makems .
+
+Then run it mounting in a volume where your parset is located to check whether it works
+
+docker run -it --rm -v [datapath]:/data makems /data/parset.cfg
+
 Building the makems tool
 ========================
 
