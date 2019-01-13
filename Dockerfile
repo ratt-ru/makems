@@ -18,3 +18,6 @@ RUN cmake -DCMAKE_MODULE_PATH:PATH=$BUILD/makems/LOFAR/CMake \
 -DUSE_LOG4CPLUS=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release ../..
 RUN make -j 16
 RUN make install
+
+ENV PATH=/opt/src/makems/LOFAR/build/gnu_opt/CEP/MS/src:${PATH}
+ENTRYPOINT makems
