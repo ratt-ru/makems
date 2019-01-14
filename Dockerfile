@@ -5,7 +5,6 @@ RUN docker-apt-install \
     casarest \
     libboost-all-dev \
     libreadline6-dev
-RUN docker-apt-install \
     build-essential \
     cmake 
 
