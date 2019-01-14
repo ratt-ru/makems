@@ -20,48 +20,9 @@
 //
 //  $Id: MSCreate.cc 12842 2009-03-09 08:11:29Z diepen $
 
-#include <lofar_config.h>
-
 #include <MS/MSCreate.h>
-#include <Common/LofarLogger.h>
-
-#include <ms/MeasurementSets.h>
-#include <tables/Tables/IncrementalStMan.h>
-#include <tables/Tables/StandardStMan.h>
-#include <tables/Tables/TiledColumnStMan.h>
-////#include <tables/Tables/BitFlagsEngine.h>
-#include <tables/Tables/TiledStManAccessor.h>
-#include <tables/Tables/SetupNewTab.h>
-#include <tables/Tables/TableDesc.h>
-#include <tables/Tables/ArrColDesc.h>
-#include <tables/Tables/TableRecord.h>
-#include <casa/Arrays/Vector.h>
-#include <casa/Arrays/Cube.h>
-#include <casa/Arrays/Matrix.h>
-#include <casa/Arrays/ArrayMath.h>
-#include <casa/Containers/Block.h>
-#include <casa/Containers/Record.h>
-#include <measures/Measures/MPosition.h>
-#include <measures/Measures/MBaseline.h>
-#include <measures/Measures/Muvw.h>
-#include <measures/Measures/MeasTable.h>
-#include <measures/Measures/Stokes.h>
-#include <measures/Measures/MCBaseline.h>
-#include <measures/Measures/MeasConvert.h>
-#include <casa/Quanta/MVEpoch.h>
-#include <casa/Quanta/MVDirection.h>
-#include <casa/Quanta/MVPosition.h>
-#include <casa/Quanta/MVBaseline.h>
-#include <casa/OS/Time.h>
-#include <casa/OS/SymLink.h>
-#include <casa/BasicSL/Constants.h>
-#include <casa/Utilities/Assert.h>
-#include <casa/Exceptions/Error.h>
-#include <casa/Arrays/Slicer.h>
-#include <casa/Arrays/Slice.h>
-
 using namespace LOFAR;
-using namespace casa;
+using namespace casacore;
 
 MSCreate::MSCreate (const std::string& msName,
 		    double startTime, double timeStep, int nfreq, int ncorr,
@@ -787,7 +748,7 @@ void MSCreate::addImagerColumns()
     TiledColumnStMan stMan("TiledImagingWeight", dataTileShape.getLast(2));
     itsMS->addColumn (td, stMan);
   }
-  // Set keyword for casa::VisSet.
+  // Set keyword for casacore::VisSet.
   // Sort out the channel selection.
   MSSpWindowColumns msSpW(itsMS->spectralWindow());
   Matrix<Int> selection(2, msSpW.nrow());

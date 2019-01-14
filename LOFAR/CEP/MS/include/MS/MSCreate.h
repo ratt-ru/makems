@@ -30,11 +30,58 @@
 //# Includes
 #include <Common/LofarTypes.h>
 #include <casa/aips.h>
+#include <casa/aipstype.h>
 #include <Common/lofar_vector.h>
+#include <lofar_config.h>
+#include <Common/LofarLogger.h>
+
+#include <ms/MeasurementSets.h>
+#include <tables/Tables/IncrementalStMan.h>
+#include <tables/Tables/StandardStMan.h>
+#include <tables/Tables/TiledColumnStMan.h>
+////#include <tables/Tables/BitFlagsEngine.h>
+#include <tables/Tables/TiledStManAccessor.h>
+#include <tables/Tables/SetupNewTab.h>
+#include <tables/Tables/TableDesc.h>
+#include <tables/Tables/ArrColDesc.h>
+#include <tables/Tables/TableRecord.h>
+#include <casa/Arrays/Vector.h>
+#include <casa/Arrays/Cube.h>
+#include <casa/Arrays/Matrix.h>
+#include <casa/Arrays/ArrayMath.h>
+#include <casa/Containers/Block.h>
+#include <casa/Containers/Record.h>
+#include <measures/Measures/MPosition.h>
+#include <measures/Measures/MBaseline.h>
+#include <measures/Measures/Muvw.h>
+#include <measures/Measures/MeasTable.h>
+#include <measures/Measures/Stokes.h>
+#include <measures/Measures/MCBaseline.h>
+#include <measures/Measures/MeasConvert.h>
+#include <casa/Quanta/MVEpoch.h>
+#include <casa/Quanta/MVDirection.h>
+#include <casa/Quanta/MVPosition.h>
+#include <casa/Quanta/MVBaseline.h>
+#include <casa/OS/Time.h>
+#include <casa/OS/SymLink.h>
+#include <casa/BasicSL/Constants.h>
+#include <casa/Utilities/Assert.h>
+#include <casa/Exceptions/Error.h>
+#include <casa/Arrays/Slicer.h>
+#include <casa/Arrays/Slice.h>
 
 //# Forward Declarations
-namespace casa
+// #define casacore casa
+namespace casacore
 {
+  // typedef bool Bool;
+  // const Bool True = true;
+  // const Bool Frue = false;
+  // typedef int Int;
+  // typedef float Float;
+  // typedef double Double;
+  // template<class T> class assert_;
+  class AipsError;
   class String;
   class MPosition;
   class MBaseline;
@@ -47,6 +94,8 @@ namespace casa
   template<class T> class Matrix;
   template<class T> class Cube;
 }
+
+
 
 namespace LOFAR
 {
@@ -72,7 +121,7 @@ public:
   // created and column FLAG is mapped to it.
   MSCreate (const std::string& msName,
 	    double startTime, double timeStep, int nfreq, int ncorr,
-	    int nantennas, const casa::Matrix<double>& antPos,
+	    int nantennas, const casacore::Matrix<double>& antPos,
 	    bool writeAutoCorr,
 	    int tileSizeFreq, int tileSizeRest,
             const std::string& flagColumn=std::string(), int nflagBits=0);
@@ -82,7 +131,7 @@ public:
 
   // Add the extra columns needed for lwimager.
   // These are CORRECTED_DATA, MODEL_DATA, and IMAGING_WEIGHT.
-  // Furthermore it sets the CHANNEL_SELECTION keyword for casa::VisSet.
+  // Furthermore it sets the CHANNEL_SELECTION keyword for casacore::VisSet.
   void addImagerColumns();
 
   // Add the definition of the next frequency band.
@@ -138,15 +187,15 @@ private:
   // </group>
 
   // Create the MS and fill its subtables as much as possible.
-  void createMS (const casa::String& msName, 
-		 const casa::Block<casa::MPosition>& antPos,
+  void createMS (const casacore::String& msName, 
+		 const casacore::Block<casacore::MPosition>& antPos,
 		 int tileSizeFreq, int tileSizeRest,
-                 const casa::String& flagColumn, int nflagBits);
+                 const casacore::String& flagColumn, int nflagBits);
 
   // Set the band.
   int addBand (int npolarizations, int nchannels,
-	       double refFreq, const casa::Vector<double>& chanFreqs,
-	       const casa::Vector<double>& chanWidths);
+	       double refFreq, const casacore::Vector<double>& chanFreqs,
+	       const casacore::Vector<double>& chanWidths);
 
   // Add a polarization to the subtable.
   // Return the row number where it is added.
@@ -154,7 +203,7 @@ private:
 
   // Fill the various subtables (at the end).
   // <group>
-  void fillAntenna (const casa::Block<casa::MPosition>& antPos);
+  void fillAntenna (const casacore::Block<casacore::MPosition>& antPos);
   void fillFeed();
   void fillObservation();
   void fillProcessor();
@@ -177,15 +226,15 @@ private:
   int itsNrTimes;                    //# nr of exposures
   double itsTimeStep;                //# duration of each exposure (sec)
   double itsStartTime;               //# start time of observation (sec)
-  casa::Block<casa::Int>* itsNrPol;  //# nr of polarizations for each band
-  casa::Block<casa::Int>* itsNrChan; //# nr of channels for each band
-  casa::Block<casa::Int>* itsPolnr;  //# rownr in POL subtable for each band
-  casa::Block<casa::MBaseline>* itsAntBL; //# Baseline vector for each antenna
-  casa::MPosition*      itsArrayPos; //# Position of array center
-  casa::MeasFrame*      itsFrame;    //# Frame to convert to apparent coordinates
-  casa::Block<casa::MDirection>* itsPhaseDir;   //# Phase directions of fields
-  casa::MeasurementSet* itsMS;
-  casa::MSMainColumns*  itsMSCol;
+  casacore::Block<casacore::Int>* itsNrPol;  //# nr of polarizations for each band
+  casacore::Block<casacore::Int>* itsNrChan; //# nr of channels for each band
+  casacore::Block<casacore::Int>* itsPolnr;  //# rownr in POL subtable for each band
+  casacore::Block<casacore::MBaseline>* itsAntBL; //# Baseline vector for each antenna
+  casacore::MPosition*      itsArrayPos; //# Position of array center
+  casacore::MeasFrame*      itsFrame;    //# Frame to convert to apparent coordinates
+  casacore::Block<casacore::MDirection>* itsPhaseDir;   //# Phase directions of fields
+  casacore::MeasurementSet* itsMS;
+  casacore::MSMainColumns*  itsMSCol;
 };
 
 // @}

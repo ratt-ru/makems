@@ -44,7 +44,7 @@
 #include <sstream>
 
 using namespace LOFAR;
-using namespace casa;
+using namespace casacore;
 using namespace std;
 
 // Define the variables shared between the functions.

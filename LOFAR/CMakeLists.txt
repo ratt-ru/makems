@@ -60,3 +60,6 @@ if(0)
   all_variables()
   message(STATUS "^^^^^^^^ Variables ^^^^^^^^")
 endif(0)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w -Wno-deprecated -Wno-write-strings")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w -Wno-deprecated -Wno-write-strings")

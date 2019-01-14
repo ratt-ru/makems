@@ -20,6 +20,9 @@
 
 include(LofarPackageVersion)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w -Wno-deprecated -Wno-write-strings")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w -Wno-deprecated -Wno-write-strings")
+
 set(ms_LIB_SRCS
 #  Package__Version.cc
   MSCreate.cc
