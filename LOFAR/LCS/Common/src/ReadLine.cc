@@ -46,7 +46,7 @@ namespace LOFAR
   {
     if (!prompt.empty()) cerr << prompt;
     getline (cin, line);
-    return cin.eof();
+    return bool(cin);
   }
 #endif
 

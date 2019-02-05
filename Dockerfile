@@ -4,7 +4,7 @@ RUN docker-apt-install \
     casacore-tools \
     casarest \
     libboost-all-dev \
-    libreadline6-dev
+    libreadline6-dev \
     build-essential \
     cmake 
 
