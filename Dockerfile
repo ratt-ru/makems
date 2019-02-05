@@ -19,4 +19,6 @@ RUN make -j 16
 RUN make install
 
 ENV PATH=/opt/src/makems/LOFAR/build/gnu_opt/CEP/MS/src:${PATH}
+WORKDIR $BUILD/makems/test
+RUN makems WSRT_makems.cfg
 ENTRYPOINT makems
