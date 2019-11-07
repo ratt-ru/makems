@@ -36,11 +36,11 @@
 #include <Common/LofarLogger.h>
 
 #include <ms/MeasurementSets.h>
-#include <tables/Tables/IncrementalStMan.h>
-#include <tables/Tables/StandardStMan.h>
-#include <tables/Tables/TiledColumnStMan.h>
+#include <tables/DataMan/IncrementalStMan.h>
+#include <tables/DataMan/StandardStMan.h>
+#include <tables/DataMan/TiledColumnStMan.h>
 ////#include <tables/Tables/BitFlagsEngine.h>
-#include <tables/Tables/TiledStManAccessor.h>
+#include <tables/DataMan/TiledStManAccessor.h>
 #include <tables/Tables/SetupNewTab.h>
 #include <tables/Tables/TableDesc.h>
 #include <tables/Tables/ArrColDesc.h>
