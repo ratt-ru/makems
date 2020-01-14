@@ -11,19 +11,19 @@ RUN docker-apt-install libblitz0-dev python-dev libblas-dev liblapack-dev libqdb
 #####################################################################
 RUN mkdir /src
 WORKDIR /src
-RUN wget https://github.com/casacore/casacore/archive/v3.1.1.tar.gz
-RUN tar xvf v3.1.1.tar.gz
-RUN mkdir casacore-3.1.1/build
-WORKDIR /src/casacore-3.1.1/build
+RUN wget https://github.com/casacore/casacore/archive/v3.2.1.tar.gz
+RUN tar xvf v3.2.1.tar.gz
+RUN mkdir casacore-3.2.1/build
+WORKDIR /src/casacore-3.2.1/build
 RUN cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ../
 RUN make -j 4
 RUN make install
 RUN ldconfig
 #RUN pip install -U --user --force-reinstall --install-option="--prefix=/usr"  pip setuptools wheel
 WORKDIR /src
-RUN wget https://github.com/casacore/python-casacore/archive/v3.1.1.tar.gz
-RUN tar xvf v3.1.1.tar.gz.1
-WORKDIR /src/python-casacore-3.1.1
+RUN wget https://github.com/casacore/python-casacore/archive/v3.2.0.tar.gz
+RUN tar xvf v3.2.0.tar.gz
+WORKDIR /src/python-casacore-3.2.0
 RUN pip install .
 WORKDIR /
 RUN python -c "from pyrap.tables import table as tbl"
