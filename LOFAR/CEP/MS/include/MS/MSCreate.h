@@ -90,9 +90,9 @@ namespace casacore
   class MeasurementSet;
   class MSMainColumns;
   template<class T> class Block;
-  template<class T> class Vector;
-  template<class T> class Matrix;
-  template<class T> class Cube;
+  template<class T, class Alloc> class Vector;
+  template<class T, class Alloc> class Matrix;
+  template<class T, class Alloc> class Cube;
 }
 
 
