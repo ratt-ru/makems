@@ -19,7 +19,6 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 include(LofarPackageVersion)
-
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w -Wno-deprecated -Wno-write-strings")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w -Wno-deprecated -Wno-write-strings")
 
