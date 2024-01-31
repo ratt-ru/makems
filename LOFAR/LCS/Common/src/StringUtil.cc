@@ -176,7 +176,7 @@ string	toLower(string str)
   return str;
 }
 
-bool	StringToBool(const string& aString) throw(Exception)
+bool	StringToBool(const string& aString)
 {
 	char	firstChar = aString.c_str()[0];
 	if ((firstChar == 't') || (firstChar == 'T') || (firstChar == '1') || (firstChar == 'Y') || (firstChar == 'y'))
@@ -188,7 +188,7 @@ bool	StringToBool(const string& aString) throw(Exception)
 	THROW (Exception, aString + " is not a boolean value");
 }	
 
-int16	StringToInt16(const string& aString, const char* fmt) throw(Exception)
+int16	StringToInt16(const string& aString, const char* fmt)
 {
 	int16		theShort;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theShort) : 
@@ -199,7 +199,7 @@ int16	StringToInt16(const string& aString, const char* fmt) throw(Exception)
 	return (theShort);
 }	
 
-uint16	StringToUint16(const string& aString, const char* fmt) throw(Exception)
+uint16	StringToUint16(const string& aString, const char* fmt)
 {
 	uint16		theUshort;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theUshort) : 
@@ -210,7 +210,7 @@ uint16	StringToUint16(const string& aString, const char* fmt) throw(Exception)
 	return (theUshort);
 }	
 
-int32	StringToInt32(const string& aString, const char* fmt) throw(Exception)
+int32	StringToInt32(const string& aString, const char* fmt)
 {
 	int32		theInt;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theInt) : 
@@ -220,7 +220,7 @@ int32	StringToInt32(const string& aString, const char* fmt) throw(Exception)
 	return (theInt);
 }	
 
-uint32	StringToUint32(const string& aString, const char* fmt) throw(Exception)
+uint32	StringToUint32(const string& aString, const char* fmt)
 {
 	uint32		theUint;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theUint) : 
@@ -232,7 +232,7 @@ uint32	StringToUint32(const string& aString, const char* fmt) throw(Exception)
 }	
 
 #if HAVE_LONG_LONG
-int64	StringToInt64(const string& aString, const char* fmt) throw(Exception)
+int64	StringToInt64(const string& aString, const char* fmt)
 {
 	int64		theLong;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theLong) : 
@@ -243,7 +243,7 @@ int64	StringToInt64(const string& aString, const char* fmt) throw(Exception)
 	return (theLong);
 }	
 
-uint64	StringToUint64(const string& aString, const char* fmt) throw(Exception)
+uint64	StringToUint64(const string& aString, const char* fmt)
 {
 	uint64		theUlong;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theUlong) : 
@@ -255,7 +255,7 @@ uint64	StringToUint64(const string& aString, const char* fmt) throw(Exception)
 }	
 #endif
 
-float	StringToFloat(const string& aString, const char* fmt) throw(Exception)
+float	StringToFloat(const string& aString, const char* fmt)
 {
 	float		theFloat;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theFloat) : 
@@ -267,7 +267,7 @@ float	StringToFloat(const string& aString, const char* fmt) throw(Exception)
 }	
 
 
-double	StringToDouble(const string& aString, const char* fmt) throw(Exception)
+double	StringToDouble(const string& aString, const char* fmt)
 {
 	double		theDouble;
 	if ((fmt ? std::sscanf(aString.c_str(), fmt, &theDouble) : 
@@ -279,7 +279,7 @@ double	StringToDouble(const string& aString, const char* fmt) throw(Exception)
 }	
 
 
-long strToLong (const string& aString) throw(Exception)
+long strToLong (const string& aString)
 {
   const char* str = aString.c_str();
   int st  = lskipws(aString, 0, aString.size());
@@ -300,7 +300,7 @@ long strToLong (const string& aString) throw(Exception)
   return val;
 }
 
-int strToInt (const string& aString) throw(Exception)
+int strToInt (const string& aString)
 {
   long val = strToLong (aString);
   if (sizeof(int) != sizeof(long)) {
@@ -312,7 +312,7 @@ int strToInt (const string& aString) throw(Exception)
   return val;
 }
 
-int32 strToInt32 (const string& aString) throw(Exception)
+int32 strToInt32 (const string& aString)
 {
   long val = strToLong (aString);
   if (sizeof(int32) != sizeof(long)) {
@@ -322,7 +322,7 @@ int32 strToInt32 (const string& aString) throw(Exception)
   return val;
 }
 
-int16 strToInt16 (const string& aString) throw(Exception)
+int16 strToInt16 (const string& aString)
 {
   long val = strToLong (aString);
   ASSERTSTR (val >= -32768L  &&  val <= 32767L,
@@ -330,7 +330,7 @@ int16 strToInt16 (const string& aString) throw(Exception)
   return val;
 }
 
-unsigned long strToUlong (const string& aString) throw(Exception)
+unsigned long strToUlong (const string& aString)
 {
   const char* str = aString.c_str();
   int st  = lskipws(aString, 0, aString.size());
@@ -351,7 +351,7 @@ unsigned long strToUlong (const string& aString) throw(Exception)
   return val;
 }
 
-uint strToUint (const string& aString) throw(Exception)
+uint strToUint (const string& aString)
 {
   unsigned long val = strToUlong (aString);
   if (sizeof(uint) != sizeof(unsigned long)) {
@@ -363,7 +363,7 @@ uint strToUint (const string& aString) throw(Exception)
   return val;
 }
 
-uint32 strToUint32 (const string& aString) throw(Exception)
+uint32 strToUint32 (const string& aString)
 {
   unsigned long val = strToUlong (aString);
   if (sizeof(uint32) != sizeof(unsigned long)) {
@@ -373,7 +373,7 @@ uint32 strToUint32 (const string& aString) throw(Exception)
   return val;
 }
 
-uint16 strToUint16 (const string& aString) throw(Exception)
+uint16 strToUint16 (const string& aString)
 {
   unsigned long val = strToUlong (aString);
   ASSERTSTR (val <= 65535UL,
@@ -381,7 +381,7 @@ uint16 strToUint16 (const string& aString) throw(Exception)
   return val;
 }
 
-float strToFloat (const string& aString) throw(Exception)
+float strToFloat (const string& aString)
 {
   const char* str = aString.c_str();
   int st  = lskipws(aString, 0, aString.size());
@@ -396,7 +396,7 @@ float strToFloat (const string& aString) throw(Exception)
   return val;
 }
 
-double strToDouble (const string& aString) throw(Exception)
+double strToDouble (const string& aString)
 {
   const char* str = aString.c_str();
   int st  = lskipws(aString, 0, aString.size());
@@ -412,7 +412,7 @@ double strToDouble (const string& aString) throw(Exception)
 }
 
 #if HAVE_LONG_LONG
-int64 strToInt64  (const string& aString) throw(Exception)
+int64 strToInt64  (const string& aString)
 {
   if (sizeof(int64) == sizeof(long)) return strToLong(aString);
   ASSERTSTR (sizeof(int64)==sizeof(long long),
@@ -436,7 +436,7 @@ int64 strToInt64  (const string& aString) throw(Exception)
   return val;
 }
 
-uint64 strToUint64 (const string& aString) throw(Exception)
+uint64 strToUint64 (const string& aString)
 {
   if (sizeof(uint64) == sizeof(unsigned long)) return strToUlong(aString);
   ASSERTSTR (sizeof(uint64)==sizeof(unsigned long long),

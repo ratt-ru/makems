@@ -31,6 +31,9 @@ include(LofarInit)
 project(LOFAR)
 include(LofarGeneral)
 
+lofar_find_package(Casacore COMPONENTS casa measures ms tables REQUIRED)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${CASACORE_INCLUDE_DIR} -I${CASACORE_INCLUDE_DIR}/../ -w -Wno-deprecated -Wno-write-strings")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CASACORE_INCLUDE_DIR} -I${CASACORE_INCLUDE_DIR}/../ -w -Wno-deprecated -Wno-write-strings")
 ## ---------------------------------------------------------------------------
 ## Subdirectories
 ## ---------------------------------------------------------------------------
@@ -60,6 +63,3 @@ if(0)
   all_variables()
   message(STATUS "^^^^^^^^ Variables ^^^^^^^^")
 endif(0)
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w -Wno-deprecated -Wno-write-strings")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w -Wno-deprecated -Wno-write-strings")

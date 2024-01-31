@@ -301,17 +301,17 @@ inline std::string toString(long double val, const char* fmt = 0)
 // \attention These functions will be deprecated in a next release.
 // @{
 
-bool   StringToBool  (const string& aString)                   throw(Exception);
-int16  StringToInt16 (const string& aString,const char* fmt=0) throw(Exception);
-uint16 StringToUint16(const string& aString,const char* fmt=0) throw(Exception);
-int32  StringToInt32 (const string& aString,const char* fmt=0) throw(Exception);
-uint32 StringToUint32(const string& aString,const char* fmt=0) throw(Exception);
+bool   StringToBool  (const string& aString);      
+int16  StringToInt16 (const string& aString,const char* fmt=0);
+uint16 StringToUint16(const string& aString,const char* fmt=0);
+int32  StringToInt32 (const string& aString,const char* fmt=0);
+uint32 StringToUint32(const string& aString,const char* fmt=0);
 #if HAVE_LONG_LONG
-int64  StringToInt64 (const string& aString,const char* fmt=0) throw(Exception);
-uint64 StringToUint64(const string& aString,const char* fmt=0) throw(Exception);
+int64  StringToInt64 (const string& aString,const char* fmt=0);
+uint64 StringToUint64(const string& aString,const char* fmt=0);
 #endif
-float  StringToFloat (const string& aString,const char* fmt=0) throw(Exception);
-double StringToDouble(const string& aString,const char* fmt=0) throw(Exception);
+float  StringToFloat (const string& aString,const char* fmt=0);
+double StringToDouble(const string& aString,const char* fmt=0);
 
 // @}
 
@@ -322,21 +322,21 @@ double StringToDouble(const string& aString,const char* fmt=0) throw(Exception);
 // Leading and trailing whitespace is allowed.
 // It checks if an integer value does not exceed the data type range.
 // @{
-long          strToLong   (const string& aString) throw(Exception);
-int           strToInt    (const string& aString) throw(Exception);
-int32         strToInt32  (const string& aString) throw(Exception);
-int16         strToInt16  (const string& aString) throw(Exception);
-unsigned long strToUlong  (const string& aString) throw(Exception);
-uint          strToUint   (const string& aString) throw(Exception);
-uint32        strToUint32 (const string& aString) throw(Exception);
-uint16        strToUint16 (const string& aString) throw(Exception);
+long          strToLong   (const string& aString);
+int           strToInt    (const string& aString);
+int32         strToInt32  (const string& aString);
+int16         strToInt16  (const string& aString);
+unsigned long strToUlong  (const string& aString);
+uint          strToUint   (const string& aString);
+uint32        strToUint32 (const string& aString);
+uint16        strToUint16 (const string& aString);
 #if HAVE_LONG_LONG
-int64         strToInt64  (const string& aString) throw(Exception);
-uint64        strToUint64 (const string& aString) throw(Exception);
+int64         strToInt64  (const string& aString);
+uint64        strToUint64 (const string& aString);
 #endif
-float         strToFloat  (const string& aString) throw(Exception);
-double        strToDouble (const string& aString) throw(Exception);
-inline bool   strToBool   (const string& aString) throw(Exception)
+float         strToFloat  (const string& aString);
+double        strToDouble (const string& aString);
+inline bool   strToBool   (const string& aString)
   { return StringToBool (aString); }
 // @}
 
