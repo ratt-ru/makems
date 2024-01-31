@@ -15,4 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build on Ubuntu 20.04
-      run: docker build . --file docker.20.04 --tag makems2004:$(date +%s)
+      run: docker build . --file .ci/ubuntu.20.04.docker --tag makems2004:$(date +%s)
+    - name: Build on Ubuntu 22.04
+      run: docker build . --file .ci/ubuntu.22.04.docker --tag makems2204:$(date +%s)
