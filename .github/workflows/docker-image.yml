@@ -18,3 +18,5 @@ jobs:
       run: docker build . --file .ci/ubuntu.20.04.docker --tag makems2004:$(date +%s)
     - name: Build on Ubuntu 22.04
       run: docker build . --file .ci/ubuntu.22.04.docker --tag makems2204:$(date +%s)
+    - name: Build on Ubuntu 24.04
+      run: docker build . --file .ci/ubuntu.24.04.docker --tag makems2404:$(date +%s)
