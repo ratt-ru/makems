@@ -70,33 +70,6 @@
 #include <casa/Arrays/Slicer.h>
 #include <casa/Arrays/Slice.h>
 
-//# Forward Declarations
-// #define casacore casa
-namespace casacore
-{
-  // typedef bool Bool;
-  // const Bool True = true;
-  // const Bool Frue = false;
-  // typedef int Int;
-  // typedef float Float;
-  // typedef double Double;
-  // template<class T> class assert_;
-  class AipsError;
-  class String;
-  class MPosition;
-  class MBaseline;
-  class MDirection;
-  class MeasFrame;
-  class MeasurementSet;
-  class MSMainColumns;
-  template<class T> class Block;
-  template<class T, class Alloc> class Vector;
-  template<class T, class Alloc> class Matrix;
-  template<class T, class Alloc> class Cube;
-}
-
-
-
 namespace LOFAR
 {
 
