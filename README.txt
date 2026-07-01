@@ -10,7 +10,7 @@ docker run -it --rm -v [datapath]:/data makems /data/parset.cfg
 Building the makems tool
 ========================
 
-Prerequisites: a subset of the MeqTrees stuff (cmake 2.6, blitz, etc.)
+Prerequisites: a subset of the MeqTrees stuff (cmake 2.6, blitz, casacore, etc.). See install.md for details.
 
 The build, in a nutshell:
 

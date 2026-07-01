@@ -33,6 +33,7 @@
 #ifdef HAVE_CPLUS_DEMANGLE
 # include <demangle.h>
 #endif
+#define bfd_get_section_flags(bfd, ptr) ((void) bfd, (ptr)->flags)
 
 namespace LOFAR
 {
@@ -120,11 +121,11 @@ namespace LOFAR
     if ((bfd_get_section_flags (abfd, section) & SEC_ALLOC) == 0)
       return;
       
-    bfd_vma vma = bfd_get_section_vma (abfd, section);
+    bfd_vma vma = bfd_section_vma (section);
     if (pc < vma)
       return;
       
-    bfd_size_type size = bfd_get_section_size (section);
+    bfd_size_type size = bfd_section_size (section);
     if (pc >= vma + size)
       return;
 

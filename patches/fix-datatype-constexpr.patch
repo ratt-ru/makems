@@ -1,0 +1,13 @@
+diff --git a/casa/Utilities/DataType.h b/casa/Utilities/DataType.h
+index befffead8..22775ada4 100644
+--- a/casa/Utilities/DataType.h
++++ b/casa/Utilities/DataType.h
+@@ -220,7 +220,7 @@ DataType asArray(DataType type);
+  * of 0 is returned. TpBool returns a value of 1, but be aware that
+  * it may be stored with bit-packing.
+  */
+-constexpr size_t SizeOfType(DataType dtype) {
++inline size_t SizeOfType(DataType dtype) {
+   switch (dtype) {
+     case DataType::TpBool:
+     case DataType::TpChar:
